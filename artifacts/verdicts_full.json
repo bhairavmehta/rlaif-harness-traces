@@ -2,6 +2,7 @@
   {
     "episode_id": "ep-0000",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -252,6 +253,7 @@
   {
     "episode_id": "ep-0001",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -469,6 +471,7 @@
   {
     "episode_id": "ep-0002",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -664,6 +667,7 @@
   {
     "episode_id": "ep-0003",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -671,12 +675,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -693,9 +697,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -750,7 +754,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -759,9 +763,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -784,8 +788,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -795,7 +798,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -804,31 +807,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0004",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -1079,6 +1081,7 @@
   {
     "episode_id": "ep-0005",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -1296,6 +1299,7 @@
   {
     "episode_id": "ep-0006",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -1491,6 +1495,7 @@
   {
     "episode_id": "ep-0007",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -1498,12 +1503,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -1520,9 +1525,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -1577,7 +1582,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -1586,9 +1591,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -1611,8 +1616,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -1622,7 +1626,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -1631,31 +1635,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0008",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -1906,6 +1909,7 @@
   {
     "episode_id": "ep-0009",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -2123,6 +2127,7 @@
   {
     "episode_id": "ep-0010",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -2318,6 +2323,7 @@
   {
     "episode_id": "ep-0011",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -2325,12 +2331,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -2347,9 +2353,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -2404,7 +2410,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -2413,9 +2419,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -2438,8 +2444,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -2449,7 +2454,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -2458,31 +2463,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0012",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -2733,6 +2737,7 @@
   {
     "episode_id": "ep-0013",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -2950,6 +2955,7 @@
   {
     "episode_id": "ep-0014",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3145,6 +3151,7 @@
   {
     "episode_id": "ep-0015",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3152,12 +3159,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -3174,9 +3181,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -3231,7 +3238,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -3240,9 +3247,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -3265,8 +3272,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -3276,7 +3282,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -3285,31 +3291,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0016",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3560,6 +3565,7 @@
   {
     "episode_id": "ep-0017",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3777,6 +3783,7 @@
   {
     "episode_id": "ep-0018",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3972,6 +3979,7 @@
   {
     "episode_id": "ep-0019",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -3979,12 +3987,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -4001,9 +4009,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -4058,7 +4066,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -4067,9 +4075,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -4092,8 +4100,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -4103,7 +4110,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -4112,31 +4119,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0020",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -4387,6 +4393,7 @@
   {
     "episode_id": "ep-0021",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -4604,6 +4611,7 @@
   {
     "episode_id": "ep-0022",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -4799,6 +4807,7 @@
   {
     "episode_id": "ep-0023",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -4806,12 +4815,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -4828,9 +4837,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -4885,7 +4894,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -4894,9 +4903,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -4919,8 +4928,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -4930,7 +4938,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -4939,31 +4947,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0024",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -5214,6 +5221,7 @@
   {
     "episode_id": "ep-0025",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -5431,6 +5439,7 @@
   {
     "episode_id": "ep-0026",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -5626,6 +5635,7 @@
   {
     "episode_id": "ep-0027",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -5633,12 +5643,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -5655,9 +5665,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -5712,7 +5722,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -5721,9 +5731,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -5746,8 +5756,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -5757,7 +5766,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -5766,31 +5775,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0028",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -6041,6 +6049,7 @@
   {
     "episode_id": "ep-0029",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -6258,6 +6267,7 @@
   {
     "episode_id": "ep-0030",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -6453,6 +6463,7 @@
   {
     "episode_id": "ep-0031",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -6460,12 +6471,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -6482,9 +6493,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -6539,7 +6550,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -6548,9 +6559,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -6573,8 +6584,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -6584,7 +6594,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -6593,31 +6603,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0032",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -6868,6 +6877,7 @@
   {
     "episode_id": "ep-0033",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -7085,6 +7095,7 @@
   {
     "episode_id": "ep-0034",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -7280,6 +7291,7 @@
   {
     "episode_id": "ep-0035",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -7287,12 +7299,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -7309,9 +7321,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -7366,7 +7378,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -7375,9 +7387,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -7400,8 +7412,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -7411,7 +7422,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -7420,31 +7431,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0036",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -7695,6 +7705,7 @@
   {
     "episode_id": "ep-0037",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -7912,6 +7923,7 @@
   {
     "episode_id": "ep-0038",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8107,6 +8119,7 @@
   {
     "episode_id": "ep-0039",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8114,12 +8127,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -8136,9 +8149,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -8193,7 +8206,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -8202,9 +8215,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -8227,8 +8240,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -8238,7 +8250,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -8247,31 +8259,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0040",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8522,6 +8533,7 @@
   {
     "episode_id": "ep-0041",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8739,6 +8751,7 @@
   {
     "episode_id": "ep-0042",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8934,6 +8947,7 @@
   {
     "episode_id": "ep-0043",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -8941,12 +8955,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -8963,9 +8977,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -9020,7 +9034,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -9029,9 +9043,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -9054,8 +9068,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -9065,7 +9078,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -9074,31 +9087,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0044",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -9349,6 +9361,7 @@
   {
     "episode_id": "ep-0045",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -9566,6 +9579,7 @@
   {
     "episode_id": "ep-0046",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -9761,6 +9775,7 @@
   {
     "episode_id": "ep-0047",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -9768,12 +9783,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -9790,9 +9805,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -9847,7 +9862,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -9856,9 +9871,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -9881,8 +9896,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -9892,7 +9906,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -9901,31 +9915,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0048",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -10176,6 +10189,7 @@
   {
     "episode_id": "ep-0049",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -10393,6 +10407,7 @@
   {
     "episode_id": "ep-0050",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -10588,6 +10603,7 @@
   {
     "episode_id": "ep-0051",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -10595,12 +10611,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -10617,9 +10633,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -10674,7 +10690,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -10683,9 +10699,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -10708,8 +10724,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -10719,7 +10734,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -10728,31 +10743,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0052",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -11003,6 +11017,7 @@
   {
     "episode_id": "ep-0053",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -11220,6 +11235,7 @@
   {
     "episode_id": "ep-0054",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -11415,6 +11431,7 @@
   {
     "episode_id": "ep-0055",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -11422,12 +11439,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -11444,9 +11461,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -11501,7 +11518,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -11510,9 +11527,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -11535,8 +11552,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -11546,7 +11562,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -11555,31 +11571,30 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0056",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -11830,6 +11845,7 @@
   {
     "episode_id": "ep-0057",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -12047,6 +12063,7 @@
   {
     "episode_id": "ep-0058",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -12242,6 +12259,7 @@
   {
     "episode_id": "ep-0059",
     "levers": [
+      "formatter",
       "metadata",
       "prompt_hat",
       "sequencing",
@@ -12249,12 +12267,12 @@
     ],
     "dims": {
       "task_completion": 4,
-      "tool_selection_quality": 4,
+      "tool_selection_quality": 5,
       "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 4
     },
-    "weighted": 4.15,
+    "weighted": 4.35,
     "recommendation": "Chosen",
     "policy_verdicts": [
       {
@@ -12271,9 +12289,9 @@
       {
         "policy_id": "GEN-02",
         "title": "No internal disclosure",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent exposed raw tool output and internal JSON keys to the customer instead of plain language.",
+        "verdict": "PASS",
+        "evidence": "No relevant turns found.",
+        "reason": "The agent did not disclose any internal field names, JSON keys, or tool names.",
         "severity": "HIGH",
         "policy_type": "Grounding",
         "hard": false,
@@ -12328,7 +12346,7 @@
         "title": "Containment quality",
         "verdict": "PASS",
         "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
-        "reason": "Containment quality adequate: the agent offered new information before a graceful hand-off.",
+        "reason": "Containment quality strong: the agent offered new information before a graceful hand-off.",
         "severity": "MEDIUM",
         "policy_type": "Escalation",
         "hard": false,
@@ -12337,9 +12355,9 @@
       {
         "policy_id": "GEN-08",
         "title": "Tone",
-        "verdict": "FAIL",
-        "evidence": "Turn 4: Agent says '{'result': {'status': 'Transfer initiated', 'hangup': True}}'",
-        "reason": "The agent recited raw system output instead of a natural, human-readable response.",
+        "verdict": "PASS",
+        "evidence": "Turn 2: Agent says 'Just to confirm what you need - human request, charge question, device order. Let me pull that up.'",
+        "reason": "Professional, contextual tone throughout.",
         "severity": "MEDIUM",
         "policy_type": "Tone-CX",
         "hard": false,
@@ -12362,8 +12380,7 @@
       "decision_path_observed": [
         "route:general_care",
         "call:explain_bill",
-        "call:transfer_to_agent",
-        "leak:transfer_to_agent"
+        "call:transfer_to_agent"
       ],
       "shortest_path_to_resolution": [
         "route:general_care",
@@ -12373,7 +12390,7 @@
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
-        "output_leaks": 1,
+        "output_leaks": 0,
         "redundant_verifications": 0,
         "dropped_intents": 0
       }
@@ -12382,26 +12399,24 @@
     "compliance": {
       "journey": "general",
       "overall_result": true,
-      "overall_compliance_rate": 0.75,
+      "overall_compliance_rate": 1.0,
       "total_policies": 9,
-      "pass_count": 6,
-      "fail_count": 2,
+      "pass_count": 8,
+      "fail_count": 0,
       "na_count": 1,
       "hard_policy_count": 3,
       "hard_policy_pass": 3,
       "fail_count_hard_policy": 0,
       "soft_policy_count": 6,
-      "soft_policy_pass": 3,
-      "fail_count_soft_policy": 2
+      "soft_policy_pass": 5,
+      "fail_count_soft_policy": 0
     },
     "action_completion": {
       "action_completion": true,
       "category": "RESOLVED",
-      "containment_quality": "adequate",
-      "risk_flags": [
-        "OUTPUT_LEAK"
-      ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). Notable moments: the agent exposed raw tool JSON at Turn 4. Containment quality: adequate - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome. Risk noted: OUTPUT_LEAK."
+      "containment_quality": "strong",
+      "risk_flags": [],
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 2 tool(s). The agent advanced the request without redundant turns. Containment quality: strong - the agent offered new information before any hand-off. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   }
 ]
