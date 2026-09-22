@@ -58,3 +58,21 @@ class GeminiBackend:
             "read the emitted function_call — the registry, judge and engine are "
             "backend-agnostic and unchanged."
         )
+
+
+class GPT4oBackend:
+    """Sketch of the OpenAI-hosted backend used by the RLAIF Plane for VARIANT
+    GENERATION (one candidate trajectory per optimization dimension) at
+    temperature 0.2 - low enough to stay faithful to the pinned context, high
+    enough to explore phrasing. Like GeminiBackend, it is not executed in the
+    offline demo; the registry, judge and engine are backend-agnostic."""
+
+    def __init__(self, model: str = "gpt-4o", temperature: float = 0.2):
+        self.model, self.temperature = model, temperature
+
+    def score_options(self, utterance: str, options: dict[str, list[str]]) -> dict[str, float]:  # pragma: no cover
+        raise NotImplementedError(
+            "Wire to the OpenAI API: serialize tool/agent metadata as function "
+            "definitions and read tool_calls from the response; use "
+            "temperature=0.2 for variant generation in the RLAIF Plane."
+        )

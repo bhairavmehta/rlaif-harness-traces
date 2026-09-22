@@ -37,7 +37,7 @@ from . import synth, engine, rl, chat, policies, traces, action_completion, hist
 from .transcript import render
 
 MAX_N, MAX_ITERS, MAX_GROUP = 200, 50, 16
-JOURNEYS = ("bex", "pfb", "ddc", "gen")
+JOURNEYS = ("bex", "pfb", "ddc", "gen", "rbc")
 WEB = Path(__file__).parent / "web"
 ACCESS_KEY = os.environ.get("RLAIF_ACCESS_KEY", "")
 

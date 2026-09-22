@@ -3,7 +3,7 @@
 Formulation (mirrors the DPO/GRPO deck, in runnable form):
 
   State/context : pinned minibatch of synthesized episodes
-  Action a      : a lever configuration a ∈ {0,1}^5  (taxonomy, metadata,
+  Action a      : a lever configuration a ∈ {0,1}^K (K = number of levers)  (taxonomy, metadata,
                   sequencing, formatter, prompt_hat)
   Policy π_θ    : factored Bernoulli — π_θ(a) = Π σ(θ_i)^a_i (1-σ(θ_i))^(1-a_i)
                   θ starts at the REFERENCE policy (all levers 50/50).
@@ -32,6 +32,8 @@ from __future__ import annotations
 import json, math, random, statistics as st
 from dataclasses import dataclass, field
 from .registry import LEVERS
+K = len(LEVERS)
+NCFG = 2 ** K
 from .engine import replay
 
 sigmoid = lambda x: 1.0 / (1.0 + math.exp(-x))
@@ -48,7 +50,7 @@ def _reward(episodes, config: set[str]) -> tuple[float, dict]:
 
 def _logpi(theta, a):
     lp = 0.0
-    for i in range(5):
+    for i in range(K):
         p = sigmoid(theta[i])
         lp += math.log(p if a[i] else (1 - p))
     return lp
@@ -67,13 +69,13 @@ class IterLog:
 
 
 def _greedy(theta):
-    return {LEVERS[i] for i in range(5) if sigmoid(theta[i]) > 0.5}
+    return {LEVERS[i] for i in range(K) if sigmoid(theta[i]) > 0.5}
 
 
 def learn(episodes, algo="grpo", iters=24, group=8, minibatch=12, lr=0.8,
           beta=1.0, kl_coef=0.05, seed=11, verbose=True, eval_episodes=None):
     rng = random.Random(seed)
-    theta = [0.0] * 5                         # reference policy: 50/50 each lever
+    theta = [0.0] * K                         # reference policy: 50/50 each lever
     theta_ref = list(theta)
     eval_eps = eval_episodes or episodes
     logs: list[IterLog] = []
@@ -84,8 +86,8 @@ def learn(episodes, algo="grpo", iters=24, group=8, minibatch=12, lr=0.8,
         # ---- sample a GROUP of configs from π_θ ----
         samples = []
         for g in range(group):
-            a = [1 if rng.random() < sigmoid(theta[i]) else 0 for i in range(5)]
-            cfg = {LEVERS[i] for i in range(5) if a[i]}
+            a = [1 if rng.random() < sigmoid(theta[i]) else 0 for i in range(K)]
+            cfg = {LEVERS[i] for i in range(K) if a[i]}
             r, stats = _reward(mb, cfg)
             samples.append({"a": a, "config": sorted(cfg), "reward": r, **stats})
         rs = [s["reward"] for s in samples]
@@ -95,13 +97,13 @@ def learn(episodes, algo="grpo", iters=24, group=8, minibatch=12, lr=0.8,
 
         if algo == "grpo":
             # group-relative advantages; REINFORCE step + KL leash
-            grads = [0.0] * 5
+            grads = [0.0] * K
             for s in samples:
                 adv = (s["reward"] - mean_r) / std_r
                 s["advantage"] = round(adv, 3)
-                for i in range(5):
+                for i in range(K):
                     grads[i] += adv * (s["a"][i] - sigmoid(theta[i]))
-            for i in range(5):
+            for i in range(K):
                 grads[i] = grads[i] / group - kl_coef * (sigmoid(theta[i]) - sigmoid(theta_ref[i]))
                 theta[i] += lr * grads[i]
             L.update_detail = {"rule": "θ += lr·mean[Â·(a−σ(θ))] − β_kl·(σ(θ)−σ(θ_ref))",
@@ -114,7 +116,7 @@ def learn(episodes, algo="grpo", iters=24, group=8, minibatch=12, lr=0.8,
             s_margin = beta * ((_logpi(theta, aw) - _logpi(theta_ref, aw))
                                - (_logpi(theta, al) - _logpi(theta_ref, al)))
             wgt = sigmoid(-s_margin)          # largest when ranked WRONG
-            for i in range(5):
+            for i in range(K):
                 theta[i] += lr * wgt * beta * (aw[i] - al[i])
             pairs_emitted.append({"iter": it, "chosen": best["config"],
                                   "rejected": worst["config"],
@@ -129,7 +131,7 @@ def learn(episodes, algo="grpo", iters=24, group=8, minibatch=12, lr=0.8,
             raise ValueError(algo)
 
         L.theta = [round(t, 3) for t in theta]
-        L.probs = {LEVERS[i]: round(sigmoid(theta[i]), 3) for i in range(5)}
+        L.probs = {LEVERS[i]: round(sigmoid(theta[i]), 3) for i in range(K)}
         gr, gstats = _reward(eval_eps, _greedy(theta))
         L.greedy_eval = {"config": sorted(_greedy(theta)), "reward": gr, **gstats}
         logs.append(L)
@@ -148,18 +150,18 @@ def ucb(episodes, iters=48, minibatch=12, seed=11, verbose=True):
     """Flat UCB1 over all 32 lever subsets — the structure-free comparator."""
     rng = random.Random(seed)
     arms = []
-    for m in range(32):
-        arms.append({LEVERS[i] for i in range(5) if (m >> i) & 1})
-    N = [0] * 32; Q = [0.0] * 32; t = 0; hist = []
+    for m in range(NCFG):
+        arms.append({LEVERS[i] for i in range(K) if (m >> i) & 1})
+    N = [0] * NCFG; Q = [0.0] * NCFG; t = 0; hist = []
     for it in range(1, iters + 1):
         t += 1
         ucb_v = [Q[i] + 2.0 * math.sqrt(math.log(t) / N[i]) if N[i] else float("inf")
-                 for i in range(32)]
-        i = max(range(32), key=lambda k: ucb_v[k])
+                 for i in range(NCFG)]
+        i = max(range(NCFG), key=lambda k: ucb_v[k])
         mb = rng.sample(episodes, min(minibatch, len(episodes)))
         r, _ = _reward(mb, arms[i])
         N[i] += 1; Q[i] += (r - Q[i]) / N[i]
-        best = max(range(32), key=lambda k: Q[k] if N[k] else -9)
+        best = max(range(NCFG), key=lambda k: Q[k] if N[k] else -9)
         hist.append({"it": it, "pulled": sorted(arms[i]), "r": r,
                      "best_arm": sorted(arms[best]), "best_q": round(Q[best], 3)})
         if verbose and it % 8 == 0:

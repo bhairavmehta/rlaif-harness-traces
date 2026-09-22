@@ -68,6 +68,9 @@ def _template(tool: str, ok: bool, res: dict) -> str:
         "payment_arrangement": "I can split this month's balance into two installments.",
         "manage_bill_preferences": "I've texted you a copy of your latest bill.",
         "transfer_to_agent": "I'm connecting you with a specialist who can complete this - your details carry over.",
+        "get_prior_tickets": "I can see you've contacted us about this before - let me pick up where we left off rather than start over.",
+        "get_usage_guidance": "I've pulled up what's driving the usage and some concrete steps that can bring it down.",
+        "submit_plan_upgrade": "Your plan is updated - confirmation on its way.",
     }.get(tool, "Done.")
 
 
@@ -121,12 +124,42 @@ def render(ep, trace) -> Transcript:
             customer("I already verified at the start of the call.")
         elif s.kind == "leak":
             agent(d["rendered"], "leak")
+        elif s.kind == "redact":
+            pass   # the redacted draft itself is surfaced by the respond step that follows
+        elif s.kind == "context":
+            if d.get("attribute") == "RECURRING_CONTACT":
+                agent("I can see this is a repeat issue - you've reached out twice in the last 90 days "
+                      "about your bill, and I'm sorry it's still not resolved. Let me get to the bottom of it.",
+                      "recurrence_ack")
+        elif s.kind == "parallel":
+            pending.append({"tool": "parallel_group", "args": {"tools": d["tools"]},
+                            "ok": True, "result": {"dependency_validation": d["dependency_validation"]}})
         elif s.kind == "respond":
-            if d.get("confirm_intent"):
+            if d.get("empathy"):
+                agent("I'm really sorry you're having to contact us about this again - that's frustrating, "
+                      "and I want to get it sorted properly this time.", "empathy_first")
+            elif d.get("recurrence_ack"):
+                agent("Here's the short version of what's going on: your data usage crossed the plan "
+                      "allowance again, the same driver as your last two contacts.", "recurrence_ack", "root_cause")
+            elif d.get("quick_wins") is not None:
+                acts = "; ".join(f"{a} [{src}]" for a, src in zip(d["quick_wins"], d["sources"]))
+                agent(f"Three quick wins, each from our knowledge base: {acts}. "
+                      f"Together these typically save {d['savings']}.", "quick_wins", "labeled_estimate")
+            elif d.get("generic_savings"):
+                agent("You could probably save a lot by cutting back on your usage.", "generic_savings")
+            elif d.get("plan_option") and d.get("deferred"):
+                agent("There's also a plan that fits your usage for $10/month more - I won't change "
+                      "anything unless you explicitly confirm you want it.", "plan_option", "deferred_upgrade")
+            elif d.get("plan_option"):
+                agent("If you'd rather not manage usage, a better-fitting plan is $10/month more. "
+                      "Your choice - try the quick wins first, or I can tee up the plan change for "
+                      "your explicit confirmation.", "plan_option", "customer_choice")
+            elif d.get("confirm_intent"):
                 agent("Just to confirm what you need - " + ", ".join(i.replace("_", " ") for i in ep.intents)
                       + ". Let me pull that up.", "confirm_intent")
             elif "text" in d:
-                agent(d["text"], "balance_recital")
+                agent(d["text"], "balance_recital",
+                      *(["ap17_redaction"] if "[REDACTED-AP17]" in d["text"] else []))
             elif d.get("terms_and_conditions"):
                 terms()
             elif "disclosures" in d:

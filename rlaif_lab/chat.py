@@ -35,6 +35,7 @@ _LEX = {
     "bex": r"(\$\s?\d|\bcharge|\bfee\b|dispute|waive|should be free|take it off|remove it|higher|went up|"
            r"\bfactura|explain (my|the|this) bill|why is my bill)",
     "discount": r"\bdiscount",
+    "rbc": r"(again|third time|second time|last time|nobody fixed|keeps going up|called (you|before))",
 }
 
 
@@ -45,6 +46,8 @@ def label(msg: str) -> tuple[str, list[str]] | None:
         intents = (["human_request"] if hit["human"] else []) + (["charge_question"] if hit["bex"] else []) \
                   + (["device_order"] if hit["device"] else [])
         return "gen", intents
+    if hit.get("rbc") and (hit["bex"] or re.search(r"\bbill", msg, re.I)):
+        return "rbc", ["repeat_billing_complaint", "bill_reduction_guidance"]
     found = sorted((m.start(), j) for j, m in hit.items() if m and j in ("ddc", "pfb", "bex"))
     if not found:
         return ("pfb", ["paperless_enroll", "discount"]) if hit["discount"] else None

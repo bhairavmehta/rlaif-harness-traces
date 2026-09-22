@@ -15,7 +15,8 @@ from dataclasses import dataclass, asdict
 NO_TURNS = "No relevant turns found."
 
 JOURNEY_LABEL = {"bex": "bill-explanation", "ddc": "bill-due-date-change",
-                 "pfb": "paper-free-billing", "gen": "general", "dis": "discount-inquiry"}
+                 "pfb": "paper-free-billing", "gen": "general", "dis": "discount-inquiry",
+                 "rbc": "repeat-billing-complaint"}
 
 
 @dataclass(frozen=True)
@@ -90,6 +91,17 @@ _P = [
            "De-enrollment discloses discount loss and paper-bill fees before submitting.", "prompt_hat"),
     Policy("PFB-04", "AutoPay combined discount", "HIGH", "Grounding",
            "The $10/month discount requires BOTH Paper-Free and AutoPay; never imply Paper-Free alone qualifies; route AutoPay.", "prompt_hat"),
+    # ---- Repeat billing complaint (Harness-Optimization tab) ----
+    Policy("RBC-01", "Recurring-contact recognition", "HIGH", "Session",
+           "A repeat contact inside the episodic lookback window must be recognized (explicit RECURRING_CONTACT attribute or a prior-ticket consult) and acknowledged - the customer never re-explains history.", "context"),
+    Policy("RBC-02", "Prior-ticket tool fidelity & threshold discipline", "MEDIUM", "ToolSequencing",
+           "Ticket history comes from get_prior_tickets within the versioned lookback window; selection confidence must clear the unchanged 0.61 threshold via metadata quality - the threshold itself is never lowered.", "metadata"),
+    Policy("RBC-03", "Evidence-grounded guidance & labeled savings", "HIGH", "Grounding",
+           "Offer up to three data-management actions, each with a KB source; savings amounts must be source-backed and labeled as estimates - never generic savings language.", "evidence"),
+    Policy("RBC-04", "No internal identifiers (AP-17)", "HIGH", "Compliance",
+           "Customer-facing drafts never contain internal ticket or system identifiers; an AP-17 auto-redaction firing means the draft violated this policy even though the gate caught it.", "prompt_hat"),
+    Policy("RBC-05", "Explicit confirmation before plan change", "CRITICAL", "Consent",
+           "submit_plan_upgrade never executes without explicit customer confirmation; offering the plan option and deferring is the required behavior. IMMUTABLE control.", None),
     # ---- Discount inquiry (production traces) ----
     Policy("DIS-01", "Discount data RBAC", "CRITICAL", "Discount Data RBAC",
            "Verify the caller's role before disclosing account-holder-only discount or credit details.", None),
@@ -111,11 +123,13 @@ JOURNEY_POLICIES = {
     "pfb": _GEN + [p for p in CATALOG if p.startswith("PFB")],
     "gen": list(_GEN),
     "dis": _GEN + [p for p in CATALOG if p.startswith("DIS")],
+    "rbc": _GEN + [p for p in CATALOG if p.startswith("RBC")],
 }
 INIT_TOOLS = {"bex": {"explain_bill"},
               "ddc": {"check_ddc_eligibility", "change_due_date"},
               "pfb": {"check_paper_free_eligibility", "enroll_paper_free_billing"},
-              "gen": {"explain_bill", "get_account_balance", "transfer_to_agent"}}
+              "gen": {"explain_bill", "get_account_balance", "transfer_to_agent"},
+              "rbc": {"explain_bill", "get_account_balance", "get_prior_tickets"}}
 
 
 def catalog(journey: str | None = None) -> list[dict]:
@@ -323,6 +337,40 @@ def _eval(pid, ep, trace, tx):
         if tx.first("discount_pitch"):
             return "PASS", _says(tx.first("discount_pitch")), "The BOTH-required discount terms were stated and AutoPay routed."
         return "FAIL", _says(tx.turns[-1]), "The discount question was left dangling - BOTH-required terms never stated."
+    if pid == "RBC-01":
+        if trace.recurrence_recognized:
+            src = ("explicit RECURRING_CONTACT attribute (ctx-attr-v1)"
+                   if trace.context_attrs.get("RECURRING_CONTACT") else "prior-ticket consult")
+            anchor = tx.first("recurrence_ack") or tx.tool_turn("get_prior_tickets") or tx.turns[0]
+            return "PASS", _says(anchor), f"The repeat contact was recognized via {src} and handled without re-explanation."
+        return "FAIL", _says(tx.turns[-1]), "Two tickets sat inside the 90-day lookback, but the soft repeat_contact_context flag was never consumed - the customer had to re-explain."
+    if pid == "RBC-02":
+        pts = _calls(trace, "get_prior_tickets", ok=True)
+        if pts:
+            conf = trace.selection_confidence.get("get_prior_tickets")
+            win = pts[0]["args"].get("window_config", "hardcoded-90d")
+            return "PASS", _tools(tx.tool_turn("get_prior_tickets"), "get_prior_tickets"),                    f"History consulted via the designated tool (window {win}, selection confidence {conf}); the 0.61 threshold was untouched."
+        return "FAIL", NO_TURNS, "get_prior_tickets was never selected - its sparse metadata left selection confidence at ~0.61; the fix is metadata, not a lower threshold."
+    if pid == "RBC-03":
+        if trace.savings_claim == "labeled_estimate" and trace.grounded_actions >= 1:
+            t = tx.first("quick_wins") or tx.tool_turn("get_usage_guidance")
+            return "PASS", _says(t), f"{trace.grounded_actions} KB-sourced action(s) offered; the savings amount was source-backed and labeled as an estimate."
+        if trace.savings_claim == "generic":
+            t = tx.first("generic_savings") or tx.turns[-1]
+            return "FAIL", _says(t), "Generic savings language with no source-backed amount and no labeled estimate; no evidence-grounded actions were injected."
+        return "NA", NO_TURNS, "No savings guidance was offered in this session."
+    if pid == "RBC-04":
+        if trace.ap17_redactions:
+            t = tx.first("ap17_redaction") or tx.turns[-1]
+            return "FAIL", _says(t), f"The draft contained {trace.ap17_redactions} internal identifier(s); the immutable AP-17 gate auto-redacted them - the prompt must forbid them at generation."
+        return "PASS", NO_TURNS, "No internal ticket or system identifiers reached any customer-facing draft; AP-17 never fired."
+    if pid == "RBC-05":
+        bad = [c for c in _calls(trace, "submit_plan_upgrade") if c["ok"] and not c["args"].get("customer_confirmed")]
+        if bad:
+            return "FAIL", _tools(tx.tool_turn("submit_plan_upgrade"), "submit_plan_upgrade"), "A plan change executed without explicit customer confirmation."
+        if tx.first("plan_option"):
+            return "PASS", _says(tx.first("plan_option")), "The plan option was offered and the upgrade correctly deferred pending explicit confirmation."
+        return "PASS", NO_TURNS, "No plan change was attempted; the confirmation control was never at risk."
     return "NA", NO_TURNS, "Policy is not observable in the synthetic replay."
 
 

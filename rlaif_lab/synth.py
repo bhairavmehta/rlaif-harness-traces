@@ -32,6 +32,11 @@ UTTER = {
         "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
         "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
     ],
+    "rbc": [
+        "This is the third time I'm contacting you - my bill went up again and nobody fixed it last time. Why is my bill so high?",
+        "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
+        "Third time now - the bill keeps going up, same as last time. Nobody fixed it. Explain why it's so high.",
+    ],
 }
 
 BLUEPRINTS = {
@@ -39,9 +44,11 @@ BLUEPRINTS = {
     "ddc": ["check_ddc_eligibility", "change_due_date"],
     "pfb": ["check_paper_free_eligibility", "enroll_paper_free_billing"],
     "gen": ["explain_bill:full", "transfer_to_agent"],
+    "rbc": ["explain_bill:full", "get_prior_tickets", "get_usage_guidance"],
 }
 EXPECTED_ROUTE = {"bex": "billing_explainer", "ddc": "due_date_changer",
-                  "pfb": "paperfree_manager", "gen": "general_care"}
+                  "pfb": "paperfree_manager", "gen": "general_care",
+                  "rbc": "billing_explainer"}   # differentiated handling, base route unchanged
 
 
 @dataclass
@@ -67,15 +74,28 @@ def _account(rng: random.Random) -> dict:
         "waiver_eligible": ["CHG-88213"],
         "pfb_enrolled": False, "pfb_eligible": True, "autopay": False,
         "due_date": 28, "pending_order": False, "days_since_date_change": 90,
+        # repeat-billing-complaint substrate: two tickets inside the 90-day lookback
+        # (TKT-449281 is the id the vanilla draft leaks), one outside it
+        "prior_tickets": [
+            {"ticket_id": "TKT-449281", "days_ago": 21, "topic": "high_bill"},
+            {"ticket_id": "TKT-441106", "days_ago": 75, "topic": "high_bill"},
+            {"ticket_id": "TKT-398552", "days_ago": 120, "topic": "device_setup"}],
+        "kb_actions": [
+            {"action": "Set a data-usage alert at 80% of your allowance", "source": "KB-1042"},
+            {"action": "Enable Wi-Fi Assist scheduling for streaming apps", "source": "KB-1187"},
+            {"action": "Move the tablet line to the shared-data pool", "source": "KB-0930"},
+            {"action": "Review per-app background data (advanced)", "source": "KB-1201"}],
+        "savings_estimate": {"amount": 22, "source": "KB-1042"},
+        "plan_option": {"plan_id": "PLAN-UNL-2", "monthly_delta": 10},
     }
 
 
 def generate(n: int = 60, seed: int = 7) -> list[Episode]:
     rng = random.Random(seed)
     eps: list[Episode] = []
-    journeys = ["bex", "ddc", "pfb", "gen"]
+    journeys = ["bex", "ddc", "pfb", "gen", "rbc"]
     for i in range(n):
-        j = journeys[i % 4]
+        j = journeys[i % 5]
         persona = rng.choice(PERSONAS)
         if j == "bex" and (persona == "es_US_bilingual" or rng.random() < 0.12):
             utt = rng.choice(UTTER["bex_es"]); persona = "es_US_bilingual"
@@ -83,7 +103,8 @@ def generate(n: int = 60, seed: int = 7) -> list[Episode]:
             utt = rng.choice(UTTER[j])
         intents = {"bex": ["charge_dispute"], "ddc": ["due_date_change"],
                    "pfb": ["paperless_enroll", "discount"],
-                   "gen": ["human_request", "charge_question", "device_order"]}[j]
+                   "gen": ["human_request", "charge_question", "device_order"],
+                   "rbc": ["repeat_billing_complaint", "bill_reduction_guidance"]}[j]
         eps.append(Episode(
             id=f"ep-{i:04d}", journey=j, persona=persona, utterance=utt,
             intents=intents, blueprint=list(BLUEPRINTS[j]),

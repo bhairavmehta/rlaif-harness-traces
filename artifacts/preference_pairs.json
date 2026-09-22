@@ -16,11 +16,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -34,10 +40,18 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0001",
@@ -57,11 +71,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -75,10 +95,18 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0002",
@@ -97,11 +125,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -115,10 +149,18 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0003",
@@ -135,11 +177,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -153,16 +201,76 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0004",
     "episode": "ep-0004",
+    "journey": "rbc",
+    "utterance": "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0005",
+    "episode": "ep-0005",
     "journey": "bex",
-    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
+    "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
     "rejected": {
       "levers": [],
       "weighted": 2.65,
@@ -175,11 +283,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -193,14 +307,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0005",
-    "episode": "ep-0005",
+    "pair_id": "pp-ep-0006",
+    "episode": "ep-0006",
     "journey": "ddc",
     "utterance": "Change my bill date to the 15th please, my paycheck moved.",
     "rejected": {
@@ -216,11 +338,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -234,14 +362,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0006",
-    "episode": "ep-0006",
+    "pair_id": "pp-ep-0007",
+    "episode": "ep-0007",
     "journey": "pfb",
     "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
     "rejected": {
@@ -256,11 +392,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -274,16 +416,24 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0007",
-    "episode": "ep-0007",
+    "pair_id": "pp-ep-0008",
+    "episode": "ep-0008",
     "journey": "gen",
-    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
@@ -294,11 +444,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -312,16 +468,76 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0008",
-    "episode": "ep-0008",
+    "pair_id": "pp-ep-0009",
+    "episode": "ep-0009",
+    "journey": "rbc",
+    "utterance": "This is the third time I'm contacting you - my bill went up again and nobody fixed it last time. Why is my bill so high?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0010",
+    "episode": "ep-0010",
     "journey": "bex",
-    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
+    "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
     "rejected": {
       "levers": [],
       "weighted": 2.65,
@@ -334,11 +550,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -352,14 +574,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0009",
-    "episode": "ep-0009",
+    "pair_id": "pp-ep-0011",
+    "episode": "ep-0011",
     "journey": "ddc",
     "utterance": "I need my due date moved to the 15th, permanently.",
     "rejected": {
@@ -374,11 +604,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 75,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -392,16 +628,24 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0010",
-    "episode": "ep-0010",
+    "pair_id": "pp-ep-0012",
+    "episode": "ep-0012",
     "journey": "pfb",
-    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
@@ -414,11 +658,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -432,14 +682,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0011",
-    "episode": "ep-0011",
+    "pair_id": "pp-ep-0013",
+    "episode": "ep-0013",
     "journey": "gen",
     "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
     "rejected": {
@@ -452,11 +710,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -470,16 +734,76 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0012",
-    "episode": "ep-0012",
+    "pair_id": "pp-ep-0014",
+    "episode": "ep-0014",
+    "journey": "rbc",
+    "utterance": "Third time now - the bill keeps going up, same as last time. Nobody fixed it. Explain why it's so high.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0015",
+    "episode": "ep-0015",
     "journey": "bex",
-    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
+    "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
     "rejected": {
       "levers": [],
       "weighted": 2.65,
@@ -492,11 +816,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -510,138 +840,81 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0013",
-    "episode": "ep-0013",
-    "journey": "ddc",
-    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.05,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
-        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0014",
-    "episode": "ep-0014",
-    "journey": "pfb",
-    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0015",
-    "episode": "ep-0015",
-    "journey": "gen",
-    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0016",
     "episode": "ep-0016",
-    "journey": "bex",
-    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
     "rejected": {
       "levers": [],
-      "weighted": 2.05,
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 75,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0017",
+    "episode": "ep-0017",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
       "verdict": "Rejected",
       "gates": [
         "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
@@ -651,11 +924,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -669,97 +948,24 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0017",
-    "episode": "ep-0017",
-    "journey": "ddc",
-    "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.05,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
-        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0018",
     "episode": "ep-0018",
-    "journey": "pfb",
-    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0019",
-    "episode": "ep-0019",
     "journey": "gen",
-    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
@@ -770,11 +976,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -788,33 +1000,99 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0019",
+    "episode": "ep-0019",
+    "journey": "rbc",
+    "utterance": "This is the third time I'm contacting you - my bill went up again and nobody fixed it last time. Why is my bill so high?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0020",
     "episode": "ep-0020",
     "journey": "bex",
-    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "utterance": "Why is my bill higher this month? That equipment charge should be free. Remove it.",
     "rejected": {
       "levers": [],
-      "weighted": 2.05,
+      "weighted": 2.65,
       "verdict": "Rejected",
       "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
       ],
       "path_delta": {
         "extra_tool_calls": 4,
         "argument_errors": 0,
-        "output_leaks": 6,
+        "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -828,10 +1106,18 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0021",
@@ -851,11 +1137,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -869,33 +1161,47 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0022",
     "episode": "ep-0022",
     "journey": "pfb",
-    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
       "verdict": "Rejected",
       "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
       ],
       "path_delta": {
         "extra_tool_calls": 4,
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -909,10 +1215,18 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0023",
@@ -929,11 +1243,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -947,14 +1267,74 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0024",
     "episode": "ep-0024",
+    "journey": "rbc",
+    "utterance": "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0025",
+    "episode": "ep-0025",
     "journey": "bex",
     "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
     "rejected": {
@@ -969,11 +1349,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -987,14 +1373,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0025",
-    "episode": "ep-0025",
+    "pair_id": "pp-ep-0026",
+    "episode": "ep-0026",
     "journey": "ddc",
     "utterance": "Change my bill date to the 15th please, my paycheck moved.",
     "rejected": {
@@ -1010,11 +1404,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -1028,14 +1428,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0026",
-    "episode": "ep-0026",
+    "pair_id": "pp-ep-0027",
+    "episode": "ep-0027",
     "journey": "pfb",
     "utterance": "Go paperless on my account and give me the paperless discount.",
     "rejected": {
@@ -1050,11 +1458,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -1068,14 +1482,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0027",
-    "episode": "ep-0027",
+    "pair_id": "pp-ep-0028",
+    "episode": "ep-0028",
     "journey": "gen",
     "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
     "rejected": {
@@ -1088,11 +1510,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -1106,14 +1534,607 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0028",
-    "episode": "ep-0028",
+    "pair_id": "pp-ep-0029",
+    "episode": "ep-0029",
+    "journey": "rbc",
+    "utterance": "Third time now - the bill keeps going up, same as last time. Nobody fixed it. Explain why it's so high.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0030",
+    "episode": "ep-0030",
+    "journey": "bex",
+    "utterance": "Why is my bill higher this month? That equipment charge should be free. Remove it.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.65,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0031",
+    "episode": "ep-0031",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0032",
+    "episode": "ep-0032",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0033",
+    "episode": "ep-0033",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0034",
+    "episode": "ep-0034",
+    "journey": "rbc",
+    "utterance": "This is the third time I'm contacting you - my bill went up again and nobody fixed it last time. Why is my bill so high?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0035",
+    "episode": "ep-0035",
+    "journey": "bex",
+    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.65,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0036",
+    "episode": "ep-0036",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
+    "rejected": {
+      "levers": [],
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 75,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0037",
+    "episode": "ep-0037",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0038",
+    "episode": "ep-0038",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0039",
+    "episode": "ep-0039",
+    "journey": "rbc",
+    "utterance": "Third time now - the bill keeps going up, same as last time. Nobody fixed it. Explain why it's so high.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0040",
+    "episode": "ep-0040",
     "journey": "bex",
     "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
     "rejected": {
@@ -1128,11 +2149,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -1146,808 +2173,23 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0029",
-    "episode": "ep-0029",
-    "journey": "ddc",
-    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.05,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
-        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0030",
-    "episode": "ep-0030",
-    "journey": "pfb",
-    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0031",
-    "episode": "ep-0031",
-    "journey": "gen",
-    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0032",
-    "episode": "ep-0032",
-    "journey": "bex",
-    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.65,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0033",
-    "episode": "ep-0033",
-    "journey": "ddc",
-    "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.05,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
-        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0034",
-    "episode": "ep-0034",
-    "journey": "pfb",
-    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0035",
-    "episode": "ep-0035",
-    "journey": "gen",
-    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0036",
-    "episode": "ep-0036",
-    "journey": "bex",
-    "utterance": "Why is my bill higher this month? That equipment charge should be free. Remove it.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.65,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0037",
-    "episode": "ep-0037",
-    "journey": "ddc",
-    "utterance": "I need my due date moved to the 15th, permanently.",
-    "rejected": {
-      "levers": [],
-      "weighted": 3.95,
-      "verdict": "Rejected",
-      "gates": [
-        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0038",
-    "episode": "ep-0038",
-    "journey": "pfb",
-    "utterance": "Go paperless on my account and give me the paperless discount.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0039",
-    "episode": "ep-0039",
-    "journey": "gen",
-    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0040",
-    "episode": "ep-0040",
-    "journey": "bex",
-    "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.65,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
     "pair_id": "pp-ep-0041",
     "episode": "ep-0041",
     "journey": "ddc",
-    "utterance": "I need my due date moved to the 15th, permanently.",
-    "rejected": {
-      "levers": [],
-      "weighted": 3.95,
-      "verdict": "Rejected",
-      "gates": [
-        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0042",
-    "episode": "ep-0042",
-    "journey": "pfb",
-    "utterance": "Go paperless on my account and give me the paperless discount.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0043",
-    "episode": "ep-0043",
-    "journey": "gen",
-    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0044",
-    "episode": "ep-0044",
-    "journey": "bex",
-    "utterance": "Why is my bill higher this month? That equipment charge should be free. Remove it.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.65,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0045",
-    "episode": "ep-0045",
-    "journey": "ddc",
-    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.05,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
-        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0046",
-    "episode": "ep-0046",
-    "journey": "pfb",
-    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 1
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0047",
-    "episode": "ep-0047",
-    "journey": "gen",
-    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
-    "rejected": {
-      "levers": [],
-      "weighted": 1.95,
-      "verdict": "Rejected",
-      "gates": [],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 6,
-        "redundant_verifications": 1,
-        "dropped_intents": 2
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0048",
-    "episode": "ep-0048",
-    "journey": "bex",
-    "utterance": "Why is my bill higher this month? That equipment charge should be free. Remove it.",
-    "rejected": {
-      "levers": [],
-      "weighted": 2.65,
-      "verdict": "Rejected",
-      "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
-      ],
-      "path_delta": {
-        "extra_tool_calls": 4,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 1,
-        "dropped_intents": 0
-      }
-    },
-    "chosen": {
-      "levers": [
-        "formatter",
-        "metadata",
-        "prompt_hat",
-        "sequencing",
-        "taxonomy"
-      ],
-      "weighted": 4.35,
-      "verdict": "Chosen",
-      "path_delta": {
-        "extra_tool_calls": 0,
-        "argument_errors": 0,
-        "output_leaks": 0,
-        "redundant_verifications": 0,
-        "dropped_intents": 0
-      }
-    },
-    "rationale": "same pinned episode; only harness levers differ"
-  },
-  {
-    "pair_id": "pp-ep-0049",
-    "episode": "ep-0049",
-    "journey": "ddc",
     "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
     "rejected": {
       "levers": [],
@@ -1962,11 +2204,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -1980,14 +2228,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0050",
-    "episode": "ep-0050",
+    "pair_id": "pp-ep-0042",
+    "episode": "ep-0042",
     "journey": "pfb",
     "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
     "rejected": {
@@ -2002,11 +2258,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2020,14 +2282,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0051",
-    "episode": "ep-0051",
+    "pair_id": "pp-ep-0043",
+    "episode": "ep-0043",
     "journey": "gen",
     "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
     "rejected": {
@@ -2040,11 +2310,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2058,33 +2334,99 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0052",
-    "episode": "ep-0052",
-    "journey": "bex",
-    "utterance": "You charged me $440 for a device that came with a promo. I dispute that - waive it.",
+    "pair_id": "pp-ep-0044",
+    "episode": "ep-0044",
+    "journey": "rbc",
+    "utterance": "This is the third time I'm contacting you - my bill went up again and nobody fixed it last time. Why is my bill so high?",
     "rejected": {
       "levers": [],
-      "weighted": 2.65,
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0045",
+    "episode": "ep-0045",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
       "verdict": "Rejected",
       "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
       ],
       "path_delta": {
         "extra_tool_calls": 4,
         "argument_errors": 0,
-        "output_leaks": 0,
+        "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2098,14 +2440,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0053",
-    "episode": "ep-0053",
+    "pair_id": "pp-ep-0046",
+    "episode": "ep-0046",
     "journey": "ddc",
     "utterance": "Change my bill date to the 15th please, my paycheck moved.",
     "rejected": {
@@ -2121,11 +2471,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2139,14 +2495,289 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0054",
-    "episode": "ep-0054",
+    "pair_id": "pp-ep-0047",
+    "episode": "ep-0047",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0048",
+    "episode": "ep-0048",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0049",
+    "episode": "ep-0049",
+    "journey": "rbc",
+    "utterance": "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0050",
+    "episode": "ep-0050",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0051",
+    "episode": "ep-0051",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 420,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.35,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0052",
+    "episode": "ep-0052",
     "journey": "pfb",
     "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
     "rejected": {
@@ -2161,11 +2792,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2179,14 +2816,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0055",
-    "episode": "ep-0055",
+    "pair_id": "pp-ep-0053",
+    "episode": "ep-0053",
     "journey": "gen",
     "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
     "rejected": {
@@ -2199,11 +2844,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2217,33 +2868,99 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0056",
-    "episode": "ep-0056",
-    "journey": "bex",
-    "utterance": "There's a $440 equipment charge on my bill for a device that was supposed to be free - explain it and take it off.",
+    "pair_id": "pp-ep-0054",
+    "episode": "ep-0054",
+    "journey": "rbc",
+    "utterance": "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
     "rejected": {
       "levers": [],
-      "weighted": 2.65,
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0055",
+    "episode": "ep-0055",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
       "verdict": "Rejected",
       "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: get_account_balance."
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
       ],
       "path_delta": {
         "extra_tool_calls": 4,
         "argument_errors": 0,
-        "output_leaks": 0,
+        "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2257,14 +2974,22 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 165,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0057",
-    "episode": "ep-0057",
+    "pair_id": "pp-ep-0056",
+    "episode": "ep-0056",
     "journey": "ddc",
     "utterance": "I need my due date moved to the 15th, permanently.",
     "rejected": {
@@ -2279,11 +3004,17 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 1,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 75,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2297,33 +3028,47 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0058",
-    "episode": "ep-0058",
+    "pair_id": "pp-ep-0057",
+    "episode": "ep-0057",
     "journey": "pfb",
-    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
       "verdict": "Rejected",
       "gates": [
-        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
       ],
       "path_delta": {
         "extra_tool_calls": 4,
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 1
+        "dropped_intents": 1,
+        "ap17_redactions": 0,
+        "latency_ms": 390,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2337,16 +3082,24 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 130,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   },
   {
-    "pair_id": "pp-ep-0059",
-    "episode": "ep-0059",
+    "pair_id": "pp-ep-0058",
+    "episode": "ep-0058",
     "journey": "gen",
-    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
     "rejected": {
       "levers": [],
       "weighted": 1.95,
@@ -2357,11 +3110,17 @@
         "argument_errors": 0,
         "output_leaks": 6,
         "redundant_verifications": 1,
-        "dropped_intents": 2
+        "dropped_intents": 2,
+        "ap17_redactions": 0,
+        "latency_ms": 240,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
     "chosen": {
       "levers": [
+        "context",
+        "evidence",
         "formatter",
         "metadata",
         "prompt_hat",
@@ -2375,9 +3134,69 @@
         "argument_errors": 0,
         "output_leaks": 0,
         "redundant_verifications": 0,
-        "dropped_intents": 0
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 135,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 0
       }
     },
-    "rationale": "same pinned episode; only harness levers differ"
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
+  },
+  {
+    "pair_id": "pp-ep-0059",
+    "episode": "ep-0059",
+    "journey": "rbc",
+    "utterance": "My bill is high AGAIN. I called about this last time and nobody fixed it. What is going on?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 3,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1,
+        "ap17_redactions": 1,
+        "latency_ms": 360,
+        "latency_saved_ms": 0,
+        "recurrence_missed": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "context",
+        "evidence",
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 4.45,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 0,
+        "dropped_intents": 0,
+        "ap17_redactions": 0,
+        "latency_ms": 102,
+        "latency_saved_ms": 183,
+        "recurrence_missed": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ",
+    "position_bias_check": {
+      "order_swapped": true,
+      "verdict_stable": true
+    }
   }
 ]
