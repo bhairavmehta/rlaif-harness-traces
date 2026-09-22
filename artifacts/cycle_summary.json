@@ -2,6 +2,7 @@
   "episodes": 60,
   "deployed_levers": [
     "taxonomy",
+    "metadata",
     "sequencing",
     "prompt_hat"
   ],
@@ -47,35 +48,28 @@
     }
   },
   "full": {
-    "avg_compliance_rate": 0.725,
+    "avg_compliance_rate": 0.938,
     "action_completion_rate": 1.0,
     "action_categories": {
-      "LIVE_AGENT_HANDOFF": 30,
-      "RESOLVED": 30
+      "RESOLVED": 60
     },
     "policy_fail_counts": {
-      "GEN-02": 30,
-      "GEN-05": 15,
-      "GEN-06": 15,
-      "GEN-08": 30,
-      "GEN-09": 15,
-      "BEX-02": 15,
-      "BEX-04": 15,
-      "BEX-08": 15
+      "GEN-02": 15,
+      "GEN-08": 15
     },
-    "avg_weighted": 3.525,
-    "chosen_rate": 0.5,
-    "resolved_rate": 0.5,
+    "avg_weighted": 4.3,
+    "chosen_rate": 1.0,
+    "resolved_rate": 1.0,
     "route_accuracy": 1.0,
     "arg_error_calls": 0,
-    "output_leaks": 90,
-    "gate_violations": 15,
+    "output_leaks": 15,
+    "gate_violations": 0,
     "avg_dims": {
-      "task_completion": 3,
-      "tool_selection_quality": 3,
-      "intent_recognition": 3.75,
+      "task_completion": 4,
+      "tool_selection_quality": 4.75,
+      "intent_recognition": 4,
       "groundedness": 5,
-      "context_retention": 3.75
+      "context_retention": 4
     }
   },
   "credit_assignment_weighted_delta_per_lever": {
@@ -106,8 +100,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-05": "15 -> 15 fails",
-        "BEX-02": "15 -> 15 fails"
+        "GEN-05": "15 -> 0 fails",
+        "BEX-02": "15 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -156,7 +150,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -205,7 +199,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -254,7 +248,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -303,7 +297,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -352,7 +346,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -401,7 +395,7 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 15 fails",
+        "GEN-09": "41 -> 0 fails",
         "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
@@ -440,15 +434,15 @@
       "patch_ref": "PATCH-FMT-v2",
       "evidence": {
         "raw_json_leaks_baseline": 198,
-        "leaks_full": 90
+        "leaks_full": 15
       },
       "measured_lift": {
         "credit_weighted_delta": 0.066
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-02": "33 -> 30 fails",
-        "GEN-08": "33 -> 30 fails"
+        "GEN-02": "33 -> 15 fails",
+        "GEN-08": "33 -> 15 fails"
       },
       "production_evidence": {
         "fail_verdicts": 10,
@@ -519,10 +513,10 @@
       "status": "pending_approval",
       "policy_lift": {
         "GEN-04": "11 -> 0 fails",
-        "GEN-06": "30 -> 15 fails",
+        "GEN-06": "30 -> 0 fails",
         "GEN-07": "15 -> 0 fails",
-        "BEX-04": "15 -> 15 fails",
-        "BEX-08": "12 -> 15 fails",
+        "BEX-04": "15 -> 0 fails",
+        "BEX-08": "12 -> 0 fails",
         "DDC-03": "4 -> 0 fails",
         "DDC-04": "15 -> 0 fails",
         "PFB-04": "15 -> 0 fails"
