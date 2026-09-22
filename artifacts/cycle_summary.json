@@ -1,6 +1,8 @@
 {
   "episodes": 60,
-  "deployed_levers": [],
+  "deployed_levers": [
+    "sequencing"
+  ],
   "baseline": {
     "avg_compliance_rate": 0.381,
     "action_completion_rate": 0.45,
@@ -43,41 +45,35 @@
     }
   },
   "full": {
-    "avg_compliance_rate": 0.381,
-    "action_completion_rate": 0.45,
+    "avg_compliance_rate": 0.577,
+    "action_completion_rate": 1.0,
     "action_categories": {
-      "REPETITIVE_LOOP": 33,
-      "LIVE_AGENT_HANDOFF": 23,
-      "RESOLVED": 4
+      "LIVE_AGENT_HANDOFF": 30,
+      "RESOLVED": 30
     },
     "policy_fail_counts": {
-      "GEN-02": 33,
-      "GEN-04": 11,
+      "GEN-02": 30,
       "GEN-05": 15,
       "GEN-06": 30,
       "GEN-07": 15,
-      "GEN-08": 33,
-      "GEN-09": 41,
+      "GEN-08": 30,
+      "GEN-09": 15,
       "BEX-02": 15,
       "BEX-04": 15,
-      "BEX-08": 12,
-      "DDC-01": 11,
-      "DDC-02": 4,
-      "DDC-03": 4,
+      "BEX-08": 15,
       "DDC-04": 15,
-      "DDC-05": 4,
       "PFB-04": 15
     },
-    "avg_weighted": 2.247,
-    "chosen_rate": 0.0,
-    "resolved_rate": 0.067,
+    "avg_weighted": 2.86,
+    "chosen_rate": 0.067,
+    "resolved_rate": 0.5,
     "route_accuracy": 0.267,
-    "arg_error_calls": 0,
-    "output_leaks": 198,
-    "gate_violations": 45,
+    "arg_error_calls": 15,
+    "output_leaks": 165,
+    "gate_violations": 15,
     "avg_dims": {
-      "task_completion": 2.133,
-      "tool_selection_quality": 1.2,
+      "task_completion": 3,
+      "tool_selection_quality": 2.75,
       "intent_recognition": 1.8,
       "groundedness": 5,
       "context_retention": 1.5
@@ -90,7 +86,7 @@
     "formatter": 0.066,
     "prompt_hat": 0.2
   },
-  "preference_pairs": 0,
+  "preference_pairs": 30,
   "recommendations": [
     {
       "id": "R-TAX-01",
@@ -161,8 +157,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -210,8 +206,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -259,8 +255,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -308,8 +304,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -357,8 +353,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -406,8 +402,8 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-09": "41 -> 41 fails",
-        "DDC-01": "11 -> 11 fails"
+        "GEN-09": "41 -> 15 fails",
+        "DDC-01": "11 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 2,
@@ -445,15 +441,15 @@
       "patch_ref": "PATCH-FMT-v2",
       "evidence": {
         "raw_json_leaks_baseline": 198,
-        "leaks_full": 198
+        "leaks_full": 165
       },
       "measured_lift": {
         "credit_weighted_delta": 0.066
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-02": "33 -> 33 fails",
-        "GEN-08": "33 -> 33 fails"
+        "GEN-02": "33 -> 30 fails",
+        "GEN-08": "33 -> 30 fails"
       },
       "production_evidence": {
         "fail_verdicts": 10,
@@ -523,12 +519,12 @@
       },
       "status": "pending_approval",
       "policy_lift": {
-        "GEN-04": "11 -> 11 fails",
+        "GEN-04": "11 -> 0 fails",
         "GEN-06": "30 -> 30 fails",
         "GEN-07": "15 -> 15 fails",
         "BEX-04": "15 -> 15 fails",
-        "BEX-08": "12 -> 12 fails",
-        "DDC-03": "4 -> 4 fails",
+        "BEX-08": "12 -> 15 fails",
+        "DDC-03": "4 -> 0 fails",
         "DDC-04": "15 -> 15 fails",
         "PFB-04": "15 -> 15 fails"
       },

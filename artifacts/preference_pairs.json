@@ -1,1 +1,1093 @@
-[]
+[
+  {
+    "pair_id": "pp-ep-0001",
+    "episode": "ep-0001",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0002",
+    "episode": "ep-0002",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0005",
+    "episode": "ep-0005",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0006",
+    "episode": "ep-0006",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0009",
+    "episode": "ep-0009",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
+    "rejected": {
+      "levers": [],
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 4.15,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0010",
+    "episode": "ep-0010",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0013",
+    "episode": "ep-0013",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0014",
+    "episode": "ep-0014",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0017",
+    "episode": "ep-0017",
+    "journey": "ddc",
+    "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0018",
+    "episode": "ep-0018",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0021",
+    "episode": "ep-0021",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0022",
+    "episode": "ep-0022",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0025",
+    "episode": "ep-0025",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0026",
+    "episode": "ep-0026",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0029",
+    "episode": "ep-0029",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0030",
+    "episode": "ep-0030",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0033",
+    "episode": "ep-0033",
+    "journey": "ddc",
+    "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0034",
+    "episode": "ep-0034",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0037",
+    "episode": "ep-0037",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
+    "rejected": {
+      "levers": [],
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 4.15,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0038",
+    "episode": "ep-0038",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0041",
+    "episode": "ep-0041",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
+    "rejected": {
+      "levers": [],
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 4.15,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0042",
+    "episode": "ep-0042",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0045",
+    "episode": "ep-0045",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0046",
+    "episode": "ep-0046",
+    "journey": "pfb",
+    "utterance": "Stop the paper bills. And I heard there's a discount for paperless?",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0049",
+    "episode": "ep-0049",
+    "journey": "ddc",
+    "utterance": "My paycheck moved - can I get my bill date changed to the 15th?",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0050",
+    "episode": "ep-0050",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0053",
+    "episode": "ep-0053",
+    "journey": "ddc",
+    "utterance": "Change my bill date to the 15th please, my paycheck moved.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: payment_arrangement.",
+        "DDC-01: The due-date flow was never initialized; payment_arrangement ran instead."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.55,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0054",
+    "episode": "ep-0054",
+    "journey": "pfb",
+    "utterance": "I want to stop getting paper bills - go paperless - and get whatever discount comes with that.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: manage_bill_preferences."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0057",
+    "episode": "ep-0057",
+    "journey": "ddc",
+    "utterance": "I need my due date moved to the 15th, permanently.",
+    "rejected": {
+      "levers": [],
+      "weighted": 3.95,
+      "verdict": "Rejected",
+      "gates": [
+        "DDC-03: The account change was submitted with no disclosures and no explicit consent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 4.15,
+      "verdict": "Chosen",
+      "path_delta": {
+        "extra_tool_calls": 0,
+        "argument_errors": 0,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0058",
+    "episode": "ep-0058",
+    "journey": "pfb",
+    "utterance": "Go paperless on my account and give me the paperless discount.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing"
+      ],
+      "weighted": 3.25,
+      "verdict": "Human review",
+      "path_delta": {
+        "extra_tool_calls": 1,
+        "argument_errors": 1,
+        "output_leaks": 0,
+        "redundant_verifications": 1,
+        "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  }
+]
