@@ -7,7 +7,7 @@ Needs a git checkout. Where there is none (the container image), it serves the s
 baked at build time by `python -m rlaif_lab.history` into data/trace_history.json.
 """
 from __future__ import annotations
-import json, re, subprocess
+import difflib, json, re, subprocess
 from functools import lru_cache
 from pathlib import Path
 
@@ -92,44 +92,65 @@ def repo_url(root: Path = REPO) -> str | None:
 
 
 def load(root: Path = REPO) -> dict:
-    head = _git("rev-parse", "HEAD", root=root)
-    if head is None:
+    st = state(root)
+    if st is None:
         if BAKED.is_file():
             return {**json.loads(BAKED.read_text(encoding="utf-8")), "source": "baked"}
         return {"available": False, "reason": "not a git checkout — run the server from the repo to see trace history",
                 "versions": [], "commits": []}
-    tags = _git("for-each-ref", f"refs/tags/{TAG_PREFIX}*", "--format=%(refname:short) %(objectname)", root=root) or ""
-    return {**_load(str(root), head.strip(), tags), "state": state(root)}
+    tags = _git("for-each-ref", f"refs/tags/{TAG_PREFIX}*",
+                "--format=%(refname:short) %(objectname) %(*objectname)", root=root) or ""
+    return {**_load(str(root), st.pop("oid"), tags), "state": st}
 
 
-def state(root: Path = REPO) -> dict:
-    """Branch, sync with the upstream, and uncommitted changes (the next version's candidates)."""
-    branch = (_git("rev-parse", "--abbrev-ref", "HEAD", root=root) or "").strip()
-    upstream = (_git("rev-parse", "--abbrev-ref", "@{u}", root=root) or "").strip() or None
-    ahead = behind = None
-    if upstream:
-        lr = (_git("rev-list", "--left-right", "--count", "@{u}...HEAD", root=root) or "").split()
-        if len(lr) == 2:
-            behind, ahead = int(lr[0]), int(lr[1])
-    dirty = [{"status": ln[:2].strip(), "path": ln[3:]}
-             for ln in (_git("status", "--porcelain", root=root) or "").splitlines() if ln.strip()]
-    return {"branch": branch, "upstream": upstream, "ahead": ahead, "behind": behind, "dirty": dirty}
+def state(root: Path = REPO) -> dict | None:
+    """Branch, upstream sync and uncommitted changes, from a single `git status` call."""
+    out = _git("status", "--porcelain=v2", "--branch", root=root)
+    if out is None:
+        return None
+    st = {"oid": "", "branch": "", "upstream": None, "ahead": None, "behind": None, "dirty": []}
+    for ln in out.splitlines():
+        if ln.startswith("# branch.oid "):
+            st["oid"] = ln[13:]
+        elif ln.startswith("# branch.head "):
+            st["branch"] = ln[14:]
+        elif ln.startswith("# branch.upstream "):
+            st["upstream"] = ln[18:]
+        elif ln.startswith("# branch.ab "):
+            a, b = ln[12:].split()
+            st["ahead"], st["behind"] = int(a), -int(b)
+        elif ln[:2] in ("1 ", "2 ", "u "):
+            f = ln.split(" ", {"1": 8, "2": 9, "u": 10}[ln[0]])
+            st["dirty"].append({"status": f[1].replace(".", ""), "path": f[-1].split("\t")[0]})
+        elif ln.startswith("? "):
+            st["dirty"].append({"status": "??", "path": ln[2:]})
+    return st
 
 
-def _numstat(ref: str, root: Path) -> list[dict]:
-    out = []
-    for ln in (_git("show", "--numstat", "--format=", ref, root=root) or "").splitlines():
-        f = ln.split("\t")
-        if len(f) == 3:
-            out.append({"path": f[2], "added": None if f[0] == "-" else int(f[0]),
-                        "deleted": None if f[1] == "-" else int(f[1])})
+def _blobs(specs: list[str], root: Path) -> dict[str, str]:
+    """Read many `<ref>:<path>` blobs with one `git cat-file --batch` process."""
+    try:
+        r = subprocess.run(["git", "cat-file", "--batch"], cwd=root, capture_output=True, timeout=30,
+                           input="".join(s + "\n" for s in specs).encode())
+    except (OSError, subprocess.TimeoutExpired):
+        return {}
+    out, buf, i = {}, r.stdout, 0
+    for spec in specs:
+        nl = buf.find(b"\n", i)
+        if nl < 0:
+            break
+        head, i = buf[i:nl].split(), nl + 1
+        if len(head) == 3 and head[1] == b"blob":
+            size = int(head[2])
+            out[spec] = buf[i:i + size].decode("utf-8", "replace")
+            i += size + 1
     return out
 
 
-def _diff(a: str | None, b: str, path: str, root: Path, max_lines: int = 160) -> dict:
-    if not a:
+def _diff(a: str | None, b: str | None, path: str, max_lines: int = 160) -> dict:
+    if a is None or b is None:
         return {"path": path, "text": "", "truncated": False}
-    lines = (_git("diff", "--unified=1", a, b, "--", path, root=root) or "").splitlines()
+    lines = list(difflib.unified_diff(a.splitlines(), b.splitlines(), f"a/{path}", f"b/{path}", n=1, lineterm=""))
     return {"path": path, "text": "\n".join(lines[:max_lines]), "truncated": len(lines) > max_lines}
 
 
@@ -137,24 +158,35 @@ def _diff(a: str | None, b: str, path: str, root: Path, max_lines: int = 160) ->
 def _load(root_s: str, head: str, tags: str) -> dict:
     root = Path(root_s)
     US, RS = "\x1f", "\x1e"
-    log = _git("log", "--decorate=short", f"--format=%H{US}%h{US}%aI{US}%an{US}%D{US}%s{US}%b{RS}", root=root) or ""
-    commits = []
-    for rec in log.split(RS):
-        f = rec.strip("\n").split(US)
-        if len(f) < 7:
+    log = _git("log", "--decorate=short", "--numstat",
+               f"--format={RS}%H{US}%h{US}%aI{US}%an{US}%D{US}%s{US}%b{US}", root=root) or ""
+    commits, files = [], {}
+    for rec in log.split(RS)[1:]:
+        f = rec.split(US)
+        if len(f) < 8:
             continue
         refs = [r.strip() for r in f[4].split(",") if r.strip()]
         commits.append({"hash": f[0], "short": f[1], "date": f[2], "author": f[3], "subject": f[5],
                         "body": f[6].strip(), "tags": [r[5:] for r in refs if r.startswith("tag: ")]})
+        files[f[0]] = [{"path": n[2], "added": None if n[0] == "-" else int(n[0]),
+                        "deleted": None if n[1] == "-" else int(n[1])}
+                       for n in (ln.split("\t") for ln in f[7].splitlines()) if len(n) == 3]
     by_hash = {c["hash"]: c for c in commits}
 
-    names = [t.split()[0] for t in tags.splitlines() if t.strip()]
-    names = sorted((t for t in names if t[len(TAG_PREFIX):].isdigit()), key=lambda t: int(t[len(TAG_PREFIX):]))
-    versions, prev = [], None
+    shas = {}
+    for ln in tags.splitlines():
+        f = ln.split()
+        if len(f) >= 2 and f[0][len(TAG_PREFIX):].isdigit():
+            shas[f[0]] = f[2] if len(f) > 2 else f[1]      # peeled commit for annotated tags
+    names = sorted(shas, key=lambda t: int(t[len(TAG_PREFIX):]))
+    cyc_path, rca_path = f"{ART}/cycle_summary.json", f"{ART}/trace_rca.json"
+    blobs = _blobs([f"{t}:{p}" for t in names for p in (cyc_path, rca_path)], root)
+
+    versions, prev, prev_text = [], None, None
     for tag in names:
-        sha = (_git("rev-list", "-n", "1", tag, root=root) or "").strip()
-        snap = snapshot_at(tag, root)
-        c = by_hash.get(sha, {})
+        sha, c = shas[tag], by_hash.get(shas[tag], {})
+        cyc, rca = blobs.get(f"{tag}:{cyc_path}"), blobs.get(f"{tag}:{rca_path}")
+        snap = {"cycle": json.loads(cyc), "rca": json.loads(rca)} if cyc and rca else None
         subject = c.get("subject", "")
         versions.append({
             "tag": tag, "n": int(tag[len(TAG_PREFIX):]), "hash": sha, "short": sha[:7],
@@ -162,13 +194,13 @@ def _load(root_s: str, head: str, tags: str) -> dict:
             "message": subject[len(tag) + 2:] if subject.startswith(tag + ": ") else subject,
             "deployed_levers": _get(snap, ("cycle", "deployed_levers")) if snap else None,
             "metrics": metric_values(snap) if snap else {},
-            "files": _numstat(tag, root),
-            "diff": _diff(versions[-1]["tag"] if versions else None, tag, f"{ART}/cycle_summary.json", root),
+            "files": files.get(sha, []),
+            "diff": _diff(prev_text, cyc, cyc_path),
             "changes": changes(snap, prev) if snap else [],
             "policy_changes": policy_changes(snap, prev) if snap else [],
             "previous": versions[-1]["tag"] if versions else None,
         })
-        prev = snap or prev
+        prev, prev_text = snap or prev, cyc if cyc is not None else prev_text
     return {"available": True, "repo_url": repo_url(root), "head": head[:7],
             "metrics": [{"key": k, "label": l, "better": b, "unit": u} for k, l, _, b, u in METRICS],
             "versions": versions[::-1], "commits": commits}
