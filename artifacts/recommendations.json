@@ -352,7 +352,7 @@
     "patch_ref": "PATCH-FMT-v2",
     "evidence": {
       "raw_json_leaks_baseline": 198,
-      "leaks_full": 165
+      "leaks_full": 90
     },
     "measured_lift": {
       "credit_weighted_delta": 0.066
@@ -431,13 +431,13 @@
     "status": "pending_approval",
     "policy_lift": {
       "GEN-04": "11 -> 0 fails",
-      "GEN-06": "30 -> 30 fails",
-      "GEN-07": "15 -> 15 fails",
+      "GEN-06": "30 -> 15 fails",
+      "GEN-07": "15 -> 0 fails",
       "BEX-04": "15 -> 15 fails",
       "BEX-08": "12 -> 15 fails",
       "DDC-03": "4 -> 0 fails",
-      "DDC-04": "15 -> 15 fails",
-      "PFB-04": "15 -> 15 fails"
+      "DDC-04": "15 -> 0 fails",
+      "PFB-04": "15 -> 0 fails"
     },
     "production_evidence": {
       "fail_verdicts": 10,

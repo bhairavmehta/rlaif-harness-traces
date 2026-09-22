@@ -2,7 +2,8 @@
   "episodes": 60,
   "deployed_levers": [
     "taxonomy",
-    "sequencing"
+    "sequencing",
+    "prompt_hat"
   ],
   "baseline": {
     "avg_compliance_rate": 0.381,
@@ -46,7 +47,7 @@
     }
   },
   "full": {
-    "avg_compliance_rate": 0.577,
+    "avg_compliance_rate": 0.725,
     "action_completion_rate": 1.0,
     "action_categories": {
       "LIVE_AGENT_HANDOFF": 30,
@@ -55,29 +56,26 @@
     "policy_fail_counts": {
       "GEN-02": 30,
       "GEN-05": 15,
-      "GEN-06": 30,
-      "GEN-07": 15,
+      "GEN-06": 15,
       "GEN-08": 30,
       "GEN-09": 15,
       "BEX-02": 15,
       "BEX-04": 15,
-      "BEX-08": 15,
-      "DDC-04": 15,
-      "PFB-04": 15
+      "BEX-08": 15
     },
-    "avg_weighted": 3.2,
-    "chosen_rate": 0.25,
+    "avg_weighted": 3.525,
+    "chosen_rate": 0.5,
     "resolved_rate": 0.5,
     "route_accuracy": 1.0,
-    "arg_error_calls": 15,
-    "output_leaks": 165,
+    "arg_error_calls": 0,
+    "output_leaks": 90,
     "gate_violations": 15,
     "avg_dims": {
       "task_completion": 3,
-      "tool_selection_quality": 2.75,
-      "intent_recognition": 3.5,
+      "tool_selection_quality": 3,
+      "intent_recognition": 3.75,
       "groundedness": 5,
-      "context_retention": 1.5
+      "context_retention": 3.75
     }
   },
   "credit_assignment_weighted_delta_per_lever": {
@@ -87,7 +85,7 @@
     "formatter": 0.066,
     "prompt_hat": 0.2
   },
-  "preference_pairs": 48,
+  "preference_pairs": 60,
   "recommendations": [
     {
       "id": "R-TAX-01",
@@ -442,7 +440,7 @@
       "patch_ref": "PATCH-FMT-v2",
       "evidence": {
         "raw_json_leaks_baseline": 198,
-        "leaks_full": 165
+        "leaks_full": 90
       },
       "measured_lift": {
         "credit_weighted_delta": 0.066
@@ -521,13 +519,13 @@
       "status": "pending_approval",
       "policy_lift": {
         "GEN-04": "11 -> 0 fails",
-        "GEN-06": "30 -> 30 fails",
-        "GEN-07": "15 -> 15 fails",
+        "GEN-06": "30 -> 15 fails",
+        "GEN-07": "15 -> 0 fails",
         "BEX-04": "15 -> 15 fails",
         "BEX-08": "12 -> 15 fails",
         "DDC-03": "4 -> 0 fails",
-        "DDC-04": "15 -> 15 fails",
-        "PFB-04": "15 -> 15 fails"
+        "DDC-04": "15 -> 0 fails",
+        "PFB-04": "15 -> 0 fails"
       },
       "production_evidence": {
         "fail_verdicts": 10,
