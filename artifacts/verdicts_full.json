@@ -2,7 +2,8 @@
   {
     "episode_id": "ep-0000",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -262,17 +263,18 @@
   {
     "episode_id": "ep-0001",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -432,7 +434,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -471,22 +473,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0002",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -625,7 +628,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -665,22 +668,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0003",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -786,7 +790,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -836,13 +840,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0004",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -1102,17 +1107,18 @@
   {
     "episode_id": "ep-0005",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -1272,7 +1278,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -1311,22 +1317,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0006",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -1465,7 +1472,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -1505,22 +1512,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0007",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -1626,7 +1634,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -1676,13 +1684,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0008",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -1942,7 +1951,8 @@
   {
     "episode_id": "ep-0009",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
@@ -2157,16 +2167,17 @@
   {
     "episode_id": "ep-0010",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -2305,7 +2316,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -2345,22 +2356,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0011",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -2466,7 +2478,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -2516,13 +2528,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0012",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -2782,17 +2795,18 @@
   {
     "episode_id": "ep-0013",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -2952,7 +2966,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -2991,22 +3005,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0014",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -3145,7 +3160,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -3185,22 +3200,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0015",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -3306,7 +3322,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -3356,22 +3372,23 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0016",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 2.05,
+    "weighted": 2.65,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -3567,7 +3584,7 @@
     ],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:billing_explainer",
         "call:get_account_balance",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
@@ -3616,23 +3633,24 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was charge dispute; the agent routed to general_care (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was charge dispute; the agent routed to billing_explainer and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0017",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -3792,7 +3810,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -3831,22 +3849,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0018",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -3985,7 +4004,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -4025,22 +4044,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0019",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -4146,7 +4166,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -4196,22 +4216,23 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0020",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 2.05,
+    "weighted": 2.65,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -4407,7 +4428,7 @@
     ],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:billing_explainer",
         "call:get_account_balance",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
@@ -4456,23 +4477,24 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was charge dispute; the agent routed to general_care (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was charge dispute; the agent routed to billing_explainer and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0021",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -4632,7 +4654,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -4671,22 +4693,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0022",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -4825,7 +4848,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -4865,22 +4888,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to general_care (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0023",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -4986,7 +5010,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -5036,13 +5060,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0024",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -5302,17 +5327,18 @@
   {
     "episode_id": "ep-0025",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -5472,7 +5498,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -5511,22 +5537,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0026",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -5665,7 +5692,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -5705,22 +5732,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to general_care (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0027",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -5826,7 +5854,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -5876,22 +5904,23 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0028",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 2.05,
+    "weighted": 2.65,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -6087,7 +6116,7 @@
     ],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:billing_explainer",
         "call:get_account_balance",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
@@ -6136,23 +6165,24 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was charge dispute; the agent routed to general_care (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was charge dispute; the agent routed to billing_explainer and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; recited the balance instead of the named charge at Turn 4; exposed raw tool JSON at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0029",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -6312,7 +6342,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -6351,22 +6381,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0030",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -6505,7 +6536,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -6545,22 +6576,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0031",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -6666,7 +6698,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -6716,13 +6748,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0032",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -6982,17 +7015,18 @@
   {
     "episode_id": "ep-0033",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -7152,7 +7186,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -7191,22 +7225,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0034",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -7345,7 +7380,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -7385,22 +7420,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0035",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -7506,7 +7542,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -7556,13 +7592,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0036",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -7822,7 +7859,8 @@
   {
     "episode_id": "ep-0037",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
@@ -8037,16 +8075,17 @@
   {
     "episode_id": "ep-0038",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -8185,7 +8224,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -8225,22 +8264,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to general_care (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0039",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -8346,7 +8386,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -8396,13 +8436,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0040",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -8662,7 +8703,8 @@
   {
     "episode_id": "ep-0041",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
@@ -8877,16 +8919,17 @@
   {
     "episode_id": "ep-0042",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -9025,7 +9068,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -9065,22 +9108,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to general_care (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0043",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -9186,7 +9230,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -9236,13 +9280,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0044",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -9502,17 +9547,18 @@
   {
     "episode_id": "ep-0045",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -9672,7 +9718,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -9711,22 +9757,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0046",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -9865,7 +9912,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -9905,22 +9952,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0047",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -10026,7 +10074,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -10076,13 +10124,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0048",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -10342,17 +10391,18 @@
   {
     "episode_id": "ep-0049",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -10512,7 +10562,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -10551,22 +10601,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0050",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -10705,7 +10756,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -10745,22 +10796,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0051",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -10866,7 +10918,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -10916,13 +10968,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0052",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -11182,17 +11235,18 @@
   {
     "episode_id": "ep-0053",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 5,
-      "intent_recognition": 1,
+      "intent_recognition": 4,
       "groundedness": 5,
       "context_retention": 2
     },
-    "weighted": 3.55,
-    "recommendation": "Human review",
+    "weighted": 4.15,
+    "recommendation": "Chosen",
     "policy_verdicts": [
       {
         "policy_id": "GEN-01",
@@ -11352,7 +11406,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:due_date_changer",
         "call:check_ddc_eligibility",
         "gate:change_due_date",
         "call:change_due_date"
@@ -11391,22 +11445,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was due date change; the agent routed to general_care (misrouted) and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was due date change; the agent routed to due_date_changer and called 2 tool(s). Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0054",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -11545,7 +11600,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -11585,22 +11640,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to billing_explainer (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0055",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -11706,7 +11762,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -11756,13 +11812,14 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   },
   {
     "episode_id": "ep-0056",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
@@ -12022,7 +12079,8 @@
   {
     "episode_id": "ep-0057",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
@@ -12237,16 +12295,17 @@
   {
     "episode_id": "ep-0058",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 4,
       "tool_selection_quality": 4,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 3.25,
+    "weighted": 3.65,
     "recommendation": "Human review",
     "policy_verdicts": [
       {
@@ -12385,7 +12444,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:general_care",
+        "route:paperfree_manager",
         "call:check_paper_free_eligibility",
         "gate:enroll_paper_free_billing",
         "error:enroll_paper_free_billing",
@@ -12425,22 +12484,23 @@
       "category": "RESOLVED",
       "containment_quality": "not_applicable",
       "risk_flags": [],
-      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to general_care (misrouted) and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
+      "rationale": "The customer's primary intent was paperless enroll, discount; the agent routed to paperfree_manager and called 3 tool(s), 1 of which failed. Notable moments: the agent re-asked verification at Turn 2; made the required disclosures and captured consent at Turn 5. Containment quality: not_applicable - the customer never needed or asked for a human. Category RESOLVED: Action Completion is TRUE because the request was fulfilled with a tool-confirmed outcome."
     }
   },
   {
     "episode_id": "ep-0059",
     "levers": [
-      "sequencing"
+      "sequencing",
+      "taxonomy"
     ],
     "dims": {
       "task_completion": 2,
       "tool_selection_quality": 1,
-      "intent_recognition": 1,
+      "intent_recognition": 3,
       "groundedness": 5,
       "context_retention": 1
     },
-    "weighted": 1.95,
+    "weighted": 2.35,
     "recommendation": "Rejected",
     "policy_verdicts": [
       {
@@ -12546,7 +12606,7 @@
     "gate_violations": [],
     "reasoning": {
       "decision_path_observed": [
-        "route:billing_explainer",
+        "route:general_care",
         "call:transfer_to_agent",
         "leak:transfer_to_agent",
         "call:transfer_to_agent",
@@ -12596,7 +12656,7 @@
       "risk_flags": [
         "OUTPUT_LEAK"
       ],
-      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to billing_explainer (misrouted) and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
+      "rationale": "The customer's primary intent was human request, charge question, device order; the agent routed to general_care and called 6 tool(s). Notable moments: the agent re-asked verification at Turn 2; exposed raw tool JSON at Turn 4. Containment quality: poor - turns repeated or deflected without adding value. Category LIVE_AGENT_HANDOFF: Action Completion is TRUE because a transfer tool was called - a platform-level or unresolved hand-off still counts as action complete. Risk noted: OUTPUT_LEAK."
     }
   }
 ]

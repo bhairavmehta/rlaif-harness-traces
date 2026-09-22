@@ -22,10 +22,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -58,9 +59,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -68,6 +70,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0003",
+    "episode": "ep-0003",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -95,10 +132,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -131,9 +169,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -141,6 +180,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0007",
+    "episode": "ep-0007",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -167,7 +241,8 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
       "weighted": 4.15,
       "verdict": "Chosen",
@@ -203,9 +278,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -213,6 +289,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0011",
+    "episode": "ep-0011",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -240,10 +351,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -276,9 +388,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -286,6 +399,78 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0015",
+    "episode": "ep-0015",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0016",
+    "episode": "ep-0016",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.65,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 5,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -313,10 +498,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -349,9 +535,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -359,6 +546,78 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0019",
+    "episode": "ep-0019",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0020",
+    "episode": "ep-0020",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.65,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 5,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -386,10 +645,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -422,9 +682,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -432,6 +693,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0023",
+    "episode": "ep-0023",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -459,10 +755,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -495,9 +792,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -505,6 +803,78 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0027",
+    "episode": "ep-0027",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0028",
+    "episode": "ep-0028",
+    "journey": "bex",
+    "utterance": "Mi factura subio este mes - ese cargo de equipo should be free. Take it off.",
+    "rejected": {
+      "levers": [],
+      "weighted": 2.05,
+      "verdict": "Rejected",
+      "gates": [
+        "GEN-09: Wrong tool initialized for the stated intent: transfer_to_agent."
+      ],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.65,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 5,
+        "redundant_verifications": 1,
+        "dropped_intents": 0
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -532,10 +902,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -568,9 +939,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -578,6 +950,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0031",
+    "episode": "ep-0031",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -605,10 +1012,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -641,9 +1049,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -651,6 +1060,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0035",
+    "episode": "ep-0035",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -677,7 +1121,8 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
       "weighted": 4.15,
       "verdict": "Chosen",
@@ -713,9 +1158,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -723,6 +1169,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0039",
+    "episode": "ep-0039",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -749,7 +1230,8 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
       "weighted": 4.15,
       "verdict": "Chosen",
@@ -785,9 +1267,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -795,6 +1278,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0043",
+    "episode": "ep-0043",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -822,10 +1340,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -858,9 +1377,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -868,6 +1388,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0047",
+    "episode": "ep-0047",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -895,10 +1450,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -931,9 +1487,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -941,6 +1498,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0051",
+    "episode": "ep-0051",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -968,10 +1560,11 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.55,
-      "verdict": "Human review",
+      "weighted": 4.15,
+      "verdict": "Chosen",
       "path_delta": {
         "extra_tool_calls": 0,
         "argument_errors": 0,
@@ -1004,9 +1597,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -1014,6 +1608,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0055",
+    "episode": "ep-0055",
+    "journey": "gen",
+    "utterance": "Get me a human. And explain the $9.99 charge. And I need to order a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
@@ -1040,7 +1669,8 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
       "weighted": 4.15,
       "verdict": "Chosen",
@@ -1076,9 +1706,10 @@
     },
     "chosen": {
       "levers": [
-        "sequencing"
+        "sequencing",
+        "taxonomy"
       ],
-      "weighted": 3.25,
+      "weighted": 3.65,
       "verdict": "Human review",
       "path_delta": {
         "extra_tool_calls": 1,
@@ -1086,6 +1717,41 @@
         "output_leaks": 0,
         "redundant_verifications": 1,
         "dropped_intents": 1
+      }
+    },
+    "rationale": "same pinned episode; only harness levers differ"
+  },
+  {
+    "pair_id": "pp-ep-0059",
+    "episode": "ep-0059",
+    "journey": "gen",
+    "utterance": "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+    "rejected": {
+      "levers": [],
+      "weighted": 1.95,
+      "verdict": "Rejected",
+      "gates": [],
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
+      }
+    },
+    "chosen": {
+      "levers": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "weighted": 2.35,
+      "verdict": "Rejected",
+      "path_delta": {
+        "extra_tool_calls": 4,
+        "argument_errors": 0,
+        "output_leaks": 6,
+        "redundant_verifications": 1,
+        "dropped_intents": 2
       }
     },
     "rationale": "same pinned episode; only harness levers differ"
