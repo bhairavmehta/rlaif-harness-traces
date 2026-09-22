@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RLAIF Harness Lab</title>
+<style>
+  :root{
+    color-scheme: light;
+    --navy:#0B2E55; --blue:#2F6FBF; --sky:#EAF2FB; --ink:#20304A; --gray:#5E7189; --line:#C7D9EC;
+    --page:#F2F7FC; --card:#fff; --code:#0E2A4A;
+    --gradDark:linear-gradient(180deg,#164A80,#0B2E55); --grad:linear-gradient(180deg,#5B9BE0,#2F6FBF);
+    /* data series (validated reference palette, fixed order) */
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+    --vanilla:var(--s2); --rlaif:var(--s1);
+    /* status - always paired with icon + label */
+    --good:#0ca30c; --goodtext:#006300; --goodsoft:#E7F4EC; --crit:#d03b3b; --critsoft:#FDECE8;
+    --warn:#fab219; --warntext:#7A5A10; --warnsoft:#FDF6E9;
+    --grid:#e1e0d9; --axis:#c3c2b7; --muted:#898781;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--page);color:var(--ink);font-size:14px;line-height:1.45}
+  button,select,input,textarea{font:inherit}
+  button{cursor:pointer}
+  [hidden]{display:none!important}
+  code,.mono{font-family:Consolas,Menlo,monospace}
+
+  header.top{background:var(--gradDark);color:#fff;padding:.7rem 1.2rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+  .mark{width:36px;height:36px;border-radius:9px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800}
+  header.top h1{font-size:1.05rem}
+  header.top .sub{font-size:.75rem;color:#A9C6E8}
+  .spacer{flex:1}
+  .chip{font-size:.68rem;font-weight:700;padding:.25rem .6rem;border-radius:999px;white-space:nowrap}
+  .chip.demo{background:#7A1F1F;color:#FBE3E3}
+  .chip.gov{background:#164A80;color:#FCD980;border:1px solid #3A6EA8}
+  .lockbtn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:.3rem .65rem;font-size:.74rem;font-weight:700}
+
+  .bar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:2px solid var(--line);padding:.5rem 1.2rem;display:flex;gap:.9rem;align-items:center;flex-wrap:wrap;box-shadow:0 2px 8px rgba(11,46,85,.07)}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{border:0;background:#fff;padding:.42rem .8rem;font-weight:700;font-size:.8rem;color:var(--navy);display:flex;align-items:center;gap:.4rem}
+  .seg button+button{border-left:1px solid var(--line)}
+  .seg button.on{background:var(--navy);color:#fff}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+  .lt{font-size:.7rem;font-weight:800;color:var(--navy)}
+  .lever{display:flex;align-items:center;gap:.35rem;font-size:.76rem;font-weight:700}
+  .sw{width:38px;height:20px;border-radius:999px;background:#C9D6E6;position:relative;border:0;flex:none}
+  .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .sw.on{background:#1E7D46} .sw.on::after{left:20px}
+  .sw:focus-visible,.seg button:focus-visible,.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .badge{font-size:.7rem;font-weight:800;padding:.22rem .6rem;border-radius:999px;background:var(--sky);color:var(--navy)}
+
+  .tabs{display:flex;gap:.4rem;padding:.75rem 1.2rem 0;flex-wrap:wrap}
+  .tabs button{border:1px solid var(--line);background:#fff;padding:.5rem .9rem;border-radius:10px 10px 0 0;font-weight:700;font-size:.84rem;border-bottom:0;color:var(--ink)}
+  .tabs button.on{background:var(--grad);color:#fff;border-color:var(--blue)}
+  main{padding:1rem 1.2rem 3rem;max-width:1440px;margin:0 auto}
+  .lead h2{font-size:1.1rem;color:var(--navy)}
+  .lead p{font-size:.8rem;color:var(--gray);max-width:95ch;margin:.2rem 0 .8rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem .95rem;margin-bottom:1rem;min-width:0}
+  .card h3{font-size:.8rem;color:var(--navy);margin-bottom:.5rem;letter-spacing:.02em}
+  .grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+  @media(max-width:1000px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+  .row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+  .mini{font-size:.72rem;color:var(--gray)}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:.4rem .8rem;font-weight:700;font-size:.78rem;color:var(--navy)}
+  .btn.primary{background:var(--grad);color:#fff;border-color:var(--blue)}
+  select,input[type=number],input[type=text],input[type=password]{border:1px solid var(--line);border-radius:8px;padding:.35rem .5rem;background:#fff}
+  pre.code{background:var(--code);color:#CDE3F7;border-radius:10px;padding:.65rem .8rem;font-size:.7rem;white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:420px}
+  .overflow{overflow-x:auto}
+
+  /* pills */
+  .pill{display:inline-flex;align-items:center;gap:.25rem;font-size:.66rem;font-weight:800;padding:.1rem .45rem;border-radius:999px;white-space:nowrap}
+  .pill.pass{background:var(--goodsoft);color:var(--goodtext)}
+  .pill.fail{background:var(--critsoft);color:var(--crit)}
+  .pill.na{background:#EEF1F5;color:var(--gray)}
+  .pill.warn{background:var(--warnsoft);color:var(--warntext)}
+  .pill.crit{border:1px solid #EFB9AE;background:#fff;color:var(--crit)}
+  .pill.lev{background:var(--sky);color:var(--navy)}
+
+  /* chat panes */
+  .panes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem;align-items:start}
+  @media(max-width:1000px){.panes{grid-template-columns:minmax(0,1fr)}}
+  .pane{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}
+  .phead{background:var(--gradDark);color:#fff;padding:.6rem .85rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;border-top:4px solid var(--accent)}
+  .phead b{font-size:.9rem}
+  .phead .mini{color:#A9C6E8}
+  .datebadge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:.12rem .5rem;font-weight:800;font-size:.76rem}
+  .chatbox{background:var(--sky);padding:.75rem;height:480px;overflow-y:auto}
+  .msg{display:flex;margin-bottom:.5rem}
+  .msg.agent{justify-content:flex-start}.msg.cust{justify-content:flex-end}
+  .bub{max-width:86%;padding:.45rem .65rem;border-radius:12px;font-size:.82rem}
+  .msg.agent .bub{background:#fff;border:1px solid var(--line);border-top-left-radius:3px}
+  .msg.cust .bub{background:var(--grad);color:#fff;border-top-right-radius:3px}
+  .who{font-size:.6rem;font-weight:800;opacity:.7;margin-bottom:.1rem}
+  .bub .raw{font-family:Consolas,Menlo,monospace;background:var(--code);color:#FBE3E3;border-radius:6px;padding:.1rem .35rem;font-size:.74rem;display:inline-block}
+  .flags{display:flex;gap:.25rem;flex-wrap:wrap;margin-top:.3rem}
+  .flag{font-size:.62rem;font-weight:800;padding:.1rem .45rem;border-radius:999px}
+  .flag.bad{background:var(--critsoft);color:var(--crit)}
+  .flag.good{background:var(--goodsoft);color:var(--goodtext)}
+  .flag.info{background:var(--warnsoft);color:var(--warntext)}
+  details.tools{margin-top:.3rem}
+  details.tools summary{font-size:.64rem;color:var(--gray);cursor:pointer;font-weight:700}
+  details.tools pre{background:var(--code);color:#CDE3F7;border-radius:6px;padding:.35rem .45rem;font-size:.64rem;white-space:pre-wrap;word-break:break-word;margin-top:.2rem}
+  .quick{display:flex;gap:.35rem;flex-wrap:wrap;padding:.45rem .75rem;border-top:1px solid var(--line);background:#fff;min-height:2.6rem;align-items:center}
+  .quick .btn{padding:.25rem .6rem;font-size:.72rem}
+  .strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;padding:.55rem .75rem;border-top:1px solid var(--line)}
+  .tile{background:var(--sky);border-radius:9px;padding:.35rem .45rem;min-width:0}
+  .tile .v{font-size:1.05rem;font-weight:800;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tile .l{font-size:.62rem;color:var(--gray)}
+  .composer{display:flex;gap:.5rem;margin:.8rem 0 .5rem}
+  .composer input{flex:1;padding:.6rem .75rem;border-radius:10px;font-size:.88rem}
+  .suggest{display:flex;gap:.35rem;flex-wrap:wrap}
+  .suggest button{border:1px dashed var(--line);background:#fff;border-radius:999px;padding:.22rem .65rem;font-size:.72rem;color:var(--navy)}
+  .typing{font-size:.72rem;color:var(--gray);font-style:italic;padding:.2rem .1rem}
+
+  /* internals */
+  .hbar{display:grid;grid-template-columns:minmax(90px,150px) minmax(0,1fr) 3.2rem;gap:.5rem;align-items:center;font-size:.74rem;margin:.18rem 0}
+  .hbar .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;color:var(--navy)}
+  .hbar .track{height:10px;position:relative}
+  .hbar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:var(--s1)}
+  .hbar .fill.win{outline:2px solid var(--goodtext);outline-offset:1px}
+  .hbar .val{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .dumb{display:grid;grid-template-columns:minmax(110px,160px) minmax(0,1fr) 3.6rem;gap:.5rem;align-items:center;font-size:.74rem;margin:.3rem 0}
+  .dumb .axis{position:relative;height:14px;border-bottom:1px solid var(--axis)}
+  .dumb .seg2{position:absolute;top:6px;height:2px;background:var(--axis)}
+  .dumb .pt{position:absolute;top:1px;width:12px;height:12px;border-radius:50%;margin-left:-6px;box-shadow:0 0 0 2px #fff}
+  .path{list-style:none;counter-reset:s}
+  .path li{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:0 8px 8px 0;padding:.3rem .5rem;margin-bottom:.3rem;font-size:.72rem;background:#fff}
+  .path li.bad{border-left-color:var(--crit)} .path li.good{border-left-color:var(--good)} .path li.gate{border-left-color:var(--warn)}
+  .path .k{font-size:.6rem;font-weight:800;color:#fff;background:var(--blue);border-radius:5px;padding:.05rem .35rem;margin-right:.35rem}
+  .path li.bad .k{background:var(--crit)} .path li.good .k{background:#1E7D46} .path li.gate .k{background:#9a6a00}
+  .verdict{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}
+  .verdict .num{font-size:1.6rem;font-weight:800}
+  .stamp{font-size:.68rem;font-weight:800;padding:.2rem .55rem;border-radius:999px}
+  .stamp.chosen{background:var(--goodsoft);color:var(--goodtext);border:1px solid #BFE3CC}
+  .stamp.rejected{background:var(--critsoft);color:var(--crit);border:1px solid #EFB9AE}
+  .stamp.review{background:var(--warnsoft);color:var(--warntext);border:1px solid #EAD48F}
+  table{width:100%;border-collapse:collapse;font-size:.72rem;background:#fff}
+  th{text-align:left;background:var(--navy);color:#fff;font-weight:600;padding:.35rem .5rem;font-size:.68rem;position:sticky;top:0}
+  td{padding:.32rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .twrap{border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:460px}
+  .flowtabs{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.5rem}
+  .flowtabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.15rem .55rem;font-size:.68rem;font-weight:700;color:var(--navy)}
+  .flowtabs button.on{background:var(--navy);color:#fff}
+  .empty{color:var(--gray);font-size:.8rem;padding:1.4rem;text-align:center;border:1px dashed var(--line);border-radius:10px;background:#fff}
+
+  /* charts */
+  .chart{position:relative}
+  .chart svg{display:block;width:100%;overflow:visible}
+  .legend{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.72rem;margin-bottom:.35rem;color:var(--ink)}
+  .legend span{display:inline-flex;align-items:center;gap:.3rem}
+  .legend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+  .tip{position:absolute;pointer-events:none;background:#fff;border:1px solid rgba(11,11,11,.12);box-shadow:0 4px 14px rgba(0,0,0,.12);border-radius:8px;padding:.35rem .5rem;font-size:.7rem;white-space:nowrap;z-index:5}
+  .tip b{display:block;margin-bottom:.15rem}
+  details.tv summary{font-size:.7rem;color:var(--gray);cursor:pointer;margin-top:.3rem}
+  .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.55rem}
+  .stat .tile{background:#fff;border:1px solid var(--line)}
+  .stat .tile .v{font-size:1.25rem}
+  .delta-up{color:var(--goodtext);font-weight:800}.delta-dn{color:var(--crit);font-weight:800}
+  .rec{border-left:4px solid var(--blue);background:var(--sky);border-radius:0 10px 10px 0;padding:.5rem .7rem;margin-bottom:.5rem}
+  .rec.cov{border-left-color:var(--warn);background:var(--warnsoft)}
+  .rec b{font-size:.78rem;color:var(--navy)}
+  .lock{background:var(--warnsoft);border:1px solid #E8D5AE;color:#5A4318;border-radius:10px;padding:.45rem .7rem;font-size:.74rem;margin-bottom:.7rem}
+  dialog{border:1px solid var(--line);border-radius:12px;padding:1rem;max-width:420px;width:calc(100% - 32px)}
+  dialog::backdrop{background:rgba(11,46,85,.35)}
+  footer{padding:1rem 1.2rem;color:var(--gray);font-size:.7rem;border-top:1px solid var(--line);background:#fff}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="mark">RL</div>
+  <div>
+    <h1>RLAIF Harness Lab</h1>
+    <div class="sub">Chat with the agent before and after RLAIF · watch the judge, policies and learner react live</div>
+  </div>
+  <div class="spacer"></div>
+  <span class="chip demo">Simulated account · synthetic + redacted traces</span>
+  <span class="chip gov">Every patch: versioned · replayed · human-approved</span>
+  <button class="lockbtn" id="lockbtn" type="button">🔒 Production evidence</button>
+</header>
+
+<div class="bar">
+  <span class="lt">EXPERIENCE</span>
+  <div class="seg" role="group" aria-label="Experience">
+    <button type="button" data-mode="vanilla"><span class="dot" style="background:var(--vanilla)"></span>Vanilla · Date 1</button>
+    <button type="button" data-mode="split" class="on">Side by side</button>
+    <button type="button" data-mode="improved"><span class="dot" style="background:var(--rlaif)"></span>RLAIF · Date 2</button>
+  </div>
+  <span class="lt">RLAIF LEVERS</span>
+  <div class="row" id="levers"></div>
+  <span class="badge" id="leverbadge">5/5 levers</span>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button type="button" class="on" data-tab="chat">1 · Live chat &amp; internals</button>
+  <button type="button" data-tab="replay">2 · Pinned replay</button>
+  <button type="button" data-tab="learn">3 · Learning loop</button>
+  <button type="button" data-tab="cycle">4 · Nightly cycle</button>
+  <button type="button" data-tab="traces">5 · Production traces</button>
+  <button type="button" data-tab="policy">6 · Policies &amp; judge prompt</button>
+  <button type="button" data-tab="patches">7 · What each lever changes</button>
+  <button type="button" data-tab="history">8 · Trace history (git)</button>
+</nav>
+
+<main>
+<!-- ================= CHAT ================= -->
+<section data-panel="chat">
+  <div class="lead"><h2>Talk to the agent — the same words go to the vanilla and the RLAIF-improved harness</h2>
+  <p>Every reply is produced by the real runtime: routing reads agent descriptions, tool selection reads tool metadata, preconditions gate calls, and the judge scores the trajectory against the governed policy catalog and the action-completion prompt. When an agent needs you (verification, T&amp;C, consent) it pauses and waits for your answer. Flip levers above and the RLAIF conversation is replayed under the new harness.</p></div>
+  <div id="chatview"></div>
+  <div class="composer">
+    <input type="text" id="msg" maxlength="500" placeholder="Type as the customer… e.g. “There's a $440 charge that should be free — take it off.”" aria-label="Customer message">
+    <button class="btn primary" id="send" type="button">Send</button>
+    <button class="btn" id="reset" type="button">Reset</button>
+  </div>
+  <div class="suggest" id="suggest"></div>
+  <div id="deltaview"></div>
+</section>
+
+<!-- ================= REPLAY ================= -->
+<section data-panel="replay" hidden>
+  <div class="lead"><h2>Pinned replay — one synthesized episode, vanilla vs your lever set</h2>
+  <p>The same pinned episode (same account, same utterance) replayed under two harness configurations. This pair is exactly what becomes a chosen/rejected preference pair in the nightly cycle.</p></div>
+  <div class="card row">
+    <label class="lt" for="rj">Journey</label>
+    <select id="rj"><option value="bex">Bill explanation (BEX)</option><option value="ddc">Due date change (DDC)</option><option value="pfb">Paper-free billing (PFB)</option><option value="gen">General (GEN)</option></select>
+    <label class="lt" for="re">Episode</label><input type="number" id="re" value="0" min="0" max="19" style="width:4.5rem">
+    <label class="lt" for="rs">Seed</label><input type="number" id="rs" value="7" min="0" style="width:5.5rem">
+    <button class="btn primary" id="rgo" type="button">Replay</button>
+    <span class="mini">Improved side uses the levers selected in the bar above.</span>
+  </div>
+  <div id="replayview"></div>
+</section>
+
+<!-- ================= LEARN ================= -->
+<section data-panel="learn" hidden>
+  <div class="lead"><h2>The learner — how the policy over harness levers moves, iteration by iteration</h2>
+  <p>Factored Bernoulli policy π<sub>θ</sub>(a)=Πσ(θ<sub>i</sub>) over the five levers, starting at the 50/50 reference policy. Reward = judge weighted score on a pinned minibatch − hard-gate rate. GRPO uses the group mean as its baseline; DPO updates on best-vs-worst pairs; UCB1 is the structure-free comparator.</p></div>
+  <div class="card row">
+    <label class="lt" for="la">Updater</label>
+    <select id="la"><option value="grpo">GRPO (group-relative)</option><option value="dpo">DPO (pairwise)</option><option value="ucb">UCB1 (flat bandit)</option></select>
+    <label class="lt" for="li">Iterations</label><input type="number" id="li" value="20" min="2" max="50" style="width:4.5rem">
+    <label class="lt" for="lg">Group</label><input type="number" id="lg" value="8" min="2" max="16" style="width:4.5rem">
+    <label class="lt" for="lseed">Seed</label><input type="number" id="lseed" value="11" min="0" style="width:5rem">
+    <button class="btn primary" id="lgo" type="button">Run learner</button>
+  </div>
+  <div id="learnview"></div>
+</section>
+
+<!-- ================= CYCLE ================= -->
+<section data-panel="cycle" hidden>
+  <div class="lead"><h2>Nightly cycle — baseline replay → single-lever ablations → full replay → artifacts</h2>
+  <p>Credit assignment is measured: each lever is applied alone on the same pinned episodes and its judge delta is its credit. Recommendations carry measured lift, policy-level lift, and production evidence from the redacted traces; failures seen in production but not exercised by replay are flagged as coverage gaps instead of approvals.</p></div>
+  <div class="card row">
+    <label class="lt" for="cn">Episodes</label><input type="number" id="cn" value="60" min="4" max="200" style="width:5rem">
+    <label class="lt" for="cs">Seed</label><input type="number" id="cs" value="7" min="0" style="width:5rem">
+    <button class="btn primary" id="cgo" type="button">Run cycle</button>
+  </div>
+  <div id="cycleview"></div>
+</section>
+
+<!-- ================= TRACES ================= -->
+<section data-panel="traces" hidden>
+  <div class="lead"><h2>Production traces — compliance verdicts from the writeback table, normalized and root-caused</h2>
+  <p>The export is fragmented JSON with OCR-mangled policy ids. Ingest is tolerant and every repair is counted. FAIL verdicts are bucketed by a root-cause classifier and mapped to the harness lever that owns the fix; judge-health checks surface verdicts whose own reasoning contradicts the label.</p></div>
+  <div id="tracesview"></div>
+</section>
+
+<!-- ================= POLICY ================= -->
+<section data-panel="policy" hidden>
+  <div class="lead"><h2>Governed policy catalog &amp; the action-completion judge prompt</h2>
+  <p>General (GEN) policies apply to every journey; journey policies add on top. CRITICAL policies are hard gates — a violating variant is rejected before scoring. The action-completion prompt decides one boolean on the final state, judging containment on quality, never frequency.</p></div>
+  <div id="policyview"></div>
+</section>
+
+<!-- ================= PATCHES ================= -->
+<section data-panel="patches" hidden>
+  <div class="lead"><h2>What each lever changes — the entire optimization surface, as data</h2>
+  <p>Each patch is a named, reversible config change to agent descriptions, tool metadata, preconditions/phases, output contracts, or the instruction layer. Behavior changes through exactly one path: this metadata.</p></div>
+  <div id="patchview"></div>
+</section>
+<!-- ================= HISTORY ================= -->
+<section data-panel="history" hidden>
+  <div class="lead"><h2>Trace history — every improvement is a git commit + tag <code>trace-vN</code></h2>
+  <p>Each version is produced by <code>scripts/snapshot_traces.py</code>: it regenerates the trace artifacts, measures them against the previous version, commits code + artifacts with the metric deltas in the commit message, tags the commit and pushes it to GitHub. Everything on this tab is read live from the git repository.</p></div>
+  <div class="card row">
+    <button class="btn primary" id="hgo" type="button">Refresh from git</button>
+    <span class="mini" id="hrepo"></span>
+  </div>
+  <div id="historyview"></div>
+</section>
+</main>
+
+<footer>RLAIF Harness Lab · levers = the RLAIF action space · judge delta per replay = the reward · all conversations run against a simulated billing backend · production evidence is redacted and access-controlled.</footer>
+
+<dialog id="keydlg">
+  <form method="dialog">
+    <h3 style="color:var(--navy);margin-bottom:.4rem">Unlock production evidence</h3>
+    <p class="mini" style="margin-bottom:.6rem">Call IDs, quoted verdict evidence and the verbatim judge prompt are client data. Enter the access key to view them in this browser tab.</p>
+    <input type="password" id="keyin" style="width:100%;margin-bottom:.6rem" autocomplete="off" aria-label="Access key">
+    <div class="row" style="justify-content:flex-end"><button class="btn" value="cancel">Cancel</button><button class="btn primary" id="keyok" value="ok">Unlock</button></div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+const LEVERS = ["taxonomy","metadata","sequencing","formatter","prompt_hat"];
+const LEVER_LABEL = {taxonomy:"Taxonomy",metadata:"Tool metadata",sequencing:"Sequencing",formatter:"Formatter",prompt_hat:"Prompt hat"};
+const LEVER_COLOR = {taxonomy:"var(--s1)",metadata:"var(--s2)",sequencing:"var(--s3)",formatter:"var(--s4)",prompt_hat:"var(--s5)"};
+const DIMS = [["task_completion","Task completion",.35],["tool_selection_quality","Tool selection",.20],["intent_recognition","Intent recognition",.20],["groundedness","Groundedness",.15],["context_retention","Context retention",.10]];
+const SUGGEST = [
+  "There's a $440 equipment charge on my bill that should be free — explain it and take it off.",
+  "My paycheck moved — can I change my due date to the 15th?",
+  "I want to stop getting paper bills — go paperless and give me the discount.",
+  "I want to talk to a person. Also what is this $9.99 charge, and I need a new phone.",
+  "Mi factura subio — ese cargo de equipo should be free. Take it off."
+];
+const S = {mode:"split", levers:new Set(LEVERS), msgs:{vanilla:[],improved:[]}, chat:null, sel:{vanilla:null,improved:null},
+           key:"", session:null, busy:false, cache:{}};
+try { S.key = sessionStorage.getItem("rlaif_key") || ""; } catch (e) {}
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = (v, d=2) => (v === null || v === undefined) ? "—" : Number(v).toFixed(d);
+const pct = v => (v === null || v === undefined) ? "—" : Math.round(v*100) + "%";
+const signed = (v, d=2) => (v > 0 ? "+" : v < 0 ? "−" : "±") + Math.abs(v).toFixed(d);
+
+async function api(path, body) {
+  const headers = {"Content-Type":"application/json"};
+  if (S.key) headers["X-Access-Key"] = S.key;
+  const r = await fetch(path, body ? {method:"POST", headers, body:JSON.stringify(body)} : {headers});
+  const j = await r.json().catch(() => ({error:`HTTP ${r.status}`}));
+  if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`);
+  return j;
+}
+function fail(el, e) { el.innerHTML = `<div class="empty">Couldn't load: ${esc(e.message)}</div>`; }
+
+/* ---------------- lever bar / mode ---------------- */
+function renderLevers() {
+  $("#levers").innerHTML = LEVERS.map(l => `<span class="lever"><button type="button" class="sw ${S.levers.has(l)?"on":""}" data-lever="${l}" role="switch" aria-checked="${S.levers.has(l)}" aria-label="${LEVER_LABEL[l]}"></button><span class="dot" style="background:${LEVER_COLOR[l]}"></span>${LEVER_LABEL[l]}</span>`).join("");
+  $("#leverbadge").textContent = `${S.levers.size}/5 levers` + (S.levers.size === 5 ? " · all recs applied" : S.levers.size === 0 ? " · same as vanilla" : "");
+}
+$("#levers").addEventListener("click", e => {
+  const b = e.target.closest("[data-lever]"); if (!b) return;
+  const l = b.dataset.lever; S.levers.has(l) ? S.levers.delete(l) : S.levers.add(l);
+  renderLevers(); S.cache = {}; refreshActive();
+});
+document.querySelectorAll(".seg [data-mode]").forEach(b => b.addEventListener("click", () => {
+  S.mode = b.dataset.mode;
+  document.querySelectorAll(".seg [data-mode]").forEach(x => x.classList.toggle("on", x === b));
+  renderChat();
+}));
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("main > section").forEach(s => s.hidden = s.dataset.panel !== b.dataset.tab);
+  S.tab = b.dataset.tab; refreshActive(false);
+}));
+S.tab = "chat";
+
+function refreshActive(force = true) {
+  const t = S.tab;
+  if (t === "chat") { if (S.msgs.vanilla.length || S.msgs.improved.length) sendChat(); else renderChat(); }
+  if (t === "replay" && (force || !S.cache.replay)) runReplay();
+  if (t === "learn" && !S.cache.learn) runLearn();
+  if (t === "cycle" && (force || !S.cache.cycle)) runCycle();
+  if (t === "traces" && (force || !S.cache.traces)) runTraces();
+  if (t === "policy" && (force || !S.cache.policy)) runPolicy();
+  if (t === "patches" && !S.cache.patches) runPatches();
+  if (t === "history" && (force || !S.cache.history)) runHistory();
+}
+
+/* ---------------- charts ---------------- */
+function lineChart(el, {series, labels, yMin, yMax, yFmt = v => fmt(v), height = 220, xTitle = "iteration", marker = null}) {
+  const W = Math.max(320, el.clientWidth || 600), H = height, m = {l:44, r:110, t:10, b:28};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b, n = labels.length;
+  const x = i => m.l + (n <= 1 ? iw/2 : i * iw / (n - 1));
+  const y = v => m.t + ih - (v - yMin) / (yMax - yMin) * ih;
+  const ticks = 4, tv = Array.from({length: ticks + 1}, (_, k) => yMin + (yMax - yMin) * k / ticks);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" height="${H}" role="img" aria-label="${esc(series.map(s => s.name).join(", "))} by ${xTitle}">`;
+  tv.forEach(v => svg += `<line x1="${m.l}" x2="${m.l+iw}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)" stroke-width="1"/><text x="${m.l-6}" y="${y(v)+3}" font-size="10" text-anchor="end" fill="var(--muted)" style="font-variant-numeric:tabular-nums">${esc(yFmt(v))}</text>`);
+  svg += `<line x1="${m.l}" x2="${m.l+iw}" y1="${m.t+ih}" y2="${m.t+ih}" stroke="var(--axis)"/>`;
+  const step = Math.max(1, Math.ceil(n / 10));
+  labels.forEach((lb, i) => { if (i % step === 0 || i === n - 1) svg += `<text x="${x(i)}" y="${H-10}" font-size="10" text-anchor="middle" fill="var(--muted)">${esc(lb)}</text>`; });
+  if (marker !== null && marker < n) svg += `<line x1="${x(marker)}" x2="${x(marker)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--navy)" stroke-width="1" opacity=".35"/>`;
+  const ends = [];
+  series.forEach(s => {
+    const d = s.values.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+    svg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const last = s.values.length - 1;
+    svg += `<circle cx="${x(last)}" cy="${y(s.values[last])}" r="4" fill="${s.color}" stroke="#fff" stroke-width="2"/>`;
+    ends.push({name: s.name, v: s.values[last], yy: y(s.values[last]), color: s.color});
+  });
+  ends.sort((a, b) => a.yy - b.yy);
+  for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i-1].yy < 13) ends[i].yy = ends[i-1].yy + 13;
+  ends.forEach(e => svg += `<text x="${m.l+iw+8}" y="${e.yy+3}" font-size="10.5" fill="var(--ink)"><tspan fill="${e.color}">●</tspan> ${esc(e.name)} ${esc(yFmt(e.v))}</text>`);
+  svg += `<line class="xh" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" stroke="var(--ink)" stroke-width="1" opacity="0"/>`;
+  svg += `<rect class="hit" x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent"/></svg>`;
+  const legend = series.length > 1 ? `<div class="legend">${series.map(s => `<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join("")}</div>` : "";
+  const table = `<details class="tv"><summary>Table view</summary><div class="twrap" style="max-height:220px"><table><thead><tr><th>${esc(xTitle)}</th>${series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr></thead><tbody>${labels.map((lb, i) => `<tr><td>${esc(lb)}</td>${series.map(s => `<td class="num">${esc(yFmt(s.values[i]))}</td>`).join("")}</tr>`).join("")}</tbody></table></div></details>`;
+  el.innerHTML = `${legend}<div class="chart">${svg}<div class="tip" hidden></div></div>${table}`;
+  const chart = el.querySelector(".chart"), tip = chart.querySelector(".tip"), xh = chart.querySelector(".xh"), hit = chart.querySelector(".hit");
+  const move = ev => {
+    const r = hit.getBoundingClientRect(); const scale = W / chart.querySelector("svg").getBoundingClientRect().width;
+    const px = (ev.clientX - r.left) * scale + m.l;
+    const i = Math.max(0, Math.min(n - 1, Math.round((px - m.l) / (iw / Math.max(1, n - 1)))));
+    xh.setAttribute("x1", x(i)); xh.setAttribute("x2", x(i)); xh.setAttribute("opacity", ".4");
+    tip.hidden = false;
+    tip.innerHTML = `<b>${esc(xTitle)} ${esc(labels[i])}</b>` + series.map(s => `<div><span style="color:${s.color}">●</span> ${esc(s.name)}: ${esc(yFmt(s.values[i]))}</div>`).join("");
+    const left = x(i) / scale; tip.style.left = Math.min(left + 12, chart.clientWidth - tip.offsetWidth - 4) + "px"; tip.style.top = "8px";
+  };
+  hit.addEventListener("mousemove", move);
+  hit.addEventListener("mouseleave", () => { tip.hidden = true; xh.setAttribute("opacity", "0"); });
+}
+
+function hbars(rows, {max = null, fmtv = v => fmt(v), color = "var(--s1)", winner = null} = {}) {
+  const mx = max ?? Math.max(1e-9, ...rows.map(r => r.v));
+  return rows.map(r => `<div class="hbar" title="${esc(r.name)}: ${esc(fmtv(r.v))}"><span class="nm">${esc(r.name)}</span><span class="track"><span class="fill ${winner === r.name ? "win" : ""}" style="width:${Math.max(0, r.v)/mx*100}%;background:${r.color || color}"></span></span><span class="val">${esc(fmtv(r.v))}</span></div>`).join("");
+}
+
+function verdictPill(v) {
+  return v === "PASS" ? `<span class="pill pass">✓ PASS</span>` : v === "FAIL" ? `<span class="pill fail">✕ FAIL</span>` : `<span class="pill na">– N/A</span>`;
+}
+function stamp(rec) {
+  const c = rec === "Chosen" ? "chosen" : rec === "Rejected" ? "rejected" : "review";
+  const t = rec === "Chosen" ? "CHOSEN ≥ 4.0" : rec === "Rejected" ? "REJECTED" : "HUMAN REVIEW";
+  return `<span class="stamp ${c}">${t}</span>`;
+}
+
+/* ---------------- chat ---------------- */
+const FLAG = {
+  reverify: ["bad", "✕ Re-verification after IVR"], balance_recital: ["bad", "✕ Balance recited, charge ignored"],
+  leak: ["bad", "✕ Raw tool JSON exposed (GEN-02)"], generic_close: ["info", "△ Generic close (BEX-08)"],
+  confirm_intent: ["good", "✓ Intent confirmed first"], terms: ["good", "✓ T&C before enroll (PFB-01)"],
+  disclosures: ["good", "✓ Disclosures + consent (DDC-03)"], discount_pitch: ["good", "✓ BOTH-required discount (PFB-04)"],
+  contextual_next_step: ["good", "✓ Contextual next step (BEX-08)"], declined: ["info", "△ Customer declined — nothing changed"],
+  reprompt: ["info", "△ Waiting for your answer"], unrecognized: ["info", "△ No intent recognized"]
+};
+function bubble(t) {
+  if (t.speaker === "CUSTOMER") return `<div class="msg cust"><div class="bub"><div class="who">YOU · CUSTOMER</div>${esc(t.text)}</div></div>`;
+  const raw = t.tags.includes("leak");
+  const flags = t.tags.filter(g => FLAG[g]).map(g => `<span class="flag ${FLAG[g][0]}">${esc(FLAG[g][1])}</span>`);
+  if (t.repeat > 1) flags.unshift(`<span class="flag bad">✕ Loop — repeated ×${t.repeat}</span>`);
+  t.tools.filter(c => !c.ok).forEach(c => flags.push(`<span class="flag bad">✕ ${esc(c.tool)} failed</span>`));
+  const tools = t.tools.length ? `<details class="tools"><summary>${t.tools.length} tool call${t.tools.length > 1 ? "s" : ""}: ${esc([...new Set(t.tools.map(c => c.tool))].join(", "))}</summary><pre>${esc(t.tools.map(c => `${c.tool}(${JSON.stringify(c.args)}) → ${c.ok ? "ok" : "ERROR"} ${JSON.stringify(c.result)}`).join("\n"))}</pre></details>` : "";
+  return `<div class="msg agent"><div class="bub"><div class="who">AI AGENT${t.planned_turn ? ` · turn ${t.planned_turn}` : ""}</div>${raw ? `<span class="raw">${esc(t.text)}</span>` : esc(t.text)}${flags.length ? `<div class="flags">${flags.join("")}</div>` : ""}${tools}</div></div>`;
+}
+
+function paneHTML(side, sess) {
+  const isV = side === "vanilla";
+  const flows = sess ? sess.flows : [];
+  const f = flows.length ? flows[flows.length - 1] : null;
+  const v = f && f.verdict;
+  const waiting = sess && sess.waiting;
+  const quick = waiting === "consent" ? ["Yes, go ahead", "No"] : waiting === "verification" ? ["4417", "No"] : [];
+  const turns = sess ? sess.turns : [];
+  const body = turns.length ? turns.map(bubble).join("") : `<div class="empty">Say something as the customer — or pick a suggestion below.</div>`;
+  return `<div class="pane" style="--accent:${isV ? "var(--vanilla)" : "var(--rlaif)"}">
+    <div class="phead"><span class="datebadge">${isV ? "Date 1" : "Date 2"}</span><b>${isV ? "Vanilla agent" : "RLAIF-improved agent"}</b>
+      <span class="mini">${isV ? "no levers · original metadata &amp; prompt" : (S.levers.size ? [...S.levers].map(l => LEVER_LABEL[l]).join(" · ") : "no levers selected")}</span></div>
+    <div class="chatbox" id="box-${side}">${body}${S.busy ? `<div class="typing">agent is thinking…</div>` : ""}</div>
+    <div class="quick">${quick.length ? `<span class="mini">Agent is waiting for your ${waiting}:</span>` + quick.map(q => `<button type="button" class="btn" data-quick="${side}" data-text="${esc(q)}">${esc(q)}</button>`).join("") : `<span class="mini">${f ? `Latest request: ${esc(f.journey.toUpperCase())} · ${esc(f.status)}` : "No request yet"}</span>`}</div>
+    <div class="strip">
+      <div class="tile"><div class="v">${v ? fmt(v.weighted) : "—"}</div><div class="l">Judge weighted</div></div>
+      <div class="tile"><div class="v">${v ? esc(v.recommendation) : "—"}</div><div class="l">Preference side</div></div>
+      <div class="tile"><div class="v">${v ? pct(v.compliance.overall_compliance_rate) : "—"}</div><div class="l">Policy compliance</div></div>
+      <div class="tile"><div class="v" title="${v ? esc(v.action_completion.category) : ""}">${v ? (v.action_completion.action_completion ? "✓ " : "✕ ") + esc(v.action_completion.category.replace(/_/g, " ").toLowerCase()) : "—"}</div><div class="l">Action completion</div></div>
+    </div></div>`;
+}
+
+function internalsHTML(side, sess, other) {
+  const flows = sess ? sess.flows : [];
+  if (!flows.length) return `<div class="card"><h3>RL INTERNALS</h3><div class="empty">Internals appear once the agent handles a request: routing scores, the decision path, preconditions, judge dimensions, action completion and every policy verdict.</div></div>`;
+  const idx = S.sel[side] ?? flows.length - 1, f = flows[Math.min(idx, flows.length - 1)], v = f.verdict;
+  const route = f.steps.find(s => s.kind === "route");
+  const scores = route ? Object.entries(route.detail.scores).map(([name, val]) => ({name, v: val})) : [];
+  const otherF = other && other.flows[Math.min(idx, other.flows.length - 1)];
+  const tabs = flows.length > 1 ? `<div class="flowtabs">${flows.map((x, i) => `<button type="button" data-flow="${side}" data-i="${i}" class="${i === idx ? "on" : ""}">#${i+1} ${esc(x.journey.toUpperCase())}</button>`).join("")}</div>` : "";
+  // fold loops: a block of p steps repeated back-to-back is shown once with ×N
+  const raw = f.steps.filter(s => s.kind !== "route"), sig = s => s.kind + JSON.stringify(s.detail), blocks = [];
+  for (let i = 0; i < raw.length;) {
+    let best = null;
+    for (let p = 1; p <= 6 && !best; p++) {
+      let reps = 1;
+      while (i + (reps + 1) * p <= raw.length && raw.slice(i + reps * p, i + (reps + 1) * p).every((s, k) => sig(s) === sig(raw[i + k]))) reps++;
+      if (reps > 1) best = {p, reps};
+    }
+    if (best) { raw.slice(i, i + best.p).forEach((s, k) => blocks.push({s, reps: k === best.p - 1 ? best.reps : 0, span: best.p})); i += best.p * best.reps; }
+    else blocks.push({s: raw[i++], reps: 0});
+  }
+  const pathItems = blocks.map(({s, reps, span}) => {
+    const d = s.detail; let cls = "", k = s.kind.toUpperCase(), txt = "";
+    if (s.kind === "phase") { txt = `allowed_function_names: ${esc((d.allowed || []).join(", "))} · mode=${esc(d.mode)}`; }
+    else if (s.kind === "select") { const top = Object.entries(d.scores).sort((a, b) => b[1] - a[1]).slice(0, 3); txt = `scores ${esc(top.map(([t, sc]) => `${t} ${sc}`).join(" · "))} → <b>${esc(d.chosen)}</b>`; }
+    else if (s.kind === "call") { cls = "good"; txt = `<code>${esc(d.tool)}(${esc(JSON.stringify(d.args))})</code> → ${esc(JSON.stringify(d.result)).slice(0, 140)}`; }
+    else if (s.kind === "error") { cls = "bad"; txt = `<code>${esc(d.tool)}(${esc(JSON.stringify(d.args))})</code> → ${esc(JSON.stringify(d.result))}`; }
+    else if (s.kind === "gate") { cls = "gate"; k = "PRECOND"; txt = `${esc(d.tool)}: ${esc(d.precondition)} → ${esc(d.action)}`; }
+    else if (s.kind === "leak") { cls = "bad"; txt = `raw output rendered: <code>${esc(d.rendered)}</code>`; }
+    else if (s.kind === "reverify") { cls = "bad"; txt = esc(d.note); }
+    else if (s.kind === "respond") { k = "RESPOND"; txt = esc(Object.entries(d).map(([a, b]) => `${a}=${typeof b === "object" ? JSON.stringify(b) : b}`).join(" · ")).slice(0, 160); }
+    return `<li class="${cls}"><span class="k">${k}</span>${txt}</li>` +
+      (reps ? `<li class="bad"><span class="k">LOOP</span>the previous ${span} step${span > 1 ? "s" : ""} repeated ×${reps} with no progress</li>` : "");
+  }).join("");
+  const dims = DIMS.map(([key, name, w]) => {
+    const a = v.dims[key], b = otherF ? otherF.verdict.dims[key] : null;
+    return `<div class="dumb" title="${esc(name)}: ${a}/5${b !== null ? ` (other: ${b}/5)` : ""}"><span class="nm" style="font-weight:700;color:var(--navy)">${esc(name)} <span class="mini">${w*100}%</span></span>
+      <span class="axis">${b !== null ? `<span class="seg2" style="left:${(Math.min(a,b)-1)/4*100}%;width:${Math.abs(a-b)/4*100}%"></span><span class="pt" style="left:${(b-1)/4*100}%;background:${side === "vanilla" ? "var(--rlaif)" : "var(--vanilla)"};opacity:.55"></span>` : ""}<span class="pt" style="left:${(a-1)/4*100}%;background:${side === "vanilla" ? "var(--vanilla)" : "var(--rlaif)"}"></span></span>
+      <span class="val" style="text-align:right;font-variant-numeric:tabular-nums">${a}/5</span></div>`;
+  }).join("");
+  const ac = v.action_completion;
+  const pols = v.policy_verdicts.map(r => `<tr><td class="mono">${esc(r.policy_id)}</td><td>${esc(r.title)}${r.hard ? ` <span class="pill crit">CRITICAL</span>` : ""}</td><td>${verdictPill(r.verdict)}</td><td class="mini">${esc(r.evidence)}<br>${esc(r.reason)}</td><td>${r.lever ? `<span class="pill lev">${esc(LEVER_LABEL[r.lever])}</span>` : `<span class="pill na">none</span>`}</td></tr>`).join("");
+  return `<div class="card"><h3>RL INTERNALS · ${side === "vanilla" ? "VANILLA" : "RLAIF"} · REQUEST #${idx+1}</h3>${tabs}
+    <div class="mini" style="margin-bottom:.4rem">Oracle label: <b>${esc(f.journey.toUpperCase())}</b> (${esc(f.intents.join(", "))}) · expected route <code>${esc(f.expected_route)}</code> · status <b>${esc(f.status)}</b>${f.declined_at ? ` at turn ${f.declined_at}` : ""}${f.waiting ? ` · <span class="pill warn">△ internals show the full planned trajectory the harness committed to — the chat reveals it as you reply</span>` : ""}</div>
+    <div class="grid2">
+      <div><h3>ROUTER — description match → transfer_to_agent</h3>${hbars(scores, {winner: f.route})}
+        <div class="mini" style="margin-top:.3rem">Routed to <code>${esc(f.route)}</code> ${f.route === f.expected_route ? `<span class="pill pass">✓ correct</span>` : `<span class="pill fail">✕ misroute</span>`}</div>
+        <h3 style="margin-top:.8rem">JUDGE — five weighted dimensions</h3>
+        ${otherF ? `<div class="legend"><span><span class="dot" style="background:${side === "vanilla" ? "var(--vanilla)" : "var(--rlaif)"}"></span>${side === "vanilla" ? "Vanilla" : "RLAIF"} (this pane)</span><span><span class="dot" style="background:${side === "vanilla" ? "var(--rlaif)" : "var(--vanilla)"};opacity:.55"></span>${side === "vanilla" ? "RLAIF" : "Vanilla"} (same request)</span></div>` : ""}
+        ${dims}
+        <div class="verdict" style="margin-top:.5rem"><span class="num">${fmt(v.weighted)}</span>${stamp(v.recommendation)}${otherF ? `<span class="mini">vs ${fmt(otherF.verdict.weighted)} on the other harness</span>` : ""}</div>
+        ${v.gate_violations.length ? `<div style="margin-top:.4rem">${v.gate_violations.map(g => `<div class="pill fail" style="white-space:normal;margin:.15rem 0">✕ HARD GATE ${esc(g)}</div>`).join("")}</div>` : `<div class="mini" style="margin-top:.4rem">✓ No hard-gate (CRITICAL) violations</div>`}
+      </div>
+      <div><h3>DECISION PATH — every step the harness took</h3><ol class="path">${pathItems}</ol></div>
+    </div>
+    <h3 style="margin-top:.6rem">ACTION COMPLETION — production judge prompt (rule-anchored)</h3>
+    <div class="row" style="margin-bottom:.3rem">${ac.action_completion ? `<span class="pill pass">✓ TRUE</span>` : `<span class="pill fail">✕ FALSE</span>`}<span class="pill lev">${esc(ac.category)}</span><span class="pill na">containment: ${esc(ac.containment_quality)}</span>${ac.risk_flags.map(r => `<span class="pill warn">△ ${esc(r)}</span>`).join("")}</div>
+    <p class="mini" style="color:var(--ink)">${esc(ac.rationale)}</p>
+    <h3 style="margin-top:.7rem">POLICY VERDICTS — ${esc(v.compliance.journey)} · ${v.compliance.pass_count} pass · ${v.compliance.fail_count} fail · ${v.compliance.na_count} n/a</h3>
+    <div class="twrap"><table><thead><tr><th>Policy</th><th>Title</th><th>Verdict</th><th>Evidence · reason</th><th>Owning lever</th></tr></thead><tbody>${pols}</tbody></table></div>
+    <details class="tv"><summary>Judge scorecard JSON (one side of the preference pair)</summary><pre class="code">${esc(JSON.stringify(f.scorecard, null, 2))}</pre></details>
+  </div>`;
+}
+
+function deltaHTML(d, i) {
+  const flips = d.policy_flips.map(p => `<tr><td class="mono">${esc(p.policy_id)}</td><td>${esc(p.title)}${p.severity === "CRITICAL" ? ` <span class="pill crit">CRITICAL</span>` : ""}</td><td>${verdictPill(p.from)}</td><td>→</td><td>${verdictPill(p.to)}</td></tr>`).join("");
+  return `<div class="card"><h3>WHAT THE LEVERS CHANGED · REQUEST #${i+1}</h3>
+    <div class="stat">
+      <div class="tile"><div class="v ${d.weighted > 0 ? "delta-up" : d.weighted < 0 ? "delta-dn" : ""}">${signed(d.weighted)}</div><div class="l">Judge weighted Δ</div></div>
+      <div class="tile"><div class="v ${d.compliance > 0 ? "delta-up" : d.compliance < 0 ? "delta-dn" : ""}">${signed(d.compliance*100, 0)} pts</div><div class="l">Policy compliance Δ</div></div>
+      <div class="tile" title="${esc(d.action_completion.join(" → "))}"><div class="v" style="font-size:.85rem">${esc(d.action_completion[0])} → ${esc(d.action_completion[1])}</div><div class="l">Action completion</div></div>
+      <div class="tile" title="${esc(d.route.join(" → "))}"><div class="v" style="font-size:.85rem">${esc(d.route[0])} → ${esc(d.route[1])}</div><div class="l">Route</div></div>
+      <div class="tile"><div class="v">${d.tool_calls[0]} → ${d.tool_calls[1]}</div><div class="l">Tool calls</div></div>
+      <div class="tile"><div class="v" style="font-size:.85rem">${esc(d.preference_pair.chosen)} +${fmt(d.preference_pair.margin)}</div><div class="l">Preference pair: chosen side</div></div>
+    </div>
+    ${d.gates_cleared.length ? `<div class="mini" style="margin:.5rem 0">Hard gates cleared by the levers: ${d.gates_cleared.map(g => `<span class="pill pass">✓ ${esc(g)}</span>`).join(" ")}</div>` : ""}
+    <h3 style="margin-top:.6rem">POLICY FLIPS (${d.policy_flips.length})</h3>
+    ${flips ? `<div class="twrap"><table><thead><tr><th>Policy</th><th>Title</th><th>Vanilla</th><th></th><th>RLAIF</th></tr></thead><tbody>${flips}</tbody></table></div>` : `<div class="mini">No policy verdict changed.</div>`}</div>`;
+}
+
+function renderChat() {
+  const c = S.chat, view = $("#chatview");
+  const van = c && c.vanilla, imp = c && c.improved;
+  if (S.mode === "split") {
+    view.innerHTML = `<div class="panes">${paneHTML("vanilla", van)}${paneHTML("improved", imp)}</div>`;
+  } else {
+    const side = S.mode, sess = side === "vanilla" ? van : imp, other = side === "vanilla" ? imp : van;
+    view.innerHTML = `<div class="panes">${paneHTML(side, sess)}<div>${internalsHTML(side, sess, other)}</div></div>`;
+  }
+  document.querySelectorAll(".chatbox").forEach(b => b.scrollTop = b.scrollHeight);
+  const deltas = c ? c.deltas : [];
+  $("#deltaview").innerHTML = S.mode === "split"
+    ? (deltas.length ? deltas.map(deltaHTML).reverse().join("") + `<div class="grid2">${internalsHTML("vanilla", van, imp)}${internalsHTML("improved", imp, van)}</div>` : "")
+    : (deltas.length ? deltaHTML(deltas[deltas.length - 1], deltas.length - 1) : "");
+}
+$("#chatview").addEventListener("click", e => {
+  const q = e.target.closest("[data-quick]");
+  if (q) { S.msgs[q.dataset.quick].push(q.dataset.text); sendChat(); return; }
+});
+document.addEventListener("click", e => {
+  const fb = e.target.closest("[data-flow]");
+  if (fb) { S.sel[fb.dataset.flow] = +fb.dataset.i; renderChat(); }
+});
+
+const REPLY = /^\s*(yes|yeah|yep|sure|ok(ay)?|i accept|accept|go ahead|please do|do it|correct|confirm|no|nope|nah|cancel|decline|\d{4})\b/i;
+async function sendChat(text) {
+  if (text !== undefined) {
+    text = text.trim(); if (!text) return;
+    const van = S.chat && S.chat.vanilla, imp = S.chat && S.chat.improved;
+    const waiting = {vanilla: van && van.waiting, improved: imp && imp.waiting};
+    let targets = ["vanilla", "improved"];
+    if (REPLY.test(text)) {
+      // a reply belongs to the pane that asked for it: digits answer verification, yes/no answer consent
+      const want = /^\s*\d{4}\b/.test(text) ? ["verification"] : ["consent", "verification"];
+      const pick = kinds => targets.filter(s => kinds.includes(waiting[s]));
+      if (S.mode !== "split" && waiting[S.mode]) targets = [S.mode];
+      else targets = pick([want[0]]).length ? pick([want[0]]) : pick(want).length ? pick(want) : targets;
+    }
+    targets.forEach(s => S.msgs[s].push(text));
+  }
+  S.busy = true; renderChat();
+  try {
+    S.chat = await api("/api/chat", {vanilla: S.msgs.vanilla, improved: S.msgs.improved, levers: [...S.levers]});
+    S.sel = {vanilla: null, improved: null};
+  } catch (e) { S.chat = S.chat; alert("Chat failed: " + e.message); }
+  S.busy = false; renderChat();
+}
+$("#send").addEventListener("click", () => { const i = $("#msg"); const t = i.value; i.value = ""; sendChat(t); });
+$("#msg").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("#send").click(); } });
+$("#reset").addEventListener("click", () => { S.msgs = {vanilla: [], improved: []}; S.chat = null; renderChat(); });
+$("#suggest").innerHTML = `<span class="mini">Try:</span>` + SUGGEST.map(s => `<button type="button" data-s="${esc(s)}">${esc(s.length > 58 ? s.slice(0, 56) + "…" : s)}</button>`).join("");
+$("#suggest").addEventListener("click", e => { const b = e.target.closest("[data-s]"); if (b) sendChat(b.dataset.s); });
+
+/* ---------------- replay ---------------- */
+async function runReplay() {
+  const el = $("#replayview"); el.innerHTML = `<div class="empty">Replaying…</div>`;
+  const q = `journey=${$("#rj").value}&episode=${+$("#re").value || 0}&seed=${+$("#rs").value || 0}&levers=${[...S.levers].join(",")}`;
+  try {
+    const r = await api(`/api/compare?${q}`); S.cache.replay = r;
+    const asSess = x => ({turns: x.verdict.transcript.map(t => ({...t, planned_turn: t.turn})), waiting: null,
+                          flows: [{...x, id: x.episode.id, journey: x.episode.journey, intents: x.episode.intents, status: "replayed", expected_route: x.episode.expected_route}]});
+    const a = asSess(r.vanilla), b = asSess(r.improved);
+    el.innerHTML = `<div class="card mini">Episode <b>${esc(r.vanilla.episode.id)}</b> · persona ${esc(r.vanilla.episode.persona)} · blueprint <code>${esc(r.vanilla.episode.blueprint.join(" → "))}</code></div>
+      <div class="panes">${paneHTML("vanilla", a).replace(/id="box-vanilla"/, "")}${paneHTML("improved", b).replace(/id="box-improved"/, "")}</div>
+      <div style="margin-top:1rem">${deltaHTML(r.delta, 0)}</div>
+      <div class="grid2">${internalsHTML("vanilla", a, b)}${internalsHTML("improved", b, a)}</div>`;
+    el.querySelectorAll(".quick").forEach(x => x.remove());
+  } catch (e) { fail(el, e); }
+}
+$("#rgo").addEventListener("click", runReplay);
+
+/* ---------------- learning loop ---------------- */
+async function runLearn() {
+  const el = $("#learnview"); el.innerHTML = `<div class="empty">Running learner — every iteration replays a group of lever configs through the judge…</div>`;
+  const algo = $("#la").value;
+  try {
+    const r = await api(`/api/learn?algo=${algo}&iters=${+$("#li").value || 20}&group=${+$("#lg").value || 8}&seed=${+$("#lseed").value || 0}`);
+    S.cache.learn = r; S.learnIt = (r.iterations.length || 1) - 1; renderLearn();
+  } catch (e) { fail(el, e); }
+}
+function renderLearn() {
+  const r = S.cache.learn, el = $("#learnview"); if (!r) return;
+  const its = r.iterations, n = its.length, it = Math.min(S.learnIt ?? n - 1, n - 1);
+  if (r.algo === "ucb1") {
+    el.innerHTML = `<div class="card"><h3>UCB1 — BEST-ARM VALUE ESTIMATE PER PULL</h3><div id="ucbchart"></div></div>
+      <div class="card"><h3>PULL LOG</h3><div class="twrap"><table><thead><tr><th>Pull</th><th>Arm pulled (lever subset)</th><th>Reward</th><th>Current best arm</th><th>Best Q</th></tr></thead><tbody>${its.map(x => `<tr><td class="num">${x.it}</td><td>${x.pulled.map(l => `<span class="pill lev">${esc(LEVER_LABEL[l])}</span>`).join(" ") || `<span class="pill na">vanilla</span>`}</td><td class="num">${fmt(x.r, 3)}</td><td>${x.best_arm.map(l => esc(LEVER_LABEL[l])).join(", ") || "vanilla"}</td><td class="num">${fmt(x.best_q, 3)}</td></tr>`).join("")}</tbody></table></div>
+      <p class="mini" style="margin-top:.4rem">32 arms, no structure shared between them: UCB1 must pull every subset before it can compare — the factored policy learns per-lever credit from every sample instead.</p></div>`;
+    lineChart($("#ucbchart"), {series: [{name: "Best Q", color: "var(--s1)", values: its.map(x => x.best_q)}, {name: "Pull reward", color: "var(--s3)", values: its.map(x => x.r)}],
+      labels: its.map(x => x.it), yMin: Math.min(1, ...its.map(x => x.r)), yMax: 4.5, xTitle: "pull"});
+    return;
+  }
+  const cur = its[it], first = its[0];
+  const refProbs = Object.fromEntries(LEVERS.map(l => [l, 0.5]));
+  const rows = cur.group.map(g => `<tr><td>${g.config.map(l => `<span class="pill lev" style="box-shadow:inset 3px 0 0 ${LEVER_COLOR[l]}">${esc(LEVER_LABEL[l])}</span>`).join(" ") || `<span class="pill na">vanilla</span>`}</td><td class="num">${fmt(g.reward, 3)}</td><td class="num">${fmt(g.avg_weighted, 2)}</td><td class="num">${pct(g.gate_rate)}</td>${r.algo === "grpo" ? `<td class="num">${g.advantage !== undefined ? signed(g.advantage, 2) : "—"}</td>` : ""}</tr>`).join("");
+  const probsCompare = LEVERS.map(l => `<div class="dumb"><span style="font-weight:700;color:var(--navy)"><span class="dot" style="background:${LEVER_COLOR[l]}"></span> ${esc(LEVER_LABEL[l])}</span>
+      <span class="axis"><span class="seg2" style="left:${Math.min(.5, cur.probs[l])*100}%;width:${Math.abs(cur.probs[l]-.5)*100}%"></span><span class="pt" style="left:50%;background:var(--axis)"></span><span class="pt" style="left:${cur.probs[l]*100}%;background:${LEVER_COLOR[l]}"></span></span>
+      <span class="val" style="text-align:right;font-variant-numeric:tabular-nums">${fmt(cur.probs[l], 2)}</span></div>`).join("");
+  el.innerHTML = `
+    <div class="card row"><button class="btn" id="lplay" type="button">▶ Play</button>
+      <input type="range" id="lscrub" min="0" max="${n-1}" value="${it}" style="flex:1;min-width:160px" aria-label="Iteration">
+      <span class="badge">iteration ${cur.it} / ${n}</span><span class="mini">Final greedy config: <b>${esc((r.final_greedy.config || []).map(l => LEVER_LABEL[l]).join(", ") || "vanilla")}</b> → reward ${fmt(r.final_greedy.reward, 3)}</span></div>
+    <div class="grid2">
+      <div class="card"><h3>POLICY π<sub>θ</sub> — P(apply lever) PER ITERATION</h3><div id="probchart"></div></div>
+      <div class="card"><h3>REWARD — GROUP MEAN VS GREEDY-POLICY EVAL</h3><div id="rewchart"></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>REFERENCE π<sub>ref</sub> (0.50) → CURRENT π<sub>θ</sub> AT ITERATION ${cur.it}</h3>
+        <div class="legend"><span><span class="dot" style="background:var(--axis)"></span>reference 0.50</span><span>● current probability (lever color)</span></div>${probsCompare}
+        <h3 style="margin-top:.7rem">UPDATE RULE</h3><pre class="code">${esc(cur.update_detail.rule)}\n${esc(JSON.stringify(Object.fromEntries(Object.entries(cur.update_detail).filter(([k]) => k !== "rule")), null, 1))}\nθ = ${esc(JSON.stringify(cur.theta))}</pre>
+        <div class="mini">Greedy eval this iteration: ${esc((cur.greedy_eval.config || []).map(l => LEVER_LABEL[l]).join(", ") || "vanilla")} → reward ${fmt(cur.greedy_eval.reward, 3)} · weighted ${fmt(cur.greedy_eval.avg_weighted)} · gate rate ${pct(cur.greedy_eval.gate_rate)}</div></div>
+      <div class="card"><h3>GROUP OF ${cur.group.length} SAMPLED CONFIGS · r̄=${fmt(cur.mean_r, 3)} ± ${fmt(cur.std_r, 3)}</h3>
+        <div class="twrap"><table><thead><tr><th>Sampled lever config a ~ π<sub>θ</sub></th><th>Reward</th><th>Weighted</th><th>Gate rate</th>${r.algo === "grpo" ? "<th>Advantage Â</th>" : ""}</tr></thead><tbody>${rows}</tbody></table></div>
+        ${r.algo === "dpo" ? `<p class="mini" style="margin-top:.4rem">Best vs worst of this group form the preference pair; σ(−s) up-weights pairs the implicit reward currently ranks wrong.</p>` : `<p class="mini" style="margin-top:.4rem">Advantage = (r − group mean) / std — the group mean is the baseline, no critic network.</p>`}</div>
+    </div>`;
+  lineChart($("#probchart"), {series: LEVERS.map(l => ({name: LEVER_LABEL[l], color: LEVER_COLOR[l], values: its.map(x => x.probs[l])})),
+    labels: its.map(x => x.it), yMin: 0, yMax: 1, yFmt: v => v.toFixed(2), marker: it});
+  lineChart($("#rewchart"), {series: [{name: "Group mean r̄", color: "var(--s1)", values: its.map(x => x.mean_r)}, {name: "Greedy eval", color: "var(--s3)", values: its.map(x => x.greedy_eval.reward)}],
+    labels: its.map(x => x.it), yMin: Math.min(1, ...its.map(x => x.mean_r)), yMax: 4.5, marker: it});
+  $("#lscrub").addEventListener("input", e => { S.learnIt = +e.target.value; renderLearn(); });
+  $("#lplay").addEventListener("click", () => {
+    clearInterval(S.play); S.learnIt = 0; renderLearn();
+    S.play = setInterval(() => { if (S.learnIt >= n - 1 || S.tab !== "learn") return clearInterval(S.play); S.learnIt++; renderLearn(); }, 450);
+  });
+}
+$("#lgo").addEventListener("click", runLearn);
+
+/* ---------------- cycle ---------------- */
+async function runCycle() {
+  const el = $("#cycleview"); el.innerHTML = `<div class="empty">Running baseline, 5 single-lever ablations and full replay…</div>`;
+  try { const r = await api(`/api/cycle?n=${+$("#cn").value || 60}&seed=${+$("#cs").value || 0}`); S.cache.cycle = r; renderCycle(r); }
+  catch (e) { fail(el, e); }
+}
+function renderCycle(r) {
+  const b = r.baseline, f = r.full;
+  const tile = (label, a, c, fm) => `<div class="tile"><div class="v">${fm(a)} → ${fm(c)}</div><div class="l">${label}</div></div>`;
+  const credit = Object.entries(r.credit_assignment_weighted_delta_per_lever).sort((x, y) => y[1] - x[1]).map(([l, v]) => ({name: LEVER_LABEL[l], v, color: LEVER_COLOR[l]}));
+  const pids = [...new Set([...Object.keys(b.policy_fail_counts), ...Object.keys(f.policy_fail_counts)])];
+  const maxF = Math.max(1, ...pids.map(p => b.policy_fail_counts[p] || 0));
+  const polRows = pids.map(p => `<tr><td class="mono">${esc(p)}</td><td><div class="hbar" style="grid-template-columns:minmax(0,1fr) 2.5rem;margin:0"><span class="track"><span class="fill" style="width:${(b.policy_fail_counts[p]||0)/maxF*100}%;background:var(--vanilla)"></span></span><span class="val">${b.policy_fail_counts[p] || 0}</span></div></td><td><div class="hbar" style="grid-template-columns:minmax(0,1fr) 2.5rem;margin:0"><span class="track"><span class="fill" style="width:${(f.policy_fail_counts[p]||0)/maxF*100}%;background:var(--rlaif)"></span></span><span class="val">${f.policy_fail_counts[p] || 0}</span></div></td></tr>`).join("");
+  const cats = [...new Set([...Object.keys(b.action_categories), ...Object.keys(f.action_categories)])];
+  const recs = r.recommendations.map(x => {
+    const pe = x.production_evidence;
+    return `<div class="rec ${x.status === "needs_replay_coverage" ? "cov" : ""}"><div class="row"><b>${esc(x.id)}</b><span class="pill lev">${esc(x.lever ? LEVER_LABEL[x.lever] : "outside lever set")}</span><span class="pill ${x.status === "pending_approval" ? "warn" : "na"}">${esc(x.status.replace(/_/g, " "))}</span>${x.measured_lift ? `<span class="pill pass">credit ${signed(x.measured_lift.credit_weighted_delta, 3)}</span>` : ""}</div>
+      <div class="mini" style="margin-top:.2rem;color:var(--ink)">${esc(x.category)}${x.tool ? ` · tool <code>${esc(x.tool)}</code> (${esc(x.classification)})` : ""}${x.finding ? ` · ${esc(typeof x.finding === "string" ? x.finding : JSON.stringify(x.finding))}` : ""}${x.next_step ? ` · <i>${esc(x.next_step)}</i>` : ""}</div>
+      ${x.policy_lift && Object.keys(x.policy_lift).length ? `<div class="mini">Policy lift: ${Object.entries(x.policy_lift).map(([k, v]) => `<code>${esc(k)}</code> ${esc(v)}`).join(" · ")}</div>` : ""}
+      ${pe ? `<div class="mini">Production: ${pe.fail_verdicts} FAIL verdict(s) across ${pe.calls} call(s)${pe.buckets ? " · " + pe.buckets.map(bk => esc(bk.bucket)).join(", ") : ""}</div>` : ""}</div>`;
+  }).join("");
+  $("#cycleview").innerHTML = `
+    <div class="card"><h3>BASELINE (VANILLA) → FULL (ALL LEVERS) · ${r.episodes} PINNED EPISODES</h3><div class="stat">
+      ${tile("Judge weighted", b.avg_weighted, f.avg_weighted, v => fmt(v))}${tile("Chosen rate", b.chosen_rate, f.chosen_rate, pct)}${tile("Resolved", b.resolved_rate, f.resolved_rate, pct)}
+      ${tile("Route accuracy", b.route_accuracy, f.route_accuracy, pct)}${tile("Policy compliance", b.avg_compliance_rate, f.avg_compliance_rate, pct)}${tile("Action completion", b.action_completion_rate, f.action_completion_rate, pct)}
+      ${tile("Episodes with hard gates", b.gate_violations, f.gate_violations, v => v)}${tile("Raw output leaks", b.output_leaks, f.output_leaks, v => v)}</div>
+      <div class="mini" style="margin-top:.4rem">${r.preference_pairs} chosen/rejected preference pairs emitted · ${r.recommendations.length} recommendations${r.production ? ` · production corpus: ${r.production.records} calls, ${r.production.verdicts_parsed} verdicts` : ""}</div></div>
+    <div class="grid2">
+      <div class="card"><h3>CREDIT ASSIGNMENT — WEIGHTED Δ WHEN EACH LEVER IS APPLIED ALONE</h3>${hbars(credit, {fmtv: v => signed(v, 3)})}<p class="mini" style="margin-top:.4rem">Same pinned episodes, one lever at a time vs baseline — the ablation is the credit signal.</p></div>
+      <div class="card"><h3>ACTION-COMPLETION CATEGORIES</h3><div class="twrap"><table><thead><tr><th>Category</th><th>Baseline</th><th>Full</th></tr></thead><tbody>${cats.map(c => `<tr><td>${esc(c)}</td><td class="num">${b.action_categories[c] || 0}</td><td class="num">${f.action_categories[c] || 0}</td></tr>`).join("")}</tbody></table></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>POLICY FAILURES — BASELINE VS FULL</h3><div class="legend"><span><i style="background:var(--vanilla)"></i>Baseline (vanilla)</span><span><i style="background:var(--rlaif)"></i>Full (all levers)</span></div>
+        <div class="twrap"><table><thead><tr><th>Policy</th><th>Baseline fails</th><th>Full fails</th></tr></thead><tbody>${polRows}</tbody></table></div></div>
+      <div class="card"><h3>RECOMMENDATIONS — MEASURED LIFT + PRODUCTION EVIDENCE</h3><div style="max-height:520px;overflow:auto">${recs}</div></div>
+    </div>`;
+}
+$("#cgo").addEventListener("click", runCycle);
+
+/* ---------------- traces ---------------- */
+async function runTraces() {
+  const el = $("#tracesview"); el.innerHTML = `<div class="empty">Parsing production traces…</div>`;
+  try { const r = await api("/api/traces"); S.cache.traces = r; renderTraces(r); } catch (e) { fail(el, e); }
+}
+function renderTraces(r) {
+  const jh = r.judge_health;
+  const lock = r.evidence_included ? "" : `<div class="lock">🔒 Showing aggregates only. Call IDs and quoted evidence are client data — use <b>Production evidence</b> in the header to unlock.</div>`;
+  const polBars = r.policies.filter(p => p.PASS + p.FAIL > 0).sort((a, b) => b.fail_rate - a.fail_rate)
+    .map(p => ({name: `${p.policy_id}${p.hard ? " ●" : ""}`, v: p.fail_rate}));
+  const buckets = r.failure_buckets.map(b => `<tr><td><b>${esc(b.bucket.replace(/_/g, " "))}</b></td><td>${b.lever ? `<span class="pill lev">${esc(LEVER_LABEL[b.lever])}</span>` : `<span class="pill warn">△ outside lever set</span>`}</td><td class="num">${b.fail_verdicts}</td><td class="num">${b.calls}</td><td class="mono mini">${esc(Object.entries(b.policies).map(([k, v]) => `${k}×${v}`).join(" "))}</td><td class="mini">${b.examples.map(x => `<div><code>${esc(x.cid)}</code> ${esc(x.policy_id)}: ${esc(x.evidence)}</div>`).join("") || "—"}</td></tr>`).join("");
+  const levEv = Object.entries(r.lever_evidence).sort((a, b) => b[1].fail_verdicts - a[1].fail_verdicts).map(([l, v]) => ({name: LEVER_LABEL[l] || "Outside lever set", v: v.fail_verdicts, color: LEVER_COLOR[l] || "var(--muted)"}));
+  $("#tracesview").innerHTML = `${lock}
+    <div class="card"><div class="stat">
+      <div class="tile"><div class="v">${r.records}</div><div class="l">Calls parsed</div></div>
+      <div class="tile"><div class="v">${r.verdicts_parsed}</div><div class="l">Policy verdicts</div></div>
+      <div class="tile"><div class="v">${r.overall_result_false}</div><div class="l">Calls with overall_result=false</div></div>
+      <div class="tile"><div class="v">${jh.policy_ids_repaired}</div><div class="l">Policy ids repaired</div></div>
+      <div class="tile"><div class="v">${jh.verdict_reason_contradictions}</div><div class="l">Judge label contradicts its reason</div></div>
+      <div class="tile"><div class="v">${Object.keys(jh.unresolved_policy_ids).length}</div><div class="l">Unresolvable ids</div></div>
+    </div><div class="mini" style="margin-top:.4rem">Journeys: ${esc(Object.entries(r.journeys).map(([k, v]) => `${k.toUpperCase()} ${v}`).join(" · "))} · record issues: ${esc(Object.entries(jh.record_issues).map(([k, v]) => `${k.replace(/_/g, " ")} ${v}`).join(" · "))}</div></div>
+    <div class="grid2">
+      <div class="card"><h3>FAIL RATE BY POLICY (FAIL / (PASS+FAIL)) · ● = CRITICAL</h3>${hbars(polBars, {max: 1, fmtv: pct})}</div>
+      <div class="card"><h3>PRODUCTION FAIL VERDICTS BY OWNING LEVER</h3>${hbars(levEv, {fmtv: v => v})}
+        <h3 style="margin-top:.8rem">JUDGE HEALTH</h3>
+        <div class="mini" style="color:var(--ink)">Severity drift vs catalog: ${esc(Object.entries(jh.severity_drift).map(([k, v]) => `${k}×${v}`).join(" · ") || "none")}</div>
+        <div class="mini" style="color:var(--ink);margin-top:.2rem">Top id repairs: ${esc(Object.entries(jh.repairs).slice(0, 8).map(([k, v]) => `${k} (${v})`).join(" · "))}</div>
+        <div class="mini" style="color:var(--ink);margin-top:.2rem">Unresolved: ${esc(Object.keys(jh.unresolved_policy_ids).join(", "))}</div>
+        <div class="twrap" style="margin-top:.4rem;max-height:180px"><table><thead><tr><th>Call</th><th>Policy</th><th>Label</th><th>Judge's own reason</th></tr></thead><tbody>${jh.contradictions.map(c => `<tr><td class="mono">${esc(c.cid)}</td><td class="mono">${esc(c.policy_id)}</td><td>${verdictPill(c.verdict)}</td><td class="mini">${esc(c.reason || "🔒")}</td></tr>`).join("")}</tbody></table></div></div>
+    </div>
+    <div class="card"><h3>ROOT-CAUSE BUCKETS → HARNESS LEVER</h3><div class="twrap"><table><thead><tr><th>Bucket</th><th>Lever</th><th>FAIL verdicts</th><th>Calls</th><th>Policies</th><th>Evidence</th></tr></thead><tbody>${buckets}</tbody></table></div></div>`;
+}
+
+/* ---------------- policy & prompt ---------------- */
+async function runPolicy() {
+  const el = $("#policyview"); el.innerHTML = `<div class="empty">Loading catalog…</div>`;
+  const j = S.policyJ || "bex";
+  try {
+    const [cat, pr] = await Promise.all([api(`/api/policies${j === "all" ? "" : `?journey=${j}`}`), api(`/api/prompt?journey=${j === "all" || j === "dis" ? "bex" : j}&levers=${S.promptLevers || ""}`)]);
+    S.cache.policy = true;
+    const rows = cat.policies.map(p => `<tr><td class="mono">${esc(p.id)}</td><td>${esc(p.title)}</td><td>${p.hard ? `<span class="pill crit">CRITICAL · hard gate</span>` : `<span class="pill na">${esc(p.severity)}</span>`}</td><td>${esc(p.policy_type)}</td><td class="mini" style="color:var(--ink)">${esc(p.requirement)}</td><td>${p.lever ? `<span class="pill lev">${esc(LEVER_LABEL[p.lever])}</span>` : `<span class="pill warn">△ none</span>`}</td></tr>`).join("");
+    const rb = pr.rule_based_result;
+    el.innerHTML = `<div class="card row"><label class="lt" for="pj">Journey</label>
+      <select id="pj">${[["bex","Bill explanation"],["ddc","Due date change"],["pfb","Paper-free billing"],["gen","General only"],["dis","Discount inquiry (production)"],["all","Entire catalog"]].map(([k, v]) => `<option value="${k}" ${k === j ? "selected" : ""}>${v}</option>`).join("")}</select>
+      <label class="lt" for="pl">Judge conversation from</label><select id="pl"><option value="" ${!S.promptLevers ? "selected" : ""}>Vanilla replay</option><option value="all" ${S.promptLevers ? "selected" : ""}>RLAIF replay (all levers)</option></select></div>
+      <div class="card"><h3>CATALOG · ${cat.policies.length} POLICIES</h3><div class="twrap"><table><thead><tr><th>Id</th><th>Title</th><th>Severity</th><th>Type</th><th>Requirement</th><th>Owning lever</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+      <div class="grid2">
+        <div class="card"><h3>ACTION COMPLETION — DECISION SPACE</h3>
+          <div class="mini" style="margin-bottom:.2rem">TRUE (action completed)</div><div class="row">${pr.true_categories.map(c => `<span class="pill pass">✓ ${esc(c)}</span>`).join("")}</div>
+          <div class="mini" style="margin:.5rem 0 .2rem">FALSE (agent caused the failure)</div><div class="row">${pr.false_categories.map(c => `<span class="pill fail">✕ ${esc(c)}</span>`).join("")}</div>
+          <div class="mini" style="margin:.5rem 0 .2rem">Containment quality (quality, never frequency)</div><div class="row">${pr.containment_levels.map(c => `<span class="pill na">${esc(c)}</span>`).join("")}</div>
+          <h3 style="margin-top:.8rem">RULE-ANCHORED RESULT FOR THIS REPLAY</h3>
+          <div class="row">${rb.action_completion ? `<span class="pill pass">✓ TRUE</span>` : `<span class="pill fail">✕ FALSE</span>`}<span class="pill lev">${esc(rb.category)}</span><span class="pill na">containment: ${esc(rb.containment_quality)}</span></div>
+          <p class="mini" style="color:var(--ink);margin-top:.3rem">${esc(rb.rationale)}</p></div>
+        <div class="card"><h3>CONVERSATION + TOOL EVIDENCE SENT TO THE LLM JUDGE</h3><pre class="code">${esc(pr.conversation)}</pre></div>
+      </div>
+      <div class="card"><h3>FULL JUDGE REQUEST (VERBATIM PRODUCTION PROMPT + CONVERSATION)</h3>${pr.prompt_unlocked ? `<pre class="code" style="max-height:560px">${esc(pr.request)}</pre>` : `<div class="lock">🔒 The verbatim production prompt is client data — unlock with the access key to view it.</div>`}</div>`;
+    $("#pj").addEventListener("change", e => { S.policyJ = e.target.value; runPolicy(); });
+    $("#pl").addEventListener("change", e => { S.promptLevers = e.target.value; runPolicy(); });
+  } catch (e) { fail(el, e); }
+}
+
+/* ---------------- trace history (git) ---------------- */
+const MFMT = {score: v => fmt(v, 3), pct0: pct, pct1: v => v == null ? "—" : (v*100).toFixed(1) + "%", int: v => v ?? "—"};
+const MDELTA = {score: d => signed(d, 3), pct0: d => signed(d*100, 0) + " pts", pct1: d => signed(d*100, 1) + " pts", int: d => signed(d, 0)};
+const shortDate = s => s ? s.replace("T", " ").slice(0, 16) : "—";
+function diffHtml(text) {
+  return text.split("\n").map(l => {
+    const c = /^(\+\+\+|---|diff |index )/.test(l) ? "#8FA3BA" : l.startsWith("+") ? "#7EE2A8"
+      : l.startsWith("-") ? "#FFA8A0" : l.startsWith("@@") ? "#8FC1FF" : "#CDE3F7";
+    return `<span style="color:${c}">${esc(l)}</span>`;
+  }).join("\n");
+}
+async function runHistory() {
+  const el = $("#historyview");
+  el.innerHTML = `<div class="empty">Reading git history…</div>`;
+  try { const h = await api("/api/history"); S.cache.history = h; renderHistory(h); } catch (e) { fail(el, e); }
+}
+function renderHistory(h) {
+  const el = $("#historyview");
+  if (!h.available) { el.innerHTML = `<div class="empty">${esc(h.reason)}</div>`; $("#hrepo").textContent = ""; return; }
+  const url = h.repo_url, vs = h.versions, asc = [...vs].reverse(), st = h.state || {};
+  const link = (path, text) => url ? `<a href="${url}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
+  $("#hrepo").innerHTML = url ? `GitHub: ${link("", esc(url.replace("https://github.com/", "")))} · ${link("commits/" + esc(st.branch || "main"), "commits")} · ${link("tags", "tags")}` : "No GitHub remote configured.";
+  if (!vs.length) { el.innerHTML = `<div class="empty">No <code>trace-v*</code> tags yet — run <code>python scripts/snapshot_traces.py -m "…"</code>.</div>`; return; }
+  const first = asc[0], last = asc[asc.length - 1], next = `trace-v${last.n + 1}`;
+  const meta = Object.fromEntries(h.metrics.map(m => [m.key, m]));
+  const tileH = (label, key) => {
+    const a = first.metrics[key], b = last.metrics[key], d = b - a, m = meta[key];
+    const good = !d || m.better === null ? null : (d > 0) === m.better;
+    return `<div class="tile"><div class="v">${esc(MFMT[m.unit](b))}</div><div class="l">${esc(label)}${vs.length > 1 ? ` · <span class="${good === null ? "" : good ? "delta-up" : "delta-dn"}">${esc(MDELTA[m.unit](d))}</span> since ${esc(first.tag)}` : ""}</div></div>`;
+  };
+  const sync = st.upstream ? (st.ahead || st.behind ? `${st.ahead} ahead · ${st.behind} behind` : "in sync") : "no upstream";
+  const dirty = st.dirty || [];
+
+  const workflow = [
+    ["Regenerate the traces", `python -m rlaif_lab.cli cycle --n 60 --seed 7 --out artifacts [--levers …]\npython -m rlaif_lab.cli traces --out artifacts`],
+    ["Stop if nothing changed", `git status --porcelain -- . ':!TRACE_HISTORY.md'`],
+    ["Read the previous version's metrics", `git show HEAD:artifacts/cycle_summary.json\ngit show HEAD:artifacts/trace_rca.json\ngit tag --list 'trace-v*'          # -> next number: ${next}`],
+    ["Stage code + artifacts + TRACE_HISTORY.md", `git add -A`],
+    ["Commit with the metric deltas as the message body", `git commit -m "${next}: <what changed>" -m "full weighted: … -> … (+…)"`],
+    ["Tag the version", `git tag -a ${next} -m "${next}: <what changed>"`],
+    ["Publish commit + tag (--push)", `git push --follow-tags origin HEAD`],
+  ].map(([t, c], i) => `<li style="margin-bottom:.45rem"><b style="font-size:.76rem;color:var(--navy)">${i+1}. ${esc(t)}</b><pre class="code" style="margin-top:.2rem">${esc(c)}</pre></li>`).join("");
+
+  const versions = vs.map(v => {
+    const changed = v.changes.filter(c => c.delta);
+    const chips = !v.previous ? `<span class="pill na">first version — baseline for all deltas</span>`
+      : changed.length ? changed.map(c => `<span class="pill ${c.good === null ? "na" : c.good ? "pass" : "fail"}">${c.good === null ? "" : c.good ? "▲" : "▼"} ${esc(c.label)} ${esc(MFMT[c.unit](c.before))} → ${esc(MFMT[c.unit](c.after))} (${esc(MDELTA[c.unit](c.delta))})</span>`).join(" ")
+      : `<span class="pill na">no metric changed</span>`;
+    const pols = v.policy_changes.length ? `<div class="mini" style="margin-top:.3rem">Production policy FAILs: ${v.policy_changes.map(p => `<code>${esc(p.policy_id)}</code> ${p.before} → ${p.after}`).join(" · ")}</div>` : "";
+    const lev = v.deployed_levers == null ? "" : `<div class="row" style="margin-top:.3rem"><span class="lt">DEPLOYED LEVERS</span>${v.deployed_levers.length ? v.deployed_levers.map(l => `<span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>`).join(" ") : `<span class="pill na">none (vanilla)</span>`}</div>`;
+    const files = `<details class="tools"><summary>Files in this commit (${v.files.length}) — git show --stat ${esc(v.tag)}</summary><div class="twrap" style="max-height:220px;margin-top:.3rem"><table><thead><tr><th>Path</th><th>+</th><th>−</th></tr></thead><tbody>${v.files.map(f => `<tr><td class="mono">${esc(f.path)}</td><td class="num delta-up">${f.added ?? "bin"}</td><td class="num delta-dn">${f.deleted ?? "bin"}</td></tr>`).join("")}</tbody></table></div></details>`;
+    const diff = v.diff && v.diff.text ? `<details class="tools"><summary>Trace diff — git diff ${esc(v.previous)} ${esc(v.tag)} -- ${esc(v.diff.path)}</summary><pre class="code" style="margin-top:.3rem">${diffHtml(v.diff.text)}${v.diff.truncated ? "\n… (truncated)" : ""}</pre></details>` : "";
+    const cmds = [`git show ${v.tag} --stat`,
+                  v.previous ? `git diff ${v.previous} ${v.tag} -- artifacts/` : `git ls-tree -r --name-only ${v.tag} artifacts/`,
+                  `git log -1 --format=%B ${v.tag}          # full commit message`,
+                  `git checkout ${v.tag} -- artifacts/   # restore this version's traces`].join("\n");
+    const latest = v.n === last.n;
+    return `<div class="rec" style="${latest ? "border-left-color:var(--good)" : ""}">
+      <div class="row"><span class="pill ${latest ? "pass" : "lev"}">${esc(v.tag)}${latest ? " · latest" : ""}</span><b>${esc(v.message)}</b></div>
+      <div class="mini" style="margin-top:.15rem">${link("commit/" + esc(v.hash), `<code>${esc(v.short)}</code>`)} · ${esc(v.author || "")} · ${esc(shortDate(v.date))}${v.previous && url ? ` · ${link(`compare/${esc(v.previous)}...${esc(v.tag)}`, `compare ${esc(v.previous)}…${esc(v.tag)} on GitHub`)}` : ""}</div>
+      ${lev}<div class="row" style="margin-top:.35rem">${chips}</div>${pols}
+      ${files}${diff}
+      <details class="tools"><summary>Git commands for this version</summary><pre class="code" style="margin-top:.3rem">${esc(cmds)}</pre></details></div>`;
+  }).join("");
+
+  const oneline = h.commits.map(c => `${c.short} ${c.tags.length ? `(tag: ${c.tags.join(", tag: ")}) ` : ""}${c.subject}`).join("\n");
+  const commits = h.commits.map(c => `<tr><td class="mono">${link("commit/" + esc(c.hash), esc(c.short))}</td><td>${c.tags.map(t => `<span class="pill lev">${esc(t)}</span>`).join(" ")}</td>
+    <td>${esc(c.subject)}${c.body ? `<details class="tools"><summary>message body</summary><pre>${esc(c.body)}</pre></details>` : ""}</td><td>${esc(c.author)}</td><td class="mono">${esc(shortDate(c.date))}</td></tr>`).join("");
+
+  el.innerHTML = `
+    <div class="card"><h3>WHERE THE TRACES STAND · ${esc(first.tag)} → ${esc(last.tag)}</h3><div class="stat">
+      <div class="tile"><div class="v">${vs.length}</div><div class="l">trace versions (tags)</div></div>
+      ${tileH("Judge weighted (deployed)", "full_weighted")}${tileH("Chosen rate", "full_chosen")}
+      ${tileH("Policy compliance", "full_compliance")}${tileH("Hard-gate episodes", "full_gates")}
+      <div class="tile"><div class="v">${esc(st.branch || "—")}</div><div class="l">${esc(st.upstream || "")} · ${esc(sync)}</div></div>
+      <div class="tile"><div class="v">${dirty.length}</div><div class="l">uncommitted file(s) → ${esc(next)}</div></div></div></div>
+    <div class="grid2">
+      <div class="card"><h3>JUDGE WEIGHTED SCORE PER VERSION</h3><div id="hchart1"></div></div>
+      <div class="card"><h3>OUTCOME RATES PER VERSION (DEPLOYED HARNESS)</h3><div id="hchart2"></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>VERSIONS — NEWEST FIRST</h3><div style="max-height:900px;overflow:auto">${versions}</div></div>
+      <div>
+        <div class="card"><h3>GIT WORKFLOW — WHAT ONE SNAPSHOT RUNS (NEXT: ${esc(next)})</h3>
+          <pre class="code">python scripts/snapshot_traces.py -m "&lt;what changed&gt;" [--levers a,b] [--learn] --push</pre>
+          <p class="mini" style="margin:.4rem 0">…which executes, in order:</p><ol style="list-style:none">${workflow}</ol></div>
+        <div class="card"><h3>WORKING TREE — git status --porcelain</h3>${dirty.length ? `<div class="twrap" style="max-height:200px"><table><thead><tr><th>Status</th><th>Path</th></tr></thead><tbody>${dirty.map(d => `<tr><td class="mono">${esc(d.status)}</td><td class="mono">${esc(d.path)}</td></tr>`).join("")}</tbody></table></div><p class="mini" style="margin-top:.3rem">These go into ${esc(next)} on the next snapshot.</p>` : `<div class="mini">Clean — everything is committed.</div>`}</div>
+      </div>
+    </div>
+    <div class="card"><h3>COMMIT LOG — git log --oneline --decorate</h3><pre class="code" style="margin-bottom:.6rem">${esc(oneline)}</pre>
+      <div class="twrap"><table><thead><tr><th>Commit</th><th>Tags</th><th>Message</th><th>Author</th><th>Date</th></tr></thead><tbody>${commits}</tbody></table></div></div>`;
+  const labels = asc.map(v => v.tag);
+  lineChart($("#hchart1"), {labels, xTitle: "version", yMin: 1, yMax: 5, yFmt: v => fmt(v, 2),
+    series: [{name: "Deployed harness", color: "var(--rlaif)", values: asc.map(v => v.metrics.full_weighted)},
+             {name: "Vanilla baseline", color: "var(--vanilla)", values: asc.map(v => v.metrics.base_weighted)}]});
+  lineChart($("#hchart2"), {labels, xTitle: "version", yMin: 0, yMax: 1, yFmt: pct,
+    series: [["Chosen", "full_chosen", "var(--s1)"], ["Resolved", "full_resolved", "var(--s3)"], ["Route accuracy", "full_route", "var(--s4)"], ["Compliance", "full_compliance", "var(--s5)"]]
+      .map(([name, k, color]) => ({name, color, values: asc.map(v => v.metrics[k])}))});
+}
+$("#hgo").addEventListener("click", runHistory);
+
+/* ---------------- patches ---------------- */
+async function runPatches() {
+  const el = $("#patchview"); el.innerHTML = `<div class="empty">Loading patches…</div>`;
+  try {
+    const r = await api("/api/levers"); S.cache.patches = r;
+    const show = v => Array.isArray(v) ? (v.length ? v.join(", ") : "[]") : typeof v === "object" ? JSON.stringify(v) : String(v);
+    el.innerHTML = LEVERS.map(l => { const p = r[l]; return `<div class="card"><h3><span class="dot" style="background:${LEVER_COLOR[l]}"></span> ${esc(LEVER_LABEL[l].toUpperCase())} · ${esc(p.id)} · ${esc(p.target)}</h3>
+      <div class="mini" style="margin-bottom:.4rem">Owns policies: ${p.owns_policies.map(x => `<code>${esc(x)}</code>`).join(" ") || "—"}</div>
+      <div class="twrap"><table><thead><tr><th>Kind</th><th>Name</th><th>Field</th><th>Date 1 (vanilla)</th><th>Date 2 (patched)</th></tr></thead><tbody>${p.changes.map(c => `<tr><td>${esc(c.kind)}</td><td class="mono">${esc(c.name)}</td><td class="mono">${esc(c.field)}</td><td class="mini" style="color:var(--crit)">${esc(show(c.before))}</td><td class="mini" style="color:var(--goodtext)">${esc(show(c.after))}</td></tr>`).join("")}</tbody></table></div></div>`; }).join("");
+  } catch (e) { fail(el, e); }
+}
+
+/* ---------------- access key ---------------- */
+async function loadSession() {
+  try { S.session = await api("/api/session"); } catch (e) { S.session = {key_required: false, evidence_unlocked: true}; }
+  const b = $("#lockbtn");
+  b.hidden = !S.session.key_required;
+  b.textContent = S.session.evidence_unlocked ? "🔓 Evidence unlocked" : "🔒 Production evidence";
+}
+$("#lockbtn").addEventListener("click", () => {
+  if (S.session && S.session.evidence_unlocked && S.key) {
+    S.key = ""; try { sessionStorage.removeItem("rlaif_key"); } catch (e) {}
+    S.cache = {}; loadSession().then(() => refreshActive()); return;
+  }
+  $("#keyin").value = ""; $("#keydlg").showModal();
+});
+$("#keydlg").addEventListener("close", async () => {
+  if ($("#keydlg").returnValue !== "ok") return;
+  S.key = $("#keyin").value.trim();
+  try { sessionStorage.setItem("rlaif_key", S.key); } catch (e) {}
+  await loadSession();
+  if (!S.session.evidence_unlocked) alert("That key didn't unlock production evidence.");
+  S.cache = {}; refreshActive();
+});
+
+let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (S.tab === "learn") renderLearn(); if (S.tab === "history" && S.cache.history) renderHistory(S.cache.history); }, 200); });
+/* deep links: ?say=msg&say=reply (shared demo conversation) · ?mode=vanilla|split|improved · ?tab=learn · ?levers=taxonomy,metadata */
+async function boot() {
+  renderLevers(); renderChat(); loadSession();
+  const q = new URLSearchParams(location.search);
+  if (q.has("levers")) { S.levers = new Set(q.get("levers").split(",").filter(l => LEVERS.includes(l))); renderLevers(); }
+  if (q.has("mode")) { const b = document.querySelector(`.seg [data-mode="${q.get("mode")}"]`); if (b) b.click(); }
+  for (const m of q.getAll("say")) await sendChat(m);
+  if (q.has("tab")) { const t = document.querySelector(`.tabs [data-tab="${q.get("tab")}"]`); if (t) t.click(); }
+}
+boot();
+</script>
+</body>
+</html>

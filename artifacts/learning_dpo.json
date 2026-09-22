@@ -1,0 +1,4310 @@
+{
+  "algo": "dpo",
+  "iters": 20,
+  "group": 8,
+  "final_probs": {
+    "taxonomy": 0.727,
+    "metadata": 0.734,
+    "sequencing": 0.856,
+    "formatter": 0.8,
+    "prompt_hat": 0.615
+  },
+  "final_greedy": {
+    "config": [
+      "formatter",
+      "metadata",
+      "prompt_hat",
+      "sequencing",
+      "taxonomy"
+    ],
+    "reward": 4.35,
+    "avg_weighted": 4.35,
+    "gate_rate": 0.0,
+    "leaks": 0
+  },
+  "iterations": [
+    {
+      "it": 1,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.25,
+          "avg_weighted": 3.25,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat"
+          ],
+          "reward": 1.8833,
+          "avg_weighted": 2.467,
+          "gate_rate": 0.583,
+          "leaks": 22
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "taxonomy"
+          ],
+          "reward": 1.8833,
+          "avg_weighted": 2.633,
+          "gate_rate": 0.75,
+          "leaks": 48
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 2.5417,
+          "avg_weighted": 3.042,
+          "gate_rate": 0.5,
+          "leaks": 24
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.25,
+          "avg_weighted": 3.25,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 2.9417,
+          "avg_weighted": 3.108,
+          "gate_rate": 0.167,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 2.8083,
+          "avg_weighted": 3.142,
+          "gate_rate": 0.333,
+          "leaks": 24
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.25,
+          "avg_weighted": 3.25,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 2.726,
+      "std_r": 0.5398,
+      "theta": [
+        0.4,
+        0.0,
+        0.4,
+        0.4,
+        0.0
+      ],
+      "probs": {
+        "taxonomy": 0.599,
+        "metadata": 0.5,
+        "sequencing": 0.599,
+        "formatter": 0.599,
+        "prompt_hat": 0.5
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.25,
+        "avg_weighted": 3.25,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "prompt_hat"
+          ]
+        },
+        "implicit_reward_margin_s": 0.0,
+        "sigma(\u2212s)_weight": 0.5
+      }
+    },
+    {
+      "it": 2,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2583,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.417,
+          "leaks": 17
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.15,
+          "avg_weighted": 4.317,
+          "gate_rate": 0.167,
+          "leaks": 2
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.3667,
+          "avg_weighted": 3.367,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.5667,
+          "avg_weighted": 3.233,
+          "gate_rate": 0.667,
+          "leaks": 48
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 3.0083,
+          "avg_weighted": 3.258,
+          "gate_rate": 0.25,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat"
+          ],
+          "reward": 2.5667,
+          "avg_weighted": 2.567,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.2083,
+          "avg_weighted": 3.208,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.2583,
+          "avg_weighted": 3.425,
+          "gate_rate": 0.167,
+          "leaks": 12
+        }
+      ],
+      "mean_r": 3.1729,
+      "std_r": 0.4704,
+      "theta": [
+        0.4,
+        0.321,
+        0.721,
+        0.4,
+        0.0
+      ],
+      "probs": {
+        "taxonomy": 0.599,
+        "metadata": 0.58,
+        "sequencing": 0.673,
+        "formatter": 0.599,
+        "prompt_hat": 0.5
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "prompt_hat",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 0.4,
+        "sigma(\u2212s)_weight": 0.4013
+      }
+    },
+    {
+      "it": 3,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.95,
+          "avg_weighted": 2.95,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 2.7583,
+          "avg_weighted": 3.092,
+          "gate_rate": 0.333,
+          "leaks": 24
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 2.7917,
+          "avg_weighted": 3.375,
+          "gate_rate": 0.583,
+          "leaks": 19
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.575,
+          "avg_weighted": 3.575,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2,
+          "avg_weighted": 3.2,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.9833,
+          "avg_weighted": 3.317,
+          "gate_rate": 0.333,
+          "leaks": 24
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.375,
+          "avg_weighted": 3.375,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 2.9417,
+          "avg_weighted": 2.942,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.0719,
+      "std_r": 0.2688,
+      "theta": [
+        0.648,
+        0.321,
+        0.721,
+        0.648,
+        0.0
+      ],
+      "probs": {
+        "taxonomy": 0.657,
+        "metadata": 0.58,
+        "sequencing": 0.673,
+        "formatter": 0.657,
+        "prompt_hat": 0.5
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata",
+            "sequencing"
+          ]
+        },
+        "implicit_reward_margin_s": 0.8,
+        "sigma(\u2212s)_weight": 0.31
+      }
+    },
+    {
+      "it": 4,
+      "group": [
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.1333,
+          "avg_weighted": 3.133,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.325,
+          "avg_weighted": 2.992,
+          "gate_rate": 0.667,
+          "leaks": 48
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 3.0083,
+          "avg_weighted": 3.258,
+          "gate_rate": 0.25,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 2.8083,
+          "avg_weighted": 3.225,
+          "gate_rate": 0.417,
+          "leaks": 12
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter"
+          ],
+          "reward": 2.225,
+          "avg_weighted": 2.308,
+          "gate_rate": 0.083,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "sequencing"
+          ],
+          "reward": 2.3833,
+          "avg_weighted": 2.883,
+          "gate_rate": 0.5,
+          "leaks": 32
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "taxonomy"
+          ],
+          "reward": 1.9083,
+          "avg_weighted": 2.658,
+          "gate_rate": 0.75,
+          "leaks": 48
+        }
+      ],
+      "mean_r": 2.6364,
+      "std_r": 0.4631,
+      "theta": [
+        0.648,
+        0.321,
+        0.883,
+        0.81,
+        0.0
+      ],
+      "probs": {
+        "taxonomy": 0.657,
+        "metadata": 0.58,
+        "sequencing": 0.707,
+        "formatter": 0.692,
+        "prompt_hat": 0.5
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 1.3691,
+        "sigma(\u2212s)_weight": 0.2028
+      }
+    },
+    {
+      "it": 5,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2167,
+          "avg_weighted": 3.217,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.1,
+          "avg_weighted": 3.1,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2167,
+          "avg_weighted": 3.217,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata"
+          ],
+          "reward": 2.6,
+          "avg_weighted": 2.683,
+          "gate_rate": 0.083,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 3.0083,
+          "avg_weighted": 3.342,
+          "gate_rate": 0.333,
+          "leaks": 12
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.425,
+          "avg_weighted": 3.425,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat"
+          ],
+          "reward": 2.1167,
+          "avg_weighted": 2.533,
+          "gate_rate": 0.417,
+          "leaks": 20
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.1292,
+      "std_r": 0.6035,
+      "theta": [
+        0.7,
+        0.373,
+        0.935,
+        0.862,
+        0.0
+      ],
+      "probs": {
+        "taxonomy": 0.668,
+        "metadata": 0.592,
+        "sequencing": 0.718,
+        "formatter": 0.703,
+        "prompt_hat": 0.5
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "prompt_hat"
+          ]
+        },
+        "implicit_reward_margin_s": 2.6626,
+        "sigma(\u2212s)_weight": 0.0652
+      }
+    },
+    {
+      "it": 6,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.25,
+          "avg_weighted": 3.25,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata"
+          ],
+          "reward": 1.925,
+          "avg_weighted": 2.675,
+          "gate_rate": 0.75,
+          "leaks": 42
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 3.0667,
+          "avg_weighted": 3.317,
+          "gate_rate": 0.25,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.2583,
+          "avg_weighted": 3.258,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 2.5833,
+          "avg_weighted": 3.25,
+          "gate_rate": 0.667,
+          "leaks": 24
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing"
+          ],
+          "reward": 2.7583,
+          "avg_weighted": 2.758,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.1927,
+      "std_r": 0.7802,
+      "theta": [
+        0.761,
+        0.373,
+        0.996,
+        0.923,
+        0.061
+      ],
+      "probs": {
+        "taxonomy": 0.682,
+        "metadata": 0.592,
+        "sequencing": 0.73,
+        "formatter": 0.716,
+        "prompt_hat": 0.515
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata"
+          ]
+        },
+        "implicit_reward_margin_s": 2.498,
+        "sigma(\u2212s)_weight": 0.076
+      }
+    },
+    {
+      "it": 7,
+      "group": [
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 2.6833,
+          "avg_weighted": 2.683,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 1.85,
+          "avg_weighted": 2.683,
+          "gate_rate": 0.833,
+          "leaks": 42
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter"
+          ],
+          "reward": 2.2667,
+          "avg_weighted": 2.267,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.8667,
+          "avg_weighted": 2.867,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.4667,
+          "avg_weighted": 3.467,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat"
+          ],
+          "reward": 2.975,
+          "avg_weighted": 2.975,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.5167,
+          "avg_weighted": 3.517,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter"
+          ],
+          "reward": 2.2667,
+          "avg_weighted": 2.267,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 2.7365,
+      "std_r": 0.5529,
+      "theta": [
+        0.761,
+        0.553,
+        0.996,
+        1.103,
+        -0.119
+      ],
+      "probs": {
+        "taxonomy": 0.682,
+        "metadata": 0.635,
+        "sequencing": 0.73,
+        "formatter": 0.751,
+        "prompt_hat": 0.47
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "rejected": [
+            "prompt_hat",
+            "sequencing"
+          ]
+        },
+        "implicit_reward_margin_s": 1.2356,
+        "sigma(\u2212s)_weight": 0.2252
+      }
+    },
+    {
+      "it": 8,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.3417,
+          "avg_weighted": 3.342,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.475,
+          "avg_weighted": 3.642,
+          "gate_rate": 0.167,
+          "leaks": 12
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.3417,
+          "avg_weighted": 3.342,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.3667,
+          "avg_weighted": 3.367,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 2.9333,
+          "avg_weighted": 3.183,
+          "gate_rate": 0.25,
+          "leaks": 12
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.5573,
+      "std_r": 0.4807,
+      "theta": [
+        0.761,
+        0.553,
+        1.093,
+        1.2,
+        -0.022
+      ],
+      "probs": {
+        "taxonomy": 0.682,
+        "metadata": 0.635,
+        "sequencing": 0.749,
+        "formatter": 0.769,
+        "prompt_hat": 0.494
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 3.625,
+        "avg_weighted": 3.625,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 1.9802,
+        "sigma(\u2212s)_weight": 0.1213
+      }
+    },
+    {
+      "it": 9,
+      "group": [
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 2.9167,
+          "avg_weighted": 3.333,
+          "gate_rate": 0.417,
+          "leaks": 26
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.4333,
+          "avg_weighted": 3.517,
+          "gate_rate": 0.083,
+          "leaks": 6
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "taxonomy"
+          ],
+          "reward": 3.2167,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.083,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.95,
+          "avg_weighted": 3.95,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2833,
+          "avg_weighted": 3.7,
+          "gate_rate": 0.417,
+          "leaks": 21
+        }
+      ],
+      "mean_r": 3.7312,
+      "std_r": 0.5493,
+      "theta": [
+        0.761,
+        0.674,
+        1.093,
+        1.321,
+        0.098
+      ],
+      "probs": {
+        "taxonomy": 0.682,
+        "metadata": 0.662,
+        "sequencing": 0.749,
+        "formatter": 0.789,
+        "prompt_hat": 0.524
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "sequencing",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 1.7315,
+        "sigma(\u2212s)_weight": 0.1504
+      }
+    },
+    {
+      "it": 10,
+      "group": [
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 2.7833,
+          "avg_weighted": 3.117,
+          "gate_rate": 0.333,
+          "leaks": 24
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.1833,
+          "avg_weighted": 3.183,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.9,
+          "avg_weighted": 3.9,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.5333,
+          "avg_weighted": 3.533,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.3,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.7187,
+      "std_r": 0.5701,
+      "theta": [
+        0.842,
+        0.674,
+        1.093,
+        1.402,
+        0.179
+      ],
+      "probs": {
+        "taxonomy": 0.699,
+        "metadata": 0.662,
+        "sequencing": 0.749,
+        "formatter": 0.802,
+        "prompt_hat": 0.545
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata",
+            "sequencing"
+          ]
+        },
+        "implicit_reward_margin_s": 2.1797,
+        "sigma(\u2212s)_weight": 0.1016
+      }
+    },
+    {
+      "it": 11,
+      "group": [
+        {
+          "a": [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata"
+          ],
+          "reward": 2.7167,
+          "avg_weighted": 2.8,
+          "gate_rate": 0.083,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata"
+          ],
+          "reward": 2.5167,
+          "avg_weighted": 2.767,
+          "gate_rate": 0.25,
+          "leaks": 12
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.2917,
+          "avg_weighted": 3.292,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.975,
+          "avg_weighted": 3.975,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.975,
+          "avg_weighted": 3.975,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.4083,
+          "avg_weighted": 2.908,
+          "gate_rate": 0.5,
+          "leaks": 36
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.575,
+          "avg_weighted": 3.575,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.2667,
+      "std_r": 0.5987,
+      "theta": [
+        0.842,
+        0.712,
+        1.132,
+        1.44,
+        0.141
+      ],
+      "probs": {
+        "taxonomy": 0.699,
+        "metadata": 0.671,
+        "sequencing": 0.756,
+        "formatter": 0.809,
+        "prompt_hat": 0.535
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "prompt_hat",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 2.9897,
+        "sigma(\u2212s)_weight": 0.0479
+      }
+    },
+    {
+      "it": 12,
+      "group": [
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.4917,
+          "avg_weighted": 3.492,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.25,
+          "avg_weighted": 4.333,
+          "gate_rate": 0.083,
+          "leaks": 1
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata"
+          ],
+          "reward": 1.8167,
+          "avg_weighted": 2.317,
+          "gate_rate": 0.5,
+          "leaks": 36
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8917,
+          "avg_weighted": 3.892,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.2667,
+          "avg_weighted": 3.267,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8917,
+          "avg_weighted": 3.892,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.6636,
+      "std_r": 0.7896,
+      "theta": [
+        0.864,
+        0.712,
+        1.154,
+        1.463,
+        0.163
+      ],
+      "probs": {
+        "taxonomy": 0.704,
+        "metadata": 0.671,
+        "sequencing": 0.76,
+        "formatter": 0.812,
+        "prompt_hat": 0.541
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata"
+          ]
+        },
+        "implicit_reward_margin_s": 3.5551,
+        "sigma(\u2212s)_weight": 0.0278
+      }
+    },
+    {
+      "it": 13,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8,
+          "avg_weighted": 3.8,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.4,
+          "avg_weighted": 3.4,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.15,
+          "avg_weighted": 4.317,
+          "gate_rate": 0.167,
+          "leaks": 2
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.425,
+          "avg_weighted": 3.425,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.7687,
+      "std_r": 0.3092,
+      "theta": [
+        0.864,
+        0.712,
+        1.346,
+        1.463,
+        0.163
+      ],
+      "probs": {
+        "taxonomy": 0.704,
+        "metadata": 0.671,
+        "sequencing": 0.793,
+        "formatter": 0.812,
+        "prompt_hat": 0.541
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 1.1538,
+        "sigma(\u2212s)_weight": 0.2398
+      }
+    },
+    {
+      "it": 14,
+      "group": [
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing"
+          ],
+          "reward": 2.8667,
+          "avg_weighted": 2.867,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "sequencing"
+          ],
+          "reward": 2.4167,
+          "avg_weighted": 2.833,
+          "gate_rate": 0.417,
+          "leaks": 27
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.8,
+          "avg_weighted": 3.8,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.8,
+          "avg_weighted": 3.8,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3,
+          "avg_weighted": 3.3,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.4385,
+      "std_r": 0.5654,
+      "theta": [
+        0.896,
+        0.743,
+        1.346,
+        1.494,
+        0.194
+      ],
+      "probs": {
+        "taxonomy": 0.71,
+        "metadata": 0.678,
+        "sequencing": 0.793,
+        "formatter": 0.817,
+        "prompt_hat": 0.548
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "sequencing"
+          ]
+        },
+        "implicit_reward_margin_s": 3.2022,
+        "sigma(\u2212s)_weight": 0.0391
+      }
+    },
+    {
+      "it": 15,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3417,
+          "avg_weighted": 3.342,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 2.3833,
+          "avg_weighted": 2.967,
+          "gate_rate": 0.583,
+          "leaks": 42
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.3667,
+          "avg_weighted": 3.367,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.9,
+          "avg_weighted": 3.9,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.7167,
+          "avg_weighted": 3.717,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3417,
+          "avg_weighted": 3.342,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.9,
+          "avg_weighted": 3.9,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.675,
+          "avg_weighted": 3.675,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.4531,
+      "std_r": 0.4603,
+      "theta": [
+        0.845,
+        0.794,
+        1.397,
+        1.545,
+        0.194
+      ],
+      "probs": {
+        "taxonomy": 0.699,
+        "metadata": 0.689,
+        "sequencing": 0.802,
+        "formatter": 0.824,
+        "prompt_hat": 0.548
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "rejected": [
+            "prompt_hat",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 2.687,
+        "sigma(\u2212s)_weight": 0.0637
+      }
+    },
+    {
+      "it": 16,
+      "group": [
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat"
+          ],
+          "reward": 2.95,
+          "avg_weighted": 2.95,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.625,
+          "avg_weighted": 3.625,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 3.0583,
+          "avg_weighted": 3.058,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.8,
+          "avg_weighted": 3.8,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.075,
+          "avg_weighted": 3.075,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.6948,
+      "std_r": 0.5753,
+      "theta": [
+        0.922,
+        0.794,
+        1.474,
+        1.545,
+        0.194
+      ],
+      "probs": {
+        "taxonomy": 0.715,
+        "metadata": 0.689,
+        "sequencing": 0.814,
+        "formatter": 0.824,
+        "prompt_hat": 0.548
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "formatter",
+            "metadata",
+            "prompt_hat"
+          ]
+        },
+        "implicit_reward_margin_s": 2.2414,
+        "sigma(\u2212s)_weight": 0.0961
+      }
+    },
+    {
+      "it": 17,
+      "group": [
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing"
+          ],
+          "reward": 2.8917,
+          "avg_weighted": 2.892,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.4,
+          "avg_weighted": 3.4,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.85,
+          "avg_weighted": 4.267,
+          "gate_rate": 0.417,
+          "leaks": 5
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "sequencing"
+          ],
+          "reward": 2.3083,
+          "avg_weighted": 2.808,
+          "gate_rate": 0.5,
+          "leaks": 35
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 2.5167,
+          "avg_weighted": 2.933,
+          "gate_rate": 0.417,
+          "leaks": 30
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat"
+          ],
+          "reward": 3.15,
+          "avg_weighted": 3.15,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "taxonomy"
+          ],
+          "reward": 2.6333,
+          "avg_weighted": 2.717,
+          "gate_rate": 0.083,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "metadata"
+          ],
+          "reward": 1.5833,
+          "avg_weighted": 2.25,
+          "gate_rate": 0.667,
+          "leaks": 42
+        }
+      ],
+      "mean_r": 2.7917,
+      "std_r": 0.6541,
+      "theta": [
+        0.977,
+        0.794,
+        1.529,
+        1.545,
+        0.25
+      ],
+      "probs": {
+        "taxonomy": 0.727,
+        "metadata": 0.689,
+        "sequencing": 0.822,
+        "formatter": 0.824,
+        "prompt_hat": 0.562
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata"
+          ]
+        },
+        "implicit_reward_margin_s": 2.5896,
+        "sigma(\u2212s)_weight": 0.0698
+      }
+    },
+    {
+      "it": 18,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3333,
+          "avg_weighted": 3.333,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.65,
+          "avg_weighted": 3.65,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.425,
+          "avg_weighted": 3.425,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.85,
+          "avg_weighted": 3.85,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.125,
+          "avg_weighted": 3.375,
+          "gate_rate": 0.25,
+          "leaks": 18
+        },
+        {
+          "a": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ],
+          "reward": 3.425,
+          "avg_weighted": 3.425,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.6885,
+      "std_r": 0.4309,
+      "theta": [
+        0.977,
+        0.794,
+        1.565,
+        1.58,
+        0.25
+      ],
+      "probs": {
+        "taxonomy": 0.727,
+        "metadata": 0.689,
+        "sequencing": 0.827,
+        "formatter": 0.829,
+        "prompt_hat": 0.562
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "metadata",
+            "prompt_hat",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 3.0742,
+        "sigma(\u2212s)_weight": 0.0442
+      }
+    },
+    {
+      "it": 19,
+      "group": [
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.65,
+          "avg_weighted": 3.65,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "config": [
+            "taxonomy"
+          ],
+          "reward": 1.6417,
+          "avg_weighted": 2.475,
+          "gate_rate": 0.833,
+          "leaks": 60
+        },
+        {
+          "a": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "config": [
+            "metadata",
+            "sequencing"
+          ],
+          "reward": 2.8,
+          "avg_weighted": 3.05,
+          "gate_rate": 0.25,
+          "leaks": 18
+        },
+        {
+          "a": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.1,
+          "avg_weighted": 3.1,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.5833,
+          "avg_weighted": 3.583,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.35,
+          "avg_weighted": 4.35,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.3333,
+          "avg_weighted": 3.333,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.351,
+      "std_r": 0.8237,
+      "theta": [
+        0.977,
+        0.806,
+        1.577,
+        1.592,
+        0.262
+      ],
+      "probs": {
+        "taxonomy": 0.727,
+        "metadata": 0.691,
+        "sequencing": 0.829,
+        "formatter": 0.831,
+        "prompt_hat": 0.565
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 4.1894,
+        "sigma(\u2212s)_weight": 0.0149
+      }
+    },
+    {
+      "it": 20,
+      "group": [
+        {
+          "a": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "prompt_hat",
+            "sequencing"
+          ],
+          "reward": 3.9,
+          "avg_weighted": 3.9,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "taxonomy"
+          ],
+          "reward": 2.7083,
+          "avg_weighted": 2.875,
+          "gate_rate": 0.167,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8417,
+          "avg_weighted": 3.842,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8417,
+          "avg_weighted": 3.842,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "config": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 4.15,
+          "avg_weighted": 4.317,
+          "gate_rate": 0.167,
+          "leaks": 2
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8417,
+          "avg_weighted": 3.842,
+          "gate_rate": 0.0,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "taxonomy"
+          ],
+          "reward": 2.7083,
+          "avg_weighted": 2.875,
+          "gate_rate": 0.167,
+          "leaks": 0
+        },
+        {
+          "a": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "config": [
+            "formatter",
+            "metadata",
+            "sequencing",
+            "taxonomy"
+          ],
+          "reward": 3.8417,
+          "avg_weighted": 3.842,
+          "gate_rate": 0.0,
+          "leaks": 0
+        }
+      ],
+      "mean_r": 3.6042,
+      "std_r": 0.5263,
+      "theta": [
+        0.977,
+        1.013,
+        1.784,
+        1.385,
+        0.469
+      ],
+      "probs": {
+        "taxonomy": 0.727,
+        "metadata": 0.734,
+        "sequencing": 0.856,
+        "formatter": 0.8,
+        "prompt_hat": 0.615
+      },
+      "greedy_eval": {
+        "config": [
+          "formatter",
+          "metadata",
+          "prompt_hat",
+          "sequencing",
+          "taxonomy"
+        ],
+        "reward": 4.35,
+        "avg_weighted": 4.35,
+        "gate_rate": 0.0,
+        "leaks": 0
+      },
+      "update_detail": {
+        "rule": "\u03b8 += lr\u00b7\u03c3(\u2212s)\u00b7\u03b2\u00b7(a_w \u2212 a_l)",
+        "pair": {
+          "chosen": [
+            "metadata",
+            "prompt_hat",
+            "sequencing",
+            "taxonomy"
+          ],
+          "rejected": [
+            "formatter",
+            "taxonomy"
+          ]
+        },
+        "implicit_reward_margin_s": 1.053,
+        "sigma(\u2212s)_weight": 0.2586
+      }
+    }
+  ],
+  "preference_pairs": [
+    {
+      "iter": 1,
+      "chosen": [
+        "formatter",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "prompt_hat"
+      ],
+      "r_chosen": 3.25,
+      "r_rejected": 1.8833,
+      "implicit_margin": 0.0,
+      "sigma_weight": 0.5
+    },
+    {
+      "iter": 2,
+      "chosen": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r_chosen": 4.15,
+      "r_rejected": 2.5667,
+      "implicit_margin": 0.4,
+      "sigma_weight": 0.4013
+    },
+    {
+      "iter": 3,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata",
+        "sequencing"
+      ],
+      "r_chosen": 3.575,
+      "r_rejected": 2.7583,
+      "implicit_margin": 0.8,
+      "sigma_weight": 0.31
+    },
+    {
+      "iter": 4,
+      "chosen": [
+        "formatter",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "taxonomy"
+      ],
+      "r_chosen": 3.3,
+      "r_rejected": 1.9083,
+      "implicit_margin": 1.3691,
+      "sigma_weight": 0.2028
+    },
+    {
+      "iter": 5,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "prompt_hat"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.1167,
+      "implicit_margin": 2.6626,
+      "sigma_weight": 0.0652
+    },
+    {
+      "iter": 6,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 1.925,
+      "implicit_margin": 2.498,
+      "sigma_weight": 0.076
+    },
+    {
+      "iter": 7,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "sequencing"
+      ],
+      "rejected": [
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r_chosen": 3.5167,
+      "r_rejected": 1.85,
+      "implicit_margin": 1.2356,
+      "sigma_weight": 0.2252
+    },
+    {
+      "iter": 8,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata",
+        "taxonomy"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.9333,
+      "implicit_margin": 1.9802,
+      "sigma_weight": 0.1213
+    },
+    {
+      "iter": 9,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.9167,
+      "implicit_margin": 1.7315,
+      "sigma_weight": 0.1504
+    },
+    {
+      "iter": 10,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata",
+        "sequencing"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.7833,
+      "implicit_margin": 2.1797,
+      "sigma_weight": 0.1016
+    },
+    {
+      "iter": 11,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r_chosen": 3.975,
+      "r_rejected": 2.4083,
+      "implicit_margin": 2.9897,
+      "sigma_weight": 0.0479
+    },
+    {
+      "iter": 12,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 1.8167,
+      "implicit_margin": 3.5551,
+      "sigma_weight": 0.0278
+    },
+    {
+      "iter": 13,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 3.4,
+      "implicit_margin": 1.1538,
+      "sigma_weight": 0.2398
+    },
+    {
+      "iter": 14,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "sequencing"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.4167,
+      "implicit_margin": 3.2022,
+      "sigma_weight": 0.0391
+    },
+    {
+      "iter": 15,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "rejected": [
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r_chosen": 3.9,
+      "r_rejected": 2.3833,
+      "implicit_margin": 2.687,
+      "sigma_weight": 0.0637
+    },
+    {
+      "iter": 16,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "formatter",
+        "metadata",
+        "prompt_hat"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 2.95,
+      "implicit_margin": 2.2414,
+      "sigma_weight": 0.0961
+    },
+    {
+      "iter": 17,
+      "chosen": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata"
+      ],
+      "r_chosen": 3.85,
+      "r_rejected": 1.5833,
+      "implicit_margin": 2.5896,
+      "sigma_weight": 0.0698
+    },
+    {
+      "iter": 18,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "metadata",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 3.125,
+      "implicit_margin": 3.0742,
+      "sigma_weight": 0.0442
+    },
+    {
+      "iter": 19,
+      "chosen": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "taxonomy"
+      ],
+      "r_chosen": 4.35,
+      "r_rejected": 1.6417,
+      "implicit_margin": 4.1894,
+      "sigma_weight": 0.0149
+    },
+    {
+      "iter": 20,
+      "chosen": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "rejected": [
+        "formatter",
+        "taxonomy"
+      ],
+      "r_chosen": 4.15,
+      "r_rejected": 2.7083,
+      "implicit_margin": 1.053,
+      "sigma_weight": 0.2586
+    }
+  ]
+}

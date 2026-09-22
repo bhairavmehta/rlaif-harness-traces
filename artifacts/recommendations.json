@@ -1,0 +1,593 @@
+[
+  {
+    "id": "R-TAX-01",
+    "category": "taxonomy_routing",
+    "lever": "taxonomy",
+    "patch_ref": "PATCH-TAX-v11",
+    "finding": {
+      "ddc->general_care": 11,
+      "pfb->billing_explainer": 10,
+      "gen->billing_explainer": 15,
+      "bex->general_care": 3,
+      "pfb->general_care": 5
+    },
+    "evidence_episodes": 44,
+    "measured_lift": {
+      "route_accuracy": "0.267 -> 0.267",
+      "credit_weighted_delta": 0.34
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-05": "15 -> 15 fails",
+      "BEX-02": "15 -> 15 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "intent_missed",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "BEX-02": 1,
+            "GEN-06": 1
+          },
+          "examples": [
+            {
+              "cid": "CID-15408731180-0032611169-2261057536-0001659300",
+              "policy_id": "BEX-02",
+              "evidence": "Turn 6: Agent says 'Which specific charge or amount would you like me to review?'",
+              "reason": "The customer explicitly identified a $440 equipment charge they believed should be free. The agent failed to address this specific charge or explain it using the available bill details, instead repeating the balance info"
+            },
+            {
+              "cid": "CID-4158895014-962631119-778181554-002031500-0251",
+              "policy_id": "GEN-06",
+              "evidence": "Turn 1: Agent says ...\";\n\"reason\": \"The agent failed to address the customer's intent or provide any conversational response. The agent outputted raw tool data ",
+              "reason": "The agent failed to address the customer's intent or provide any conversational response. The agent outputted raw tool data instead of engaging with the user.\";\n\"severity\": \"MEDIUM\";\n\"policy_type\": \"Session"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-explain_bill",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "explain_bill",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 30,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-submit_fee_w",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "submit_fee_waiver",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 15,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-check_ddc_el",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "check_ddc_eligibility",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 15,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-check_paper_",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "check_paper_free_eligibility",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 15,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-enroll_paper",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "enroll_paper_free_billing",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 15,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-META-change_due_d",
+    "category": "tool_metadata",
+    "lever": "metadata",
+    "classification": "missed",
+    "tool": "change_due_date",
+    "patch_ref": "PATCH-META-v7",
+    "evidence": {
+      "blueprint_episodes_not_served": 11,
+      "of_total": 60,
+      "argument_errors": 0
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.165
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-09": "41 -> 41 fails",
+      "DDC-01": "11 -> 11 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "buckets": [
+        {
+          "bucket": "wrong_tool_fidelity",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "DIS-02": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-1340228980-0032611169-2408072888-0003659300",
+              "policy_id": "DIS-02",
+              "evidence": "Turn 5: Agent says 'se elimin\\u00f3 un descuento de \"Mobile plus Home\" de 12 d\\u00f3lares con 50 centavos'",
+              "reason": "The agent used 'explain_bill_init_ncp' instead of the required 'discounts-and-credits' tool. Additionally, the agent failed to include the mandatory 'up to a month to appear' reminder and did not reference the line by it"
+            },
+            {
+              "cid": "CID-1740980728-00026131169-2553599132-00001659300",
+              "policy_id": "DIS-02",
+              "evidence": "No relevant turns found.",
+              "reason": "The agent did not use the discounts-and-credits tool to present specific discount categories or statuses, as the conversation focused on plan changes and general program inquiries."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-FMT-01",
+    "category": "output_contract",
+    "lever": "formatter",
+    "patch_ref": "PATCH-FMT-v2",
+    "evidence": {
+      "raw_json_leaks_baseline": 198,
+      "leaks_full": 198
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.066
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-02": "33 -> 33 fails",
+      "GEN-08": "33 -> 33 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 10,
+      "calls": 6,
+      "buckets": [
+        {
+          "bucket": "raw_json_leakage",
+          "fail_verdicts": 9,
+          "calls": 5,
+          "policies": {
+            "GEN-09": 2,
+            "GEN-02": 4,
+            "GEN-08": 2,
+            "GEN-05": 1
+          },
+          "examples": [
+            {
+              "cid": "CID-15408731180-0032611169-2261057536-0001659300",
+              "policy_id": "GEN-09",
+              "evidence": "Agent says ' {sms sent: True, 'statusMessage': 'SUCCESS'}'.",
+              "reason": "The agent failed to maintain tool discipline by outputting raw JSON tool response data directly to the customer instead of a natural language response."
+            },
+            {
+              "cid": "CID-15408731180-0032611169-2261057536-0001659300",
+              "policy_id": "GEN-02",
+              "evidence": "Agent says ' {sms sent: True, 'statusMessage': 'SUCCESS'}'.",
+              "reason": "The agent exposed internal JSON keys and status messages to the customer, violating the requirement to use plain customer language."
+            },
+            {
+              "cid": "CID-3862241766-0032611169-2514345176-0003659300",
+              "policy_id": "GEN-08",
+              "evidence": "Turn 6: Agent says '{result: {status: 'Transfer from billing_transfer call initiated for hangup and endPageAction as 1}}'",
+              "reason": "The agent failed to maintain a natural, conversational tone by outputting the raw JSON/dictionary response from the tool call instead of a human-readable closing statement."
+            }
+          ]
+        },
+        {
+          "bucket": "internal_tool_name_disclosure",
+          "fail_verdicts": 1,
+          "calls": 1,
+          "policies": {
+            "GEN-02": 1
+          },
+          "examples": [
+            {
+              "cid": "UNKNOWN-01",
+              "policy_id": "GEN-02",
+              "evidence": "Turn 4: Agent says 'Then I will invoke tool explain bill init mcp once'.",
+              "reason": "The agent explicitly disclosed the internal tool name 'explain bill init mcp' to the customer, violating the policy against exposing internal system instructions or tool names."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-PROMPT-01",
+    "category": "instruction_layer",
+    "lever": "prompt_hat",
+    "patch_ref": "PATCH-PROMPT-v14",
+    "evidence": {
+      "consent_gate_violations_baseline": 45,
+      "dropped_intents_visible_in": "path_delta.dropped_intents"
+    },
+    "measured_lift": {
+      "credit_weighted_delta": 0.2
+    },
+    "status": "pending_approval",
+    "policy_lift": {
+      "GEN-04": "11 -> 11 fails",
+      "GEN-06": "30 -> 30 fails",
+      "GEN-07": "15 -> 15 fails",
+      "BEX-04": "15 -> 15 fails",
+      "BEX-08": "12 -> 12 fails",
+      "DDC-03": "4 -> 4 fails",
+      "DDC-04": "15 -> 15 fails",
+      "PFB-04": "15 -> 15 fails"
+    },
+    "production_evidence": {
+      "fail_verdicts": 10,
+      "calls": 10,
+      "buckets": [
+        {
+          "bucket": "generic_close",
+          "fail_verdicts": 7,
+          "calls": 7,
+          "policies": {
+            "BEX-08": 7
+          },
+          "examples": [
+            {
+              "cid": "CID-3862241766-0032611169-2514345176-0003659300",
+              "policy_id": "BEX-08",
+              "evidence": "Turn 5: Agent says 'Is there anything else I can help you with'",
+              "reason": "The agent presented a generic 'anything else' closing instead of offering a contextual next step aligned with the account situation. The policy explicitly prohibits this generic closing when a proactive action should be "
+            },
+            {
+              "cid": "CID-3988690796-0032611169-2730164224-0002659100",
+              "policy_id": "BEX-08",
+              "evidence": "Turn 5: Agent says 'Is there anything else I can help you with?'",
+              "reason": "After presenting the account balance, the agent used a generic 'anything else' closing instead of offering a contextual next step aligned with the account situation. The policy explicitly prohibits this generic closing w"
+            },
+            {
+              "cid": "CID-3566722866-0023611169-3075801888-00022659380",
+              "policy_id": "BEX-08",
+              "evidence": "Turn 17: Agent says 'Is there anything else I can help you with?'",
+              "reason": "After presenting the balance, the agent used a generic 'anything else' closing instead of offering a contextual next step aligned with the account situation. The policy explicitly prohibits generic closings when a proact"
+            }
+          ]
+        },
+        {
+          "bucket": "bill_copy_channel",
+          "fail_verdicts": 2,
+          "calls": 2,
+          "policies": {
+            "BEX-07": 2
+          },
+          "examples": [
+            {
+              "cid": "CID-3862241766-0032611169-2514345176-0003659300",
+              "policy_id": "BEX-07",
+              "evidence": "Turn 5: Agent says '...have your account primary contact reach out for that billing detail.'",
+              "reason": "The agent failed to offer a choice between digital (SMS) or paper bill copies as required by the policy. Instead of managing the bill copy request through the defined channels, the agent deflected the request to the prim"
+            },
+            {
+              "cid": "CID-20230905-13567890-13567890-13567890-0019",
+              "policy_id": "BEX-07",
+              "evidence": "Turn 3: Agent says 'I sent you a text message... Is there anything else I can help you with today?'",
+              "reason": "The policy requires the agent to confirm the bill was sent to the number on file. The agent failed to explicitly state that the bill was sent to the number on file, instead providing a generic confirmation."
+            }
+          ]
+        },
+        {
+          "bucket": "unclassified",
+          "fail_verdicts": 1,
+          "calls": 1,
+          "policies": {
+            "GEN-07": 1
+          },
+          "examples": [
+            {
+              "cid": "CID-4158895014-962631119-778181554-002031500-0251",
+              "policy_id": "GEN-07",
+              "evidence": "Turn 1: Agent says ...\";\n\"reason\": \"The agent failed to acknowledge the customer or provide any quality interaction. The agent provided no response to the custo",
+              "reason": "The agent failed to acknowledge the customer or provide any quality interaction. The agent provided no response to the customer's opening statement.\";\n\"severity\": \"MEDIUM\";\n\"policy_type\": \"Session"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-PROD-bill_copy_channel",
+    "category": "policy_compliance",
+    "lever": "prompt_hat",
+    "finding": "2 production FAIL verdict(s) across 2 call(s): {'BEX-07': 2}",
+    "production_evidence": {
+      "fail_verdicts": 2,
+      "calls": 2,
+      "policies": {
+        "BEX-07": 2
+      },
+      "examples": [
+        {
+          "cid": "CID-3862241766-0032611169-2514345176-0003659300",
+          "policy_id": "BEX-07",
+          "evidence": "Turn 5: Agent says '...have your account primary contact reach out for that billing detail.'",
+          "reason": "The agent failed to offer a choice between digital (SMS) or paper bill copies as required by the policy. Instead of managing the bill copy request through the defined channels, the agent deflected the request to the prim"
+        },
+        {
+          "cid": "CID-20230905-13567890-13567890-13567890-0019",
+          "policy_id": "BEX-07",
+          "evidence": "Turn 3: Agent says 'I sent you a text message... Is there anything else I can help you with today?'",
+          "reason": "The policy requires the agent to confirm the bill was sent to the number on file. The agent failed to explicitly state that the bill was sent to the number on file, instead providing a generic confirmation."
+        }
+      ]
+    },
+    "measured_lift": null,
+    "status": "needs_replay_coverage",
+    "next_step": "synthesize episodes that exercise this failure, then replay before approval"
+  },
+  {
+    "id": "R-PROD-internal_tool_name",
+    "category": "tool_quality",
+    "lever": "formatter",
+    "finding": "1 production FAIL verdict(s) across 1 call(s): {'GEN-02': 1}",
+    "production_evidence": {
+      "fail_verdicts": 1,
+      "calls": 1,
+      "policies": {
+        "GEN-02": 1
+      },
+      "examples": [
+        {
+          "cid": "UNKNOWN-01",
+          "policy_id": "GEN-02",
+          "evidence": "Turn 4: Agent says 'Then I will invoke tool explain bill init mcp once'.",
+          "reason": "The agent explicitly disclosed the internal tool name 'explain bill init mcp' to the customer, violating the policy against exposing internal system instructions or tool names."
+        }
+      ]
+    },
+    "measured_lift": null,
+    "status": "needs_replay_coverage",
+    "next_step": "synthesize episodes that exercise this failure, then replay before approval"
+  },
+  {
+    "id": "R-PROD-fabrication",
+    "category": "groundedness",
+    "lever": null,
+    "finding": "1 production FAIL verdict(s) across 1 call(s): {'GEN-01': 1}",
+    "production_evidence": {
+      "fail_verdicts": 1,
+      "calls": 1,
+      "policies": {
+        "GEN-01": 1
+      },
+      "examples": [
+        {
+          "cid": "CID-2822336396-0032611169-2829121584-0003659100",
+          "policy_id": "GEN-01",
+          "evidence": "Turn 10: Agent says ...decrease of 50 dollars from last month. This is mainly due to a 50 dollar credit...",
+          "reason": "The agent fabricated the billing explanation. The tool output in turn 6/7 shows a last bill amount of 259.98 and a previous payment of 179.99, but contains no data supporting a '50 dollar decrease' or a '50 dollar credit"
+        }
+      ]
+    },
+    "measured_lift": null,
+    "status": "needs_replay_coverage",
+    "next_step": "outside the five-lever action space - needs a new guard (e.g. grounding check)"
+  }
+]

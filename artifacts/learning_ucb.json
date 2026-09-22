@@ -1,0 +1,738 @@
+{
+  "algo": "ucb1",
+  "iterations": [
+    {
+      "it": 1,
+      "pulled": [],
+      "r": 1.6,
+      "best_arm": [],
+      "best_q": 1.6
+    },
+    {
+      "it": 2,
+      "pulled": [
+        "taxonomy"
+      ],
+      "r": 1.8917,
+      "best_arm": [
+        "taxonomy"
+      ],
+      "best_q": 1.892
+    },
+    {
+      "it": 3,
+      "pulled": [
+        "metadata"
+      ],
+      "r": 1.425,
+      "best_arm": [
+        "taxonomy"
+      ],
+      "best_q": 1.892
+    },
+    {
+      "it": 4,
+      "pulled": [
+        "metadata",
+        "taxonomy"
+      ],
+      "r": 2.8833,
+      "best_arm": [
+        "metadata",
+        "taxonomy"
+      ],
+      "best_q": 2.883
+    },
+    {
+      "it": 5,
+      "pulled": [
+        "sequencing"
+      ],
+      "r": 2.575,
+      "best_arm": [
+        "metadata",
+        "taxonomy"
+      ],
+      "best_q": 2.883
+    },
+    {
+      "it": 6,
+      "pulled": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.2083,
+      "best_arm": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.208
+    },
+    {
+      "it": 7,
+      "pulled": [
+        "metadata",
+        "sequencing"
+      ],
+      "r": 3.675,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 8,
+      "pulled": [
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.325,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 9,
+      "pulled": [
+        "formatter"
+      ],
+      "r": 2.2917,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 10,
+      "pulled": [
+        "formatter",
+        "taxonomy"
+      ],
+      "r": 2.6,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 11,
+      "pulled": [
+        "formatter",
+        "metadata"
+      ],
+      "r": 2.3583,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 12,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "taxonomy"
+      ],
+      "r": 2.9167,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 13,
+      "pulled": [
+        "formatter",
+        "sequencing"
+      ],
+      "r": 3.1,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 14,
+      "pulled": [
+        "formatter",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.475,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 15,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "sequencing"
+      ],
+      "r": 3.25,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 16,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.4,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 17,
+      "pulled": [
+        "prompt_hat"
+      ],
+      "r": 1.5333,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 18,
+      "pulled": [
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r": 2.4417,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 19,
+      "pulled": [
+        "metadata",
+        "prompt_hat"
+      ],
+      "r": 1.975,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 20,
+      "pulled": [
+        "metadata",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r": 3.1,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 21,
+      "pulled": [
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 2.15,
+      "best_arm": [
+        "metadata",
+        "sequencing"
+      ],
+      "best_q": 3.675
+    },
+    {
+      "it": 22,
+      "pulled": [
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.9333,
+      "best_arm": [
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.933
+    },
+    {
+      "it": 23,
+      "pulled": [
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 3.8,
+      "best_arm": [
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.933
+    },
+    {
+      "it": 24,
+      "pulled": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.95,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 25,
+      "pulled": [
+        "formatter",
+        "prompt_hat"
+      ],
+      "r": 2.2167,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 26,
+      "pulled": [
+        "formatter",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r": 3.0333,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 27,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat"
+      ],
+      "r": 3.0667,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 28,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r": 3.475,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 29,
+      "pulled": [
+        "formatter",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 3.125,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 30,
+      "pulled": [
+        "formatter",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.375,
+      "best_arm": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 3.95
+    },
+    {
+      "it": 31,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 4.0,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "best_q": 4.0
+    },
+    {
+      "it": 32,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 4.35,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 33,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 4.35,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 34,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 3.95,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 35,
+      "pulled": [
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.95,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 36,
+      "pulled": [
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.2583,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 37,
+      "pulled": [
+        "metadata",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 3.5,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 38,
+      "pulled": [
+        "metadata",
+        "sequencing"
+      ],
+      "r": 3.025,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 39,
+      "pulled": [
+        "formatter",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.4667,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 40,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "taxonomy"
+      ],
+      "r": 3.45,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 41,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.975,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 42,
+      "pulled": [
+        "formatter",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.65,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 43,
+      "pulled": [
+        "metadata",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 3.7917,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 44,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "sequencing"
+      ],
+      "r": 3.3667,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 45,
+      "pulled": [
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 2.8417,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 46,
+      "pulled": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "r": 4.35,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 47,
+      "pulled": [
+        "formatter",
+        "prompt_hat",
+        "sequencing"
+      ],
+      "r": 3.3167,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    },
+    {
+      "it": 48,
+      "pulled": [
+        "formatter",
+        "sequencing"
+      ],
+      "r": 2.8583,
+      "best_arm": [
+        "formatter",
+        "metadata",
+        "prompt_hat",
+        "sequencing",
+        "taxonomy"
+      ],
+      "best_q": 4.35
+    }
+  ],
+  "final_best": [
+    "formatter",
+    "metadata",
+    "prompt_hat",
+    "sequencing",
+    "taxonomy"
+  ],
+  "final_q": 4.35
+}
