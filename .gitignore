@@ -3,3 +3,4 @@ __pycache__/
 .venv/
 *.zip
 .env
+rlaif_lab/data/trace_history.json

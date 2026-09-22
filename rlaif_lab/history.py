@@ -3,7 +3,8 @@
 Every improvement is committed by scripts/snapshot_traces.py and tagged trace-vN.
 This module reads those tags back: for each version the headline metrics from that
 version's artifacts/, the deltas against the previous version, and the commit log.
-Needs a git checkout; returns {"available": False, ...} otherwise (e.g. in the container).
+Needs a git checkout. Where there is none (the container image), it serves the snapshot
+baked at build time by `python -m rlaif_lab.history` into data/trace_history.json.
 """
 from __future__ import annotations
 import json, re, subprocess
@@ -13,6 +14,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 ART = "artifacts"
 TAG_PREFIX = "trace-v"
+BAKED = Path(__file__).resolve().parent / "data" / "trace_history.json"
 
 # key, label, path into {"cycle": cycle_summary, "rca": trace_rca}, higher_is_better (None = neutral), unit
 METRICS = [
@@ -92,6 +94,8 @@ def repo_url(root: Path = REPO) -> str | None:
 def load(root: Path = REPO) -> dict:
     head = _git("rev-parse", "HEAD", root=root)
     if head is None:
+        if BAKED.is_file():
+            return {**json.loads(BAKED.read_text(encoding="utf-8")), "source": "baked"}
         return {"available": False, "reason": "not a git checkout — run the server from the repo to see trace history",
                 "versions": [], "commits": []}
     tags = _git("for-each-ref", f"refs/tags/{TAG_PREFIX}*", "--format=%(refname:short) %(objectname)", root=root) or ""
@@ -168,3 +172,11 @@ def _load(root_s: str, head: str, tags: str) -> dict:
     return {"available": True, "repo_url": repo_url(root), "head": head[:7],
             "metrics": [{"key": k, "label": l, "better": b, "unit": u} for k, l, _, b, u in METRICS],
             "versions": versions[::-1], "commits": commits}
+
+
+if __name__ == "__main__":
+    h = load()
+    if not h["available"]:
+        raise SystemExit(h["reason"])
+    BAKED.write_text(json.dumps({**h, "source": "git"}, indent=1), encoding="utf-8")
+    print(f"baked {len(h['versions'])} versions @ {h['head']} -> {BAKED}")

@@ -796,7 +796,8 @@ function renderHistory(h) {
   if (!h.available) { el.innerHTML = `<div class="empty">${esc(h.reason)}</div>`; $("#hrepo").textContent = ""; return; }
   const url = h.repo_url, vs = h.versions, asc = [...vs].reverse(), st = h.state || {};
   const link = (path, text) => url ? `<a href="${url}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
-  $("#hrepo").innerHTML = url ? `GitHub: ${link("", esc(url.replace("https://github.com/", "")))} · ${link("commits/" + esc(st.branch || "main"), "commits")} · ${link("tags", "tags")}` : "No GitHub remote configured.";
+  $("#hrepo").innerHTML = url ? `GitHub: ${link("", esc(url.replace("https://github.com/", "")))} · ${link("commits/" + esc(st.branch || "main"), "commits")} · ${link("tags", "tags")}` : "No GitHub remote configured."
+  if (h.source === "baked") $("#hrepo").innerHTML += ` · <span class="pill warn">snapshot baked into this deployment at <code>${esc(h.head)}</code></span>`;
   if (!vs.length) { el.innerHTML = `<div class="empty">No <code>trace-v*</code> tags yet — run <code>python scripts/snapshot_traces.py -m "…"</code>.</div>`; return; }
   const first = asc[0], last = asc[asc.length - 1], next = `trace-v${last.n + 1}`;
   const meta = Object.fromEntries(h.metrics.map(m => [m.key, m]));
