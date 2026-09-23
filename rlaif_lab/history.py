@@ -62,6 +62,21 @@ def changes(cur: dict, prev: dict | None) -> list[dict]:
     return out
 
 
+def detail(snap: dict) -> dict:
+    """Compact per-version payload the side-by-side comparison reads (no extra git calls)."""
+    cyc, rca = snap["cycle"], snap["rca"]
+    side = lambda s: {k: cyc[s].get(k) for k in (
+        "avg_weighted", "chosen_rate", "resolved_rate", "route_accuracy", "avg_compliance_rate",
+        "action_completion_rate", "output_leaks", "gate_violations", "arg_error_calls",
+        "avg_dims", "action_categories", "policy_fail_counts", "business_objectives")}
+    return {"episodes": cyc.get("episodes"), "preference_pairs": cyc.get("preference_pairs"),
+            "recommendations": len(cyc.get("recommendations") or []),
+            "credit": cyc.get("credit_assignment_weighted_delta_per_lever", {}),
+            "baseline": side("baseline"), "full": side("full"),
+            "production": {"records": rca.get("records"), "overall_result_false": rca.get("overall_result_false"),
+                           "fail_counts": fail_counts(snap)}}
+
+
 def policy_changes(cur: dict, prev: dict | None) -> list[dict]:
     if not prev:
         return []
@@ -194,6 +209,7 @@ def _load(root_s: str, head: str, tags: str) -> dict:
             "message": subject[len(tag) + 2:] if subject.startswith(tag + ": ") else subject,
             "deployed_levers": _get(snap, ("cycle", "deployed_levers")) if snap else None,
             "metrics": metric_values(snap) if snap else {},
+            "detail": detail(snap) if snap else None,
             "files": files.get(sha, []),
             "diff": _diff(prev_text, cyc, cyc_path),
             "changes": changes(snap, prev) if snap else [],

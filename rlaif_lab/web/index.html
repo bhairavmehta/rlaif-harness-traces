@@ -307,7 +307,7 @@
 <script>
 "use strict";
 const LEVERS = ["taxonomy","metadata","sequencing","formatter","prompt_hat"];
-const LEVER_LABEL = {taxonomy:"Taxonomy",metadata:"Tool metadata",sequencing:"Sequencing",formatter:"Formatter",prompt_hat:"Prompt hat"};
+const LEVER_LABEL = {taxonomy:"Taxonomy",metadata:"Tool metadata",sequencing:"Sequencing",formatter:"Formatter",prompt_hat:"Prompt hat",context:"Context attributes",evidence:"Evidence fusion"};
 const LEVER_COLOR = {taxonomy:"var(--s1)",metadata:"var(--s2)",sequencing:"var(--s3)",formatter:"var(--s4)",prompt_hat:"var(--s5)"};
 const DIMS = [["task_completion","Task completion",.35],["tool_selection_quality","Tool selection",.20],["intent_recognition","Intent recognition",.20],["groundedness","Groundedness",.15],["context_retention","Context retention",.10]];
 const SUGGEST = [
@@ -822,7 +822,7 @@ function renderHistory(h) {
   const versions = vs.map(v => {
     const changed = v.changes.filter(c => c.delta);
     const chips = !v.previous ? `<span class="pill na">first version — baseline for all deltas</span>`
-      : changed.length ? changed.map(c => `<span class="pill ${c.good === null ? "na" : c.good ? "pass" : "fail"}">${c.good === null ? "" : c.good ? "▲" : "▼"} ${esc(c.label)} ${esc(MFMT[c.unit](c.before))} → ${esc(MFMT[c.unit](c.after))} (${esc(MDELTA[c.unit](c.delta))})</span>`).join(" ")
+      : changed.length ? changed.map(c => `<span class="pill ${c.good === null ? "na" : c.good ? "pass" : "fail"}">${c.delta > 0 ? "▲" : "▼"} ${esc(c.label)} ${esc(MFMT[c.unit](c.before))} → ${esc(MFMT[c.unit](c.after))} (${esc(MDELTA[c.unit](c.delta))})</span>`).join(" ")
       : `<span class="pill na">no metric changed</span>`;
     const pols = v.policy_changes.length ? `<div class="mini" style="margin-top:.3rem">Production policy FAILs: ${v.policy_changes.map(p => `<code>${esc(p.policy_id)}</code> ${p.before} → ${p.after}`).join(" · ")}</div>` : "";
     const lev = v.deployed_levers == null ? "" : `<div class="row" style="margin-top:.3rem"><span class="lt">DEPLOYED LEVERS</span>${v.deployed_levers.length ? v.deployed_levers.map(l => `<span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>`).join(" ") : `<span class="pill na">none (vanilla)</span>`}</div>`;
@@ -856,6 +856,7 @@ function renderHistory(h) {
       <div class="card"><h3>JUDGE WEIGHTED SCORE PER VERSION</h3><div id="hchart1"></div></div>
       <div class="card"><h3>OUTCOME RATES PER VERSION (DEPLOYED HARNESS)</h3><div id="hchart2"></div></div>
     </div>
+    <div id="hcompare"></div>
     <div class="grid2">
       <div class="card"><h3>VERSIONS — NEWEST FIRST</h3><div style="max-height:900px;overflow:auto">${versions}</div></div>
       <div>
@@ -874,6 +875,98 @@ function renderHistory(h) {
   lineChart($("#hchart2"), {labels, xTitle: "version", yMin: 0, yMax: 1, yFmt: pct,
     series: [["Chosen", "full_chosen", "var(--s1)"], ["Resolved", "full_resolved", "var(--s3)"], ["Route accuracy", "full_route", "var(--s4)"], ["Compliance", "full_compliance", "var(--s5)"]]
       .map(([name, k, color]) => ({name, color, values: asc.map(v => v.metrics[k])}))});
+  renderCompare(h);
+}
+/* ---------------- trace history · side-by-side compare ---------------- */
+const CMP_ROWS = [
+  ["Judge weighted (1-5)", "avg_weighted", "score", true],
+  ["Chosen rate", "chosen_rate", "pct0", true],
+  ["Resolved rate", "resolved_rate", "pct0", true],
+  ["Route accuracy", "route_accuracy", "pct0", true],
+  ["Policy compliance", "avg_compliance_rate", "pct1", true],
+  ["Action completion", "action_completion_rate", "pct1", true],
+  ["Raw output leaks", "output_leaks", "int", false],
+  ["Hard-gate episodes", "gate_violations", "int", false],
+  ["Argument-error calls", "arg_error_calls", "int", false],
+];
+const DIM_LABEL = {task_completion:"Task completion", tool_selection_quality:"Tool selection",
+                   intent_recognition:"Intent recognition", groundedness:"Groundedness",
+                   context_retention:"Context retention"};
+
+function dcell(a, b, unit, better) {
+  if (a === undefined || a === null || b === undefined || b === null) return `<td class="num">—</td>`;
+  const d = b - a;
+  if (!d) return `<td class="num" style="color:var(--gray)">=</td>`;
+  const good = better === null ? null : (d > 0) === better;
+  const cls = good === null ? "" : good ? "delta-up" : "delta-dn";
+  return `<td class="num ${cls}">${d > 0 ? "▲ " : "▼ "}${esc(MDELTA[unit](d))}</td>`;
+}
+function cmpTable(title, rows, A, B) {
+  const body = rows.map(([label, a, b, unit, better]) =>
+    `<tr><td>${esc(label)}</td><td class="num">${esc(MFMT[unit](a))}</td><td class="num">${esc(MFMT[unit](b))}</td>${dcell(a, b, unit, better)}</tr>`).join("");
+  return `<div class="card"><h3>${esc(title)}</h3><div class="twrap"><table><thead><tr><th>Measure</th>
+    <th class="num">${esc(A)}</th><th class="num">${esc(B)}</th><th class="num">Change</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+}
+function verHead(v, side) {
+  const color = side === "a" ? "var(--vanilla)" : "var(--rlaif)";
+  const lev = (v.deployed_levers || []).map(l => `<span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>`).join(" ")
+    || `<span class="pill na">none (vanilla)</span>`;
+  return `<div class="card" style="border-top:4px solid ${color};margin-bottom:0">
+    <div class="row"><span class="dot" style="background:${color}"></span><b style="color:var(--navy)">${esc(v.tag)}</b>
+      <span class="mini">${esc(shortDate(v.date))}</span></div>
+    <div style="font-size:.82rem;margin:.25rem 0 .35rem">${esc(v.message)}</div>
+    <div class="row">${v.deployed_levers == null ? "" : lev}</div></div>`;
+}
+function renderCompare(h) {
+  const el = $("#hcompare"); if (!el) return;
+  const vs = h.versions.filter(v => v.detail);
+  if (vs.length < 2) { el.innerHTML = ""; return; }
+  const opts = sel => vs.map(v => `<option value="${esc(v.tag)}" ${v.tag === sel ? "selected" : ""}>${esc(v.tag)} · ${esc(v.message.slice(0, 48))}</option>`).join("");
+  S.cmpA = vs.some(v => v.tag === S.cmpA) ? S.cmpA : vs[vs.length - 1].tag;   // oldest by default
+  S.cmpB = vs.some(v => v.tag === S.cmpB) ? S.cmpB : vs[0].tag;               // newest
+  const A = vs.find(v => v.tag === S.cmpA), B = vs.find(v => v.tag === S.cmpB);
+  const a = A.detail, b = B.detail;
+
+  const headline = CMP_ROWS.map(([label, key, unit, better]) => [label, a.full[key], b.full[key], unit, better]);
+  const vanilla = CMP_ROWS.slice(0, 6).map(([label, key, unit, better]) => [label, a.baseline[key], b.baseline[key], unit, better]);
+  const dims = Object.keys(DIM_LABEL).map(k => [DIM_LABEL[k], a.full.avg_dims?.[k], b.full.avg_dims?.[k], "score", true]);
+  const cats = [...new Set([...Object.keys(a.full.action_categories || {}), ...Object.keys(b.full.action_categories || {})])]
+    .map(c => [c, (a.full.action_categories || {})[c] || 0, (b.full.action_categories || {})[c] || 0, "int", c === "RESOLVED"]);
+  const pol = [...new Set([...Object.keys(a.full.policy_fail_counts || {}), ...Object.keys(b.full.policy_fail_counts || {})])].sort()
+    .map(p => [p, (a.full.policy_fail_counts || {})[p] || 0, (b.full.policy_fail_counts || {})[p] || 0, "int", false]);
+  const levers = [...new Set([...Object.keys(a.credit || {}), ...Object.keys(b.credit || {})])]
+    .map(l => [LEVER_LABEL[l] || l, a.credit?.[l], b.credit?.[l], "score", true]);
+  const corpus = [["Episodes replayed", a.episodes, b.episodes, "int", null],
+                  ["Preference pairs emitted", a.preference_pairs, b.preference_pairs, "int", null],
+                  ["Recommendations", a.recommendations, b.recommendations, "int", null],
+                  ["Production calls analysed", a.production.records, b.production.records, "int", null],
+                  ["Production overall FAIL", a.production.overall_result_false, b.production.overall_result_false, "int", false]];
+
+  el.innerHTML = `
+    <div class="card"><h3>COMPARE TWO VERSIONS — SIDE BY SIDE</h3>
+      <div class="row">
+        <label class="lt" for="cmpa">Version A</label><select id="cmpa">${opts(S.cmpA)}</select>
+        <label class="lt" for="cmpb">Version B</label><select id="cmpb">${opts(S.cmpB)}</select>
+        <button class="btn" id="cmpswap" type="button">⇄ Swap</button>
+        <span class="mini">“Change” is B minus A. Green = better, red = worse.</span>
+      </div>
+      <div class="grid2" style="margin-top:.6rem">${verHead(A, "a")}${verHead(B, "b")}</div>
+    </div>
+    <div class="grid2">
+      ${cmpTable("DEPLOYED HARNESS — HEADLINE MEASURES", headline, A.tag, B.tag)}
+      ${cmpTable("JUDGE DIMENSIONS (DEPLOYED, 1-5)", dims, A.tag, B.tag)}
+    </div>
+    <div class="grid2">
+      ${cmpTable("ACTION-COMPLETION CATEGORIES (EPISODES)", cats, A.tag, B.tag)}
+      ${cmpTable("POLICY FAILURES ON THE DEPLOYED HARNESS", pol.length ? pol : [["no policy failures in either version", 0, 0, "int", false]], A.tag, B.tag)}
+    </div>
+    <div class="grid2">
+      ${cmpTable("CREDIT PER LEVER (WEIGHTED Δ VS VANILLA)", levers, A.tag, B.tag)}
+      ${cmpTable("VANILLA BASELINE & CORPUS", vanilla.concat(corpus), A.tag, B.tag)}
+    </div>`;
+  $("#cmpa").addEventListener("change", e => { S.cmpA = e.target.value; renderCompare(h); });
+  $("#cmpb").addEventListener("change", e => { S.cmpB = e.target.value; renderCompare(h); });
+  $("#cmpswap").addEventListener("click", () => { const t = S.cmpA; S.cmpA = S.cmpB; S.cmpB = t; renderCompare(h); });
 }
 $("#hgo").addEventListener("click", runHistory);
 
