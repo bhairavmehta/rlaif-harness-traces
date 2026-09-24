@@ -210,6 +210,25 @@ def api_levers(_, __):
         if lv == "prompt_hat":
             changes.append({"kind": "behaviors", "name": "instruction layer", "field": "behaviors",
                             "before": [], "after": sorted(R.behaviors)})
+        if lv == "context":
+            p = PATCHES[lv]
+            for name, attr in p["attributes"].items():
+                changes.append({"kind": "context attribute", "name": name, "field": "promoted from",
+                                "before": attr["promoted_from"] + " (soft flag, not planner-visible)",
+                                "after": f"{name} (explicit, versioned {attr['version']})"})
+            lb = p["episodic_lookback_days"]
+            changes.append({"kind": "context attribute", "name": "episodic lookback",
+                            "field": "lookback_days", "before": "hard-coded, unversioned",
+                            "after": f"{lb['value']} days · {lb['config_id']} · configurable"})
+        if lv == "evidence":
+            p = PATCHES[lv]
+            changes += [
+                {"kind": "retrieval rule", "name": "grounded actions", "field": "max_grounded_actions",
+                 "before": "unbounded, ungrounded suggestions", "after": f"at most {p['max_grounded_actions']}, each KB-sourced"},
+                {"kind": "retrieval rule", "name": "savings amounts", "field": "require_source_backed_amounts",
+                 "before": "generic savings claims, no source", "after": "amounts must cite a KB source"},
+                {"kind": "retrieval rule", "name": "estimates", "field": "label_estimates_as_estimates",
+                 "before": "stated as fact", "after": "labelled as estimates"}]
         owned = [pid for pid, pol in policies.CATALOG.items() if pol.lever == lv]
         out[lv] = {"id": PATCHES[lv]["id"], "target": PATCHES[lv]["target"], "changes": changes,
                    "owns_policies": owned}

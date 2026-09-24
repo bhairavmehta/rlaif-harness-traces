@@ -789,7 +789,10 @@ function diffHtml(text) {
 async function runHistory() {
   const el = $("#historyview");
   el.innerHTML = `<div class="empty">Reading git history…</div>`;
-  try { const h = await api("/api/history"); S.cache.history = h; renderHistory(h); } catch (e) { fail(el, e); }
+  try {
+    const [h, levers] = await Promise.all([api("/api/history"), S.cache.leverInfo ? Promise.resolve(S.cache.leverInfo) : api("/api/levers")]);
+    S.cache.history = h; S.cache.leverInfo = levers; renderHistory(h);
+  } catch (e) { fail(el, e); }
 }
 function renderHistory(h) {
   const el = $("#historyview");
@@ -819,7 +822,14 @@ function renderHistory(h) {
     ["Publish commit + tag (--push)", `git push --follow-tags origin HEAD`],
   ].map(([t, c], i) => `<li style="margin-bottom:.45rem"><b style="font-size:.76rem;color:var(--navy)">${i+1}. ${esc(t)}</b><pre class="code" style="margin-top:.2rem">${esc(c)}</pre></li>`).join("");
 
-  const versions = vs.map(v => {
+  const versions = vs.map((v, vi) => {
+    const prevV = vs[vi + 1] || null;
+    const addedLev = (v.deployed_levers || []).filter(l => !((prevV && prevV.deployed_levers) || []).includes(l));
+    const removedLev = ((prevV && prevV.deployed_levers) || []).filter(l => !(v.deployed_levers || []).includes(l));
+    const fixedPol = prevV ? policyDelta(prevV.detail, v.detail) : [];
+    const harness = v.deployed_levers == null ? "" : `<details class="tools" ${addedLev.length ? "open" : ""}>
+      <summary><b>What changed in the harness</b>${addedLev.length ? ` — ${addedLev.map(l => esc(LEVER_LABEL[l] || l)).join(", ")} switched on` : ""}</summary>
+      <div style="margin-top:.35rem">${harnessBlock(addedLev, removedLev, fixedPol, S.cache.leverInfo, {compact: true, prevTag: prevV && prevV.tag})}</div></details>`;
     const changed = v.changes.filter(c => c.delta);
     const chips = !v.previous ? `<span class="pill na">first version — baseline for all deltas</span>`
       : changed.length ? changed.map(c => `<span class="pill ${c.good === null ? "na" : c.good ? "pass" : "fail"}">${c.delta > 0 ? "▲" : "▼"} ${esc(c.label)} ${esc(MFMT[c.unit](c.before))} → ${esc(MFMT[c.unit](c.after))} (${esc(MDELTA[c.unit](c.delta))})</span>`).join(" ")
@@ -837,6 +847,7 @@ function renderHistory(h) {
       <div class="row"><span class="pill ${latest ? "pass" : "lev"}">${esc(v.tag)}${latest ? " · latest" : ""}</span><b>${esc(v.message)}</b></div>
       <div class="mini" style="margin-top:.15rem">${link("commit/" + esc(v.hash), `<code>${esc(v.short)}</code>`)} · ${esc(v.author || "")} · ${esc(shortDate(v.date))}${v.previous && url ? ` · ${link(`compare/${esc(v.previous)}...${esc(v.tag)}`, `compare ${esc(v.previous)}…${esc(v.tag)} on GitHub`)}` : ""}</div>
       ${lev}<div class="row" style="margin-top:.35rem">${chips}</div>${pols}
+      ${harness}
       ${files}${diff}
       <details class="tools"><summary>Git commands for this version</summary><pre class="code" style="margin-top:.3rem">${esc(cmds)}</pre></details></div>`;
   }).join("");
@@ -876,6 +887,99 @@ function renderHistory(h) {
     series: [["Chosen", "full_chosen", "var(--s1)"], ["Resolved", "full_resolved", "var(--s3)"], ["Route accuracy", "full_route", "var(--s4)"], ["Compliance", "full_compliance", "var(--s5)"]]
       .map(([name, k, color]) => ({name, color, values: asc.map(v => v.metrics[k])}))});
   renderCompare(h);
+}
+/* ---------------- what each version changed in the harness ---------------- */
+const LEVER_WHY = {
+  taxonomy: {
+    what: "Agent descriptions and routing triggers",
+    problem: "Each agent described itself in one vague line (“Handles billing questions.”), so the router could not tell a billing dispute from a paperless request or a due-date change.",
+    fix: "Every agent gets a description that says what it handles, gives real customer phrasings, and states what it is NOT for — plus an explicit trigger list (including Spanish and repeat-contact wording).",
+    moves: "Route accuracy and intent recognition.",
+  },
+  metadata: {
+    what: "Tool descriptions, triggers and required arguments",
+    problem: "Tool descriptions overlapped (get_account_balance claimed “balance and charges”), so the agent picked a plausible but wrong tool, and missing required arguments meant calls went out incomplete.",
+    fix: "Each tool states its one job and what it is not for, narrow triggers, and declares required arguments — e.g. explain_bill must be called with detail_level, which is where a waiver’s charge_id comes from.",
+    moves: "Tool-selection quality and argument errors.",
+  },
+  sequencing: {
+    what: "Per-journey phases and tool preconditions",
+    problem: "Nothing stopped the agent from acting before checking: submitting a fee waiver before reading the bill, enrolling paperless before the eligibility check and T&C.",
+    fix: "Each journey gets ordered phases listing which tools may run when, and action tools get preconditions — a waiver needs explain_bill(detail_level='full'), enrolment needs eligibility PASS and terms accepted.",
+    moves: "Hard-gate violations and task completion.",
+  },
+  formatter: {
+    what: "Output contracts on tool results",
+    problem: "Tool results were pasted into the reply verbatim, so raw JSON, internal tool names and ticket IDs reached the customer.",
+    fix: "Every customer-visible tool renders through a template contract instead of echoing its payload.",
+    moves: "Raw output leaks and the disclosure policies.",
+  },
+  prompt_hat: {
+    what: "The instruction layer (behavioural rules)",
+    problem: "The instruction layer carried no behavioural rules: no confirming intent, no carrying IVR verification, no reading T&C before consent, no disclosures, no queue for a second intent.",
+    fix: "Twelve named behaviours are switched on — confirm intent first, carry IVR verification, read terms and get consent, make disclosures, hold the intent queue, forbid internal identifiers, and the empathy / root-cause response shape.",
+    moves: "Context retention and policy compliance.",
+  },
+  context: {
+    what: "Short-term memory context attributes",
+    problem: "The repeat-contact signal existed only as a soft flag that the planner never read, so a third call about the same bill looked like a first call.",
+    fix: "It is promoted to an explicit, versioned RECURRING_CONTACT attribute, with the 90-day lookback made configurable rather than hard-coded.",
+    moves: "Context retention on repeat-billing episodes.",
+  },
+  evidence: {
+    what: "Retrieval and evidence-fusion rules",
+    problem: "Savings advice was generic and unsourced — the agent could claim a figure with nothing behind it.",
+    fix: "At most three knowledge-base-sourced actions, amounts must cite their source, and anything not exact is labelled an estimate. Query and context only — no index rebuild.",
+    moves: "Groundedness of savings claims.",
+  },
+};
+
+function settingsTable(changes, maxRows) {
+  if (!changes || !changes.length) return "";
+  const show = v => Array.isArray(v) ? (v.length ? v.join(", ") : "(empty)") : (v === "" ? "(empty)" : String(v));
+  const rows = changes.slice(0, maxRows || changes.length).map(c => `<tr>
+    <td class="mono" style="white-space:nowrap">${esc(c.name)}<div class="mini">${esc(c.field)}</div></td>
+    <td class="mini" style="color:var(--crit)">${esc(show(c.before))}</td>
+    <td class="mini" style="color:var(--goodtext)">${esc(show(c.after))}</td></tr>`).join("");
+  const more = changes.length > (maxRows || changes.length) ? `<div class="mini" style="margin-top:.2rem">…and ${changes.length - maxRows} more setting(s)</div>` : "";
+  return `<div class="twrap" style="max-height:300px;margin-top:.35rem"><table><thead><tr>
+    <th>Setting</th><th>Before (vanilla)</th><th>After (patched)</th></tr></thead><tbody>${rows}</tbody></table></div>${more}`;
+}
+
+/** Plain-language block for the levers switched on between two versions. */
+function harnessBlock(added, removed, fixed, levers, opts) {
+  const compact = opts && opts.compact;
+  if (!added.length && !removed.length) {
+    return `<div class="mini">Same lever set as ${esc(opts && opts.prevTag || "the previous version")} — the change was in code or data, not in the harness configuration.</div>`;
+  }
+  const cards = added.map(l => {
+    const why = LEVER_WHY[l] || {}, info = (levers || {})[l] || {};
+    const n = (info.changes || []).length;
+    return `<div class="rec" style="border-left-color:${LEVER_COLOR[l] || "var(--blue)"}">
+      <div class="row"><span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>
+        <b>${esc(why.what || info.target || "")}</b>
+        <span class="mini mono">${esc(info.id || "")}</span>
+        ${n ? `<span class="mini">${n} setting${n > 1 ? "s" : ""} changed</span>` : ""}</div>
+      <div style="font-size:.78rem;margin-top:.3rem"><b>Problem:</b> ${esc(why.problem || "")}</div>
+      <div style="font-size:.78rem;margin-top:.15rem"><b>Change:</b> ${esc(why.fix || "")}</div>
+      <div class="mini" style="margin-top:.15rem"><b>Moves:</b> ${esc(why.moves || "")}</div>
+      ${compact ? `<details class="tools"><summary>Settings before → after (${n})</summary>${settingsTable(info.changes, 40)}</details>`
+                : settingsTable(info.changes, 6)}
+      ${(info.owns_policies || []).length ? `<div class="mini" style="margin-top:.25rem">Owns policies: ${info.owns_policies.map(p => `<code>${esc(p)}</code>`).join(" ")}</div>` : ""}
+    </div>`;
+  }).join("");
+  const off = removed.length ? `<div class="mini">Switched off: ${removed.map(l => esc(LEVER_LABEL[l] || l)).join(", ")}</div>` : "";
+  const fixedRow = fixed && fixed.length
+    ? `<div class="mini" style="margin-top:.3rem"><b>Policy failures this removed:</b> ${fixed.map(f => `<code>${esc(f.id)}</code> ${f.before}→${f.after}`).join(" · ")}</div>` : "";
+  return cards + off + fixedRow;
+}
+
+/** policy_fail_counts delta between two version details (only rows that improved/worsened). */
+function policyDelta(prevDetail, curDetail) {
+  const a = (prevDetail && prevDetail.full.policy_fail_counts) || {}, b = (curDetail && curDetail.full.policy_fail_counts) || {};
+  return [...new Set([...Object.keys(a), ...Object.keys(b)])].sort()
+    .map(id => ({id, before: a[id] || 0, after: b[id] || 0}))
+    .filter(x => x.before !== x.after);
 }
 /* ---------------- trace history · side-by-side compare ---------------- */
 const CMP_ROWS = [
@@ -927,6 +1031,7 @@ function renderCompare(h) {
   const A = vs.find(v => v.tag === S.cmpA), B = vs.find(v => v.tag === S.cmpB);
   const a = A.detail, b = B.detail;
 
+  const aLev = A.deployed_levers || [], bLev = B.deployed_levers || [];
   const headline = CMP_ROWS.map(([label, key, unit, better]) => [label, a.full[key], b.full[key], unit, better]);
   const vanilla = CMP_ROWS.slice(0, 6).map(([label, key, unit, better]) => [label, a.baseline[key], b.baseline[key], unit, better]);
   const dims = Object.keys(DIM_LABEL).map(k => [DIM_LABEL[k], a.full.avg_dims?.[k], b.full.avg_dims?.[k], "score", true]);
@@ -960,6 +1065,8 @@ function renderCompare(h) {
       ${cmpTable("ACTION-COMPLETION CATEGORIES (EPISODES)", cats, A.tag, B.tag)}
       ${cmpTable("POLICY FAILURES ON THE DEPLOYED HARNESS", pol.length ? pol : [["no policy failures in either version", 0, 0, "int", false]], A.tag, B.tag)}
     </div>
+    <div class="card"><h3>WHAT CHANGED IN THE HARNESS — ${esc(A.tag)} → ${esc(B.tag)}</h3>
+      ${harnessBlock(bLev.filter(l => !aLev.includes(l)), aLev.filter(l => !bLev.includes(l)), policyDelta(a, b), S.cache.leverInfo, {prevTag: A.tag})}</div>
     <div class="grid2">
       ${cmpTable("CREDIT PER LEVER (WEIGHTED Δ VS VANILLA)", levers, A.tag, B.tag)}
       ${cmpTable("VANILLA BASELINE & CORPUS", vanilla.concat(corpus), A.tag, B.tag)}
