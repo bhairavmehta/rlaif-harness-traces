@@ -158,6 +158,10 @@
   .stat .tile{background:#fff;border:1px solid var(--line)}
   .stat .tile .v{font-size:1.25rem}
   .delta-up{color:var(--goodtext);font-weight:800}.delta-dn{color:var(--crit);font-weight:800}
+  .step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.7rem;padding:.7rem 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:0;padding-top:.2rem}
+  .stepn{width:2.6rem;height:2.6rem;border-radius:50%;color:#fff;font-weight:800;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex:none}
+  .stepbody{min-width:0}
   .rec{border-left:4px solid var(--blue);background:var(--sky);border-radius:0 10px 10px 0;padding:.5rem .7rem;margin-bottom:.5rem}
   .rec.cov{border-left-color:var(--warn);background:var(--warnsoft)}
   .rec b{font-size:.78rem;color:var(--navy)}
@@ -201,7 +205,8 @@
   <button type="button" data-tab="traces">5 · Production traces</button>
   <button type="button" data-tab="policy">6 · Policies &amp; judge prompt</button>
   <button type="button" data-tab="patches">7 · What each lever changes</button>
-  <button type="button" data-tab="history">8 · Trace history (git)</button>
+  <button type="button" data-tab="history">8 · How the traces improved</button>
+  <button type="button" data-tab="compare">9 · Compare versions</button>
 </nav>
 
 <main>
@@ -281,15 +286,29 @@
   <p>Each patch is a named, reversible config change to agent descriptions, tool metadata, preconditions/phases, output contracts, or the instruction layer. Behavior changes through exactly one path: this metadata.</p></div>
   <div id="patchview"></div>
 </section>
-<!-- ================= HISTORY ================= -->
+<!-- ================= HISTORY (story) ================= -->
 <section data-panel="history" hidden>
-  <div class="lead"><h2>Trace history — every improvement is a git commit + tag <code>trace-vN</code></h2>
-  <p>Each version is produced by <code>scripts/snapshot_traces.py</code>: it regenerates the trace artifacts, measures them against the previous version, commits code + artifacts with the metric deltas in the commit message, tags the commit and pushes it to GitHub. Everything on this tab is read live from the git repository.</p></div>
+  <div class="lead"><h2>How the traces improved — one lever at a time, no model retraining</h2>
+  <p>Each version of the traces is a git commit tagged <code>trace-vN</code>, produced by <code>scripts/snapshot_traces.py</code>.
+     Read this tab top to bottom: what the versions achieved, the climb, then step by step what each one changed in the
+     harness and which measures moved. Everything here is read from the repository.</p></div>
   <div class="card row">
     <button class="btn primary" id="hgo" type="button">Refresh from git</button>
     <span class="mini" id="hrepo"></span>
   </div>
   <div id="historyview"></div>
+</section>
+
+<!-- ================= COMPARE ================= -->
+<section data-panel="compare" hidden>
+  <div class="lead"><h2>Compare any two versions, side by side</h2>
+  <p>Pick two versions: the harness settings that differ between them, then every measure — headline outcomes,
+     judge dimensions, episode outcomes, policy failures, and the vanilla baseline they are measured against.</p></div>
+  <div class="card row">
+    <button class="btn primary" id="cgo" type="button">Refresh from git</button>
+    <span class="mini" id="crepo"></span>
+  </div>
+  <div id="compareview"></div>
 </section>
 </main>
 
@@ -368,7 +387,9 @@ function refreshActive(force = true) {
   if (t === "traces" && (force || !S.cache.traces)) runTraces();
   if (t === "policy" && (force || !S.cache.policy)) runPolicy();
   if (t === "patches" && !S.cache.patches) runPatches();
-  if (t === "history" && (force || !S.cache.history)) runHistory();
+  if ((t === "history" || t === "compare") && (force || !S.cache.history)) runHistory();
+  else if (t === "history" && S.cache.history) renderHistory(S.cache.history);
+  else if (t === "compare" && S.cache.history) renderCompare(S.cache.history);
 }
 
 /* ---------------- charts ---------------- */
@@ -775,213 +796,45 @@ async function runPolicy() {
   } catch (e) { fail(el, e); }
 }
 
-/* ---------------- trace history (git) ---------------- */
+/* ---------------- trace history · shared data + formatting ---------------- */
 const MFMT = {score: v => fmt(v, 3), pct0: pct, pct1: v => v == null ? "—" : (v*100).toFixed(1) + "%", int: v => v ?? "—"};
 const MDELTA = {score: d => signed(d, 3), pct0: d => signed(d*100, 0) + " pts", pct1: d => signed(d*100, 1) + " pts", int: d => signed(d, 0)};
 const shortDate = s => s ? s.replace("T", " ").slice(0, 16) : "—";
-function diffHtml(text) {
-  return text.split("\n").map(l => {
-    const c = /^(\+\+\+|---|diff |index )/.test(l) ? "#8FA3BA" : l.startsWith("+") ? "#7EE2A8"
-      : l.startsWith("-") ? "#FFA8A0" : l.startsWith("@@") ? "#8FC1FF" : "#CDE3F7";
-    return `<span style="color:${c}">${esc(l)}</span>`;
-  }).join("\n");
-}
-async function runHistory() {
-  const el = $("#historyview");
-  el.innerHTML = `<div class="empty">Reading git history…</div>`;
-  try {
-    const [h, levers] = await Promise.all([api("/api/history"), S.cache.leverInfo ? Promise.resolve(S.cache.leverInfo) : api("/api/levers")]);
-    S.cache.history = h; S.cache.leverInfo = levers; renderHistory(h);
-  } catch (e) { fail(el, e); }
-}
-function renderHistory(h) {
-  const el = $("#historyview");
-  if (!h.available) { el.innerHTML = `<div class="empty">${esc(h.reason)}</div>`; $("#hrepo").textContent = ""; return; }
-  const url = h.repo_url, vs = h.versions, asc = [...vs].reverse(), st = h.state || {};
-  const link = (path, text) => url ? `<a href="${url}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
-  $("#hrepo").innerHTML = url ? `GitHub: ${link("", esc(url.replace("https://github.com/", "")))} · ${link("commits/" + esc(st.branch || "main"), "commits")} · ${link("tags", "tags")}` : "No GitHub remote configured."
-  if (h.source === "baked") $("#hrepo").innerHTML += ` · <span class="pill warn">snapshot baked into this deployment at <code>${esc(h.head)}</code></span>`;
-  if (!vs.length) { el.innerHTML = `<div class="empty">No <code>trace-v*</code> tags yet — run <code>python scripts/snapshot_traces.py -m "…"</code>.</div>`; return; }
-  const first = asc[0], last = asc[asc.length - 1], next = `trace-v${last.n + 1}`;
-  const meta = Object.fromEntries(h.metrics.map(m => [m.key, m]));
-  const tileH = (label, key) => {
-    const a = first.metrics[key], b = last.metrics[key], d = b - a, m = meta[key];
-    const good = !d || m.better === null ? null : (d > 0) === m.better;
-    return `<div class="tile"><div class="v">${esc(MFMT[m.unit](b))}</div><div class="l">${esc(label)}${vs.length > 1 ? ` · <span class="${good === null ? "" : good ? "delta-up" : "delta-dn"}">${esc(MDELTA[m.unit](d))}</span> since ${esc(first.tag)}` : ""}</div></div>`;
-  };
-  const sync = st.upstream ? (st.ahead || st.behind ? `${st.ahead} ahead · ${st.behind} behind` : "in sync") : "no upstream";
-  const dirty = st.dirty || [];
+const LEVER_SHORT = {taxonomy:"Taxonomy", metadata:"Metadata", sequencing:"Sequencing", formatter:"Formatter",
+                     prompt_hat:"Prompt hat", context:"Context", evidence:"Evidence"};
 
-  const workflow = [
-    ["Regenerate the traces", `python -m rlaif_lab.cli cycle --n 60 --seed 7 --out artifacts [--levers …]\npython -m rlaif_lab.cli traces --out artifacts`],
-    ["Stop if nothing changed", `git status --porcelain -- . ':!TRACE_HISTORY.md'`],
-    ["Read the previous version's metrics", `git show HEAD:artifacts/cycle_summary.json\ngit show HEAD:artifacts/trace_rca.json\ngit tag --list 'trace-v*'          # -> next number: ${next}`],
-    ["Stage code + artifacts + TRACE_HISTORY.md", `git add -A`],
-    ["Commit with the metric deltas as the message body", `git commit -m "${next}: <what changed>" -m "full weighted: … -> … (+…)"`],
-    ["Tag the version", `git tag -a ${next} -m "${next}: <what changed>"`],
-    ["Publish commit + tag (--push)", `git push --follow-tags origin HEAD`],
-  ].map(([t, c], i) => `<li style="margin-bottom:.45rem"><b style="font-size:.76rem;color:var(--navy)">${i+1}. ${esc(t)}</b><pre class="code" style="margin-top:.2rem">${esc(c)}</pre></li>`).join("");
-
-  const versions = vs.map((v, vi) => {
-    const prevV = vs[vi + 1] || null;
-    const addedLev = (v.deployed_levers || []).filter(l => !((prevV && prevV.deployed_levers) || []).includes(l));
-    const removedLev = ((prevV && prevV.deployed_levers) || []).filter(l => !(v.deployed_levers || []).includes(l));
-    const fixedPol = prevV ? policyDelta(prevV.detail, v.detail) : [];
-    const harness = v.deployed_levers == null ? "" : `<details class="tools" ${addedLev.length ? "open" : ""}>
-      <summary><b>What changed in the harness</b>${addedLev.length ? ` — ${addedLev.map(l => esc(LEVER_LABEL[l] || l)).join(", ")} switched on` : ""}</summary>
-      <div style="margin-top:.35rem">${harnessBlock(addedLev, removedLev, fixedPol, S.cache.leverInfo, {compact: true, prevTag: prevV && prevV.tag})}</div></details>`;
-    const changed = v.changes.filter(c => c.delta);
-    const chips = !v.previous ? `<span class="pill na">first version — baseline for all deltas</span>`
-      : changed.length ? changed.map(c => `<span class="pill ${c.good === null ? "na" : c.good ? "pass" : "fail"}">${c.delta > 0 ? "▲" : "▼"} ${esc(c.label)} ${esc(MFMT[c.unit](c.before))} → ${esc(MFMT[c.unit](c.after))} (${esc(MDELTA[c.unit](c.delta))})</span>`).join(" ")
-      : `<span class="pill na">no metric changed</span>`;
-    const pols = v.policy_changes.length ? `<div class="mini" style="margin-top:.3rem">Production policy FAILs: ${v.policy_changes.map(p => `<code>${esc(p.policy_id)}</code> ${p.before} → ${p.after}`).join(" · ")}</div>` : "";
-    const lev = v.deployed_levers == null ? "" : `<div class="row" style="margin-top:.3rem"><span class="lt">DEPLOYED LEVERS</span>${v.deployed_levers.length ? v.deployed_levers.map(l => `<span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>`).join(" ") : `<span class="pill na">none (vanilla)</span>`}</div>`;
-    const files = `<details class="tools"><summary>Files in this commit (${v.files.length}) — git show --stat ${esc(v.tag)}</summary><div class="twrap" style="max-height:220px;margin-top:.3rem"><table><thead><tr><th>Path</th><th>+</th><th>−</th></tr></thead><tbody>${v.files.map(f => `<tr><td class="mono">${esc(f.path)}</td><td class="num delta-up">${f.added ?? "bin"}</td><td class="num delta-dn">${f.deleted ?? "bin"}</td></tr>`).join("")}</tbody></table></div></details>`;
-    const diff = v.diff && v.diff.text ? `<details class="tools"><summary>Trace diff — git diff ${esc(v.previous)} ${esc(v.tag)} -- ${esc(v.diff.path)}</summary><pre class="code" style="margin-top:.3rem">${diffHtml(v.diff.text)}${v.diff.truncated ? "\n… (truncated)" : ""}</pre></details>` : "";
-    const cmds = [`git show ${v.tag} --stat`,
-                  v.previous ? `git diff ${v.previous} ${v.tag} -- artifacts/` : `git ls-tree -r --name-only ${v.tag} artifacts/`,
-                  `git log -1 --format=%B ${v.tag}          # full commit message`,
-                  `git checkout ${v.tag} -- artifacts/   # restore this version's traces`].join("\n");
-    const latest = v.n === last.n;
-    return `<div class="rec" style="${latest ? "border-left-color:var(--good)" : ""}">
-      <div class="row"><span class="pill ${latest ? "pass" : "lev"}">${esc(v.tag)}${latest ? " · latest" : ""}</span><b>${esc(v.message)}</b></div>
-      <div class="mini" style="margin-top:.15rem">${link("commit/" + esc(v.hash), `<code>${esc(v.short)}</code>`)} · ${esc(v.author || "")} · ${esc(shortDate(v.date))}${v.previous && url ? ` · ${link(`compare/${esc(v.previous)}...${esc(v.tag)}`, `compare ${esc(v.previous)}…${esc(v.tag)} on GitHub`)}` : ""}</div>
-      ${lev}<div class="row" style="margin-top:.35rem">${chips}</div>${pols}
-      ${harness}
-      ${files}${diff}
-      <details class="tools"><summary>Git commands for this version</summary><pre class="code" style="margin-top:.3rem">${esc(cmds)}</pre></details></div>`;
-  }).join("");
-
-  const oneline = h.commits.map(c => `${c.short} ${c.tags.length ? `(tag: ${c.tags.join(", tag: ")}) ` : ""}${c.subject}`).join("\n");
-  const commits = h.commits.map(c => `<tr><td class="mono">${link("commit/" + esc(c.hash), esc(c.short))}</td><td>${c.tags.map(t => `<span class="pill lev">${esc(t)}</span>`).join(" ")}</td>
-    <td>${esc(c.subject)}${c.body ? `<details class="tools"><summary>message body</summary><pre>${esc(c.body)}</pre></details>` : ""}</td><td>${esc(c.author)}</td><td class="mono">${esc(shortDate(c.date))}</td></tr>`).join("");
-
-  el.innerHTML = `
-    <div class="card"><h3>WHERE THE TRACES STAND · ${esc(first.tag)} → ${esc(last.tag)}</h3><div class="stat">
-      <div class="tile"><div class="v">${vs.length}</div><div class="l">trace versions (tags)</div></div>
-      ${tileH("Judge weighted (deployed)", "full_weighted")}${tileH("Chosen rate", "full_chosen")}
-      ${tileH("Policy compliance", "full_compliance")}${tileH("Hard-gate episodes", "full_gates")}
-      <div class="tile"><div class="v">${esc(st.branch || "—")}</div><div class="l">${esc(st.upstream || "")} · ${esc(sync)}</div></div>
-      <div class="tile"><div class="v">${dirty.length}</div><div class="l">uncommitted file(s) → ${esc(next)}</div></div></div></div>
-    <div class="grid2">
-      <div class="card"><h3>JUDGE WEIGHTED SCORE PER VERSION</h3><div id="hchart1"></div></div>
-      <div class="card"><h3>OUTCOME RATES PER VERSION (DEPLOYED HARNESS)</h3><div id="hchart2"></div></div>
-    </div>
-    <div id="hcompare"></div>
-    <div class="grid2">
-      <div class="card"><h3>VERSIONS — NEWEST FIRST</h3><div style="max-height:900px;overflow:auto">${versions}</div></div>
-      <div>
-        <div class="card"><h3>GIT WORKFLOW — WHAT ONE SNAPSHOT RUNS (NEXT: ${esc(next)})</h3>
-          <pre class="code">python scripts/snapshot_traces.py -m "&lt;what changed&gt;" [--levers a,b] [--learn] --push</pre>
-          <p class="mini" style="margin:.4rem 0">…which executes, in order:</p><ol style="list-style:none">${workflow}</ol></div>
-        <div class="card"><h3>WORKING TREE — git status --porcelain</h3>${dirty.length ? `<div class="twrap" style="max-height:200px"><table><thead><tr><th>Status</th><th>Path</th></tr></thead><tbody>${dirty.map(d => `<tr><td class="mono">${esc(d.status)}</td><td class="mono">${esc(d.path)}</td></tr>`).join("")}</tbody></table></div><p class="mini" style="margin-top:.3rem">These go into ${esc(next)} on the next snapshot.</p>` : `<div class="mini">Clean — everything is committed.</div>`}</div>
-      </div>
-    </div>
-    <div class="card"><h3>COMMIT LOG — git log --oneline --decorate</h3><pre class="code" style="margin-bottom:.6rem">${esc(oneline)}</pre>
-      <div class="twrap"><table><thead><tr><th>Commit</th><th>Tags</th><th>Message</th><th>Author</th><th>Date</th></tr></thead><tbody>${commits}</tbody></table></div></div>`;
-  const labels = asc.map(v => v.tag);
-  lineChart($("#hchart1"), {labels, xTitle: "version", yMin: 1, yMax: 5, yFmt: v => fmt(v, 2),
-    series: [{name: "Deployed harness", color: "var(--rlaif)", values: asc.map(v => v.metrics.full_weighted)},
-             {name: "Vanilla baseline", color: "var(--vanilla)", values: asc.map(v => v.metrics.base_weighted)}]});
-  lineChart($("#hchart2"), {labels, xTitle: "version", yMin: 0, yMax: 1, yFmt: pct,
-    series: [["Chosen", "full_chosen", "var(--s1)"], ["Resolved", "full_resolved", "var(--s3)"], ["Route accuracy", "full_route", "var(--s4)"], ["Compliance", "full_compliance", "var(--s5)"]]
-      .map(([name, k, color]) => ({name, color, values: asc.map(v => v.metrics[k])}))});
-  renderCompare(h);
-}
-/* ---------------- what each version changed in the harness ---------------- */
 const LEVER_WHY = {
-  taxonomy: {
-    what: "Agent descriptions and routing triggers",
-    problem: "Each agent described itself in one vague line (“Handles billing questions.”), so the router could not tell a billing dispute from a paperless request or a due-date change.",
-    fix: "Every agent gets a description that says what it handles, gives real customer phrasings, and states what it is NOT for — plus an explicit trigger list (including Spanish and repeat-contact wording).",
-    moves: "Route accuracy and intent recognition.",
-  },
-  metadata: {
-    what: "Tool descriptions, triggers and required arguments",
-    problem: "Tool descriptions overlapped (get_account_balance claimed “balance and charges”), so the agent picked a plausible but wrong tool, and missing required arguments meant calls went out incomplete.",
-    fix: "Each tool states its one job and what it is not for, narrow triggers, and declares required arguments — e.g. explain_bill must be called with detail_level, which is where a waiver’s charge_id comes from.",
-    moves: "Tool-selection quality and argument errors.",
-  },
-  sequencing: {
-    what: "Per-journey phases and tool preconditions",
-    problem: "Nothing stopped the agent from acting before checking: submitting a fee waiver before reading the bill, enrolling paperless before the eligibility check and T&C.",
-    fix: "Each journey gets ordered phases listing which tools may run when, and action tools get preconditions — a waiver needs explain_bill(detail_level='full'), enrolment needs eligibility PASS and terms accepted.",
-    moves: "Hard-gate violations and task completion.",
-  },
-  formatter: {
-    what: "Output contracts on tool results",
+  taxonomy: {what: "Agent descriptions and routing triggers",
+    problem: "Every agent described itself in one vague line (“Handles billing questions.”), so the router could not tell a billing dispute from a paperless request or a due-date change.",
+    fix: "Each description now says what the agent handles, in the customer’s own words, and what it is NOT for — plus an explicit trigger list including Spanish and repeat-contact phrasing.",
+    moves: "Route accuracy · intent recognition"},
+  metadata: {what: "Tool descriptions, triggers and required arguments",
+    problem: "Tool descriptions overlapped — get_account_balance advertised “balance and charges” — so the agent picked a plausible but wrong tool, and missing required arguments meant calls went out incomplete.",
+    fix: "One job per tool, narrow triggers, and declared required arguments: explain_bill must be called with detail_level, which is where a waiver’s charge_id comes from.",
+    moves: "Tool selection · argument errors"},
+  sequencing: {what: "Journey phases and tool preconditions",
+    problem: "Nothing stopped the agent acting before checking — submitting a fee waiver before reading the bill, enrolling paperless before eligibility and T&C.",
+    fix: "Each journey gets ordered phases saying which tools may run when, and action tools get preconditions: a waiver needs explain_bill(detail_level='full'), enrolment needs eligibility PASS and terms accepted.",
+    moves: "Hard gates · task completion"},
+  formatter: {what: "Output contracts on tool results",
     problem: "Tool results were pasted into the reply verbatim, so raw JSON, internal tool names and ticket IDs reached the customer.",
     fix: "Every customer-visible tool renders through a template contract instead of echoing its payload.",
-    moves: "Raw output leaks and the disclosure policies.",
-  },
-  prompt_hat: {
-    what: "The instruction layer (behavioural rules)",
+    moves: "Raw leaks · disclosure policies"},
+  prompt_hat: {what: "The instruction layer (behavioural rules)",
     problem: "The instruction layer carried no behavioural rules: no confirming intent, no carrying IVR verification, no reading T&C before consent, no disclosures, no queue for a second intent.",
-    fix: "Twelve named behaviours are switched on — confirm intent first, carry IVR verification, read terms and get consent, make disclosures, hold the intent queue, forbid internal identifiers, and the empathy / root-cause response shape.",
-    moves: "Context retention and policy compliance.",
-  },
-  context: {
-    what: "Short-term memory context attributes",
-    problem: "The repeat-contact signal existed only as a soft flag that the planner never read, so a third call about the same bill looked like a first call.",
-    fix: "It is promoted to an explicit, versioned RECURRING_CONTACT attribute, with the 90-day lookback made configurable rather than hard-coded.",
-    moves: "Context retention on repeat-billing episodes.",
-  },
-  evidence: {
-    what: "Retrieval and evidence-fusion rules",
+    fix: "Twelve named behaviours switched on — confirm intent first, carry IVR verification, read terms and get consent, make disclosures, hold the intent queue, forbid internal identifiers, plus the empathy / root-cause response shape.",
+    moves: "Context retention · compliance"},
+  context: {what: "Short-term memory context attributes",
+    problem: "The repeat-contact signal existed only as a soft flag the planner never read, so a third call about the same bill looked like a first call.",
+    fix: "Promoted to an explicit, versioned RECURRING_CONTACT attribute, with the 90-day lookback made configurable rather than hard-coded.",
+    moves: "Context retention on repeat billing"},
+  evidence: {what: "Retrieval and evidence-fusion rules",
     problem: "Savings advice was generic and unsourced — the agent could claim a figure with nothing behind it.",
-    fix: "At most three knowledge-base-sourced actions, amounts must cite their source, and anything not exact is labelled an estimate. Query and context only — no index rebuild.",
-    moves: "Groundedness of savings claims.",
-  },
+    fix: "At most three knowledge-base-sourced actions, amounts must cite their source, estimates labelled as estimates. Query and context only — no index rebuild.",
+    moves: "Groundedness of savings claims"},
 };
 
-function settingsTable(changes, maxRows) {
-  if (!changes || !changes.length) return "";
-  const show = v => Array.isArray(v) ? (v.length ? v.join(", ") : "(empty)") : (v === "" ? "(empty)" : String(v));
-  const rows = changes.slice(0, maxRows || changes.length).map(c => `<tr>
-    <td class="mono" style="white-space:nowrap">${esc(c.name)}<div class="mini">${esc(c.field)}</div></td>
-    <td class="mini" style="color:var(--crit)">${esc(show(c.before))}</td>
-    <td class="mini" style="color:var(--goodtext)">${esc(show(c.after))}</td></tr>`).join("");
-  const more = changes.length > (maxRows || changes.length) ? `<div class="mini" style="margin-top:.2rem">…and ${changes.length - maxRows} more setting(s)</div>` : "";
-  return `<div class="twrap" style="max-height:300px;margin-top:.35rem"><table><thead><tr>
-    <th>Setting</th><th>Before (vanilla)</th><th>After (patched)</th></tr></thead><tbody>${rows}</tbody></table></div>${more}`;
-}
-
-/** Plain-language block for the levers switched on between two versions. */
-function harnessBlock(added, removed, fixed, levers, opts) {
-  const compact = opts && opts.compact;
-  if (!added.length && !removed.length) {
-    return `<div class="mini">Same lever set as ${esc(opts && opts.prevTag || "the previous version")} — the change was in code or data, not in the harness configuration.</div>`;
-  }
-  const cards = added.map(l => {
-    const why = LEVER_WHY[l] || {}, info = (levers || {})[l] || {};
-    const n = (info.changes || []).length;
-    return `<div class="rec" style="border-left-color:${LEVER_COLOR[l] || "var(--blue)"}">
-      <div class="row"><span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span>
-        <b>${esc(why.what || info.target || "")}</b>
-        <span class="mini mono">${esc(info.id || "")}</span>
-        ${n ? `<span class="mini">${n} setting${n > 1 ? "s" : ""} changed</span>` : ""}</div>
-      <div style="font-size:.78rem;margin-top:.3rem"><b>Problem:</b> ${esc(why.problem || "")}</div>
-      <div style="font-size:.78rem;margin-top:.15rem"><b>Change:</b> ${esc(why.fix || "")}</div>
-      <div class="mini" style="margin-top:.15rem"><b>Moves:</b> ${esc(why.moves || "")}</div>
-      ${compact ? `<details class="tools"><summary>Settings before → after (${n})</summary>${settingsTable(info.changes, 40)}</details>`
-                : settingsTable(info.changes, 6)}
-      ${(info.owns_policies || []).length ? `<div class="mini" style="margin-top:.25rem">Owns policies: ${info.owns_policies.map(p => `<code>${esc(p)}</code>`).join(" ")}</div>` : ""}
-    </div>`;
-  }).join("");
-  const off = removed.length ? `<div class="mini">Switched off: ${removed.map(l => esc(LEVER_LABEL[l] || l)).join(", ")}</div>` : "";
-  const fixedRow = fixed && fixed.length
-    ? `<div class="mini" style="margin-top:.3rem"><b>Policy failures this removed:</b> ${fixed.map(f => `<code>${esc(f.id)}</code> ${f.before}→${f.after}`).join(" · ")}</div>` : "";
-  return cards + off + fixedRow;
-}
-
-/** policy_fail_counts delta between two version details (only rows that improved/worsened). */
-function policyDelta(prevDetail, curDetail) {
-  const a = (prevDetail && prevDetail.full.policy_fail_counts) || {}, b = (curDetail && curDetail.full.policy_fail_counts) || {};
-  return [...new Set([...Object.keys(a), ...Object.keys(b)])].sort()
-    .map(id => ({id, before: a[id] || 0, after: b[id] || 0}))
-    .filter(x => x.before !== x.after);
-}
-/* ---------------- trace history · side-by-side compare ---------------- */
+/* headline measures used by the story chips and the compare tables */
 const CMP_ROWS = [
   ["Judge weighted (1-5)", "avg_weighted", "score", true],
   ["Chosen rate", "chosen_rate", "pct0", true],
@@ -997,19 +850,239 @@ const DIM_LABEL = {task_completion:"Task completion", tool_selection_quality:"To
                    intent_recognition:"Intent recognition", groundedness:"Groundedness",
                    context_retention:"Context retention"};
 
+function diffHtml(text) {
+  return text.split("\n").map(l => {
+    const c = /^(\+\+\+|---|diff |index )/.test(l) ? "#8FA3BA" : l.startsWith("+") ? "#7EE2A8"
+      : l.startsWith("-") ? "#FFA8A0" : l.startsWith("@@") ? "#8FC1FF" : "#CDE3F7";
+    return `<span style="color:${c}">${esc(l)}</span>`;
+  }).join("\n");
+}
+/** policy_fail_counts delta between two version details */
+function policyDelta(prevDetail, curDetail) {
+  const a = (prevDetail && prevDetail.full.policy_fail_counts) || {}, b = (curDetail && curDetail.full.policy_fail_counts) || {};
+  return [...new Set([...Object.keys(a), ...Object.keys(b)])].sort()
+    .map(id => ({id, before: a[id] || 0, after: b[id] || 0})).filter(x => x.before !== x.after);
+}
+/** one line summarising policy-failure movements, gains and regressions kept apart */
+function polLine(delta, max) {
+  const cap = max || 8;
+  const down = delta.filter(d => d.after < d.before), up = delta.filter(d => d.after > d.before);
+  const fmtList = (l, n) => l.slice(0, n).map(d => `<code>${esc(d.id)}</code> ${d.before}→${d.after}`).join(" · ") + (l.length > n ? ` …+${l.length - n}` : "");
+  if (!down.length && !up.length) return "";
+  return `<div class="mini" style="margin-top:.25rem">`
+    + (down.length ? `<span class="delta-up">✔ fixed:</span> ${fmtList(down, cap)}` : "")
+    + (down.length && up.length ? "<br>" : "")
+    + (up.length ? `<span class="delta-dn">✖ new or worse:</span> ${fmtList(up, cap)}` : "") + `</div>`;
+}
+/** biggest metric movements between two version details, best first */
+function topMoves(prevDetail, curDetail, n) {
+  if (!prevDetail || !curDetail) return [];
+  return CMP_ROWS.map(([label, key, unit, better]) => {
+    const a = prevDetail.full[key], b = curDetail.full[key];
+    if (a == null || b == null || a === b) return null;
+    const d = b - a, rel = unit === "int" ? Math.abs(d) / Math.max(1, Math.abs(a)) : Math.abs(d);
+    return {label, unit, before: a, after: b, delta: d, good: (d > 0) === better, rel};
+  }).filter(Boolean).sort((x, y) => y.rel - x.rel).slice(0, n || 3);
+}
+function moveChip(m) {
+  return `<span class="pill ${m.good ? "pass" : "fail"}">${m.delta > 0 ? "▲" : "▼"} ${esc(m.label)}
+    ${esc(MFMT[m.unit](m.before))} → ${esc(MFMT[m.unit](m.after))}</span>`;
+}
+function settingsTable(changes, maxRows) {
+  if (!changes || !changes.length) return "";
+  const show = v => Array.isArray(v) ? (v.length ? v.join(", ") : "(empty)") : (v === "" ? "(empty)" : String(v));
+  const rows = changes.slice(0, maxRows || changes.length).map(c => `<tr>
+    <td class="mono" style="white-space:nowrap">${esc(c.name)}<div class="mini">${esc(c.field)}</div></td>
+    <td class="mini" style="color:var(--crit)">${esc(show(c.before))}</td>
+    <td class="mini" style="color:var(--goodtext)">${esc(show(c.after))}</td></tr>`).join("");
+  const more = changes.length > (maxRows || changes.length) ? `<div class="mini" style="margin-top:.2rem">…and ${changes.length - maxRows} more</div>` : "";
+  return `<div class="twrap" style="max-height:320px;margin-top:.35rem"><table><thead><tr>
+    <th>Setting</th><th>Before (vanilla)</th><th>After (patched)</th></tr></thead><tbody>${rows}</tbody></table></div>${more}`;
+}
+/** explanation card for one lever */
+function leverCard(l, opts) {
+  const why = LEVER_WHY[l] || {}, info = (S.cache.leverInfo || {})[l] || {};
+  const n = (info.changes || []).length;
+  const body = (opts && opts.collapsed)
+    ? `<details class="tools"><summary>The ${n} settings, before → after</summary>${settingsTable(info.changes, 40)}</details>`
+    : settingsTable(info.changes, opts && opts.rows || 6);
+  return `<div class="rec" style="border-left-color:${LEVER_COLOR[l] || "var(--blue)"}">
+    <div class="row"><span class="pill lev">${esc(LEVER_LABEL[l] || l)}</span><b>${esc(why.what || info.target || "")}</b>
+      <span class="mini mono">${esc(info.id || "")}</span>${n ? `<span class="mini">${n} setting${n > 1 ? "s" : ""}</span>` : ""}</div>
+    <div style="font-size:.78rem;margin-top:.3rem"><b>Problem:</b> ${esc(why.problem || "")}</div>
+    <div style="font-size:.78rem;margin-top:.15rem"><b>Change:</b> ${esc(why.fix || "")}</div>
+    <div class="mini" style="margin-top:.15rem"><b>Moves:</b> ${esc(why.moves || "")}</div>
+    ${body}
+    ${(info.owns_policies || []).length ? `<div class="mini" style="margin-top:.25rem">Owns policies: ${info.owns_policies.map(p => `<code>${esc(p)}</code>`).join(" ")}</div>` : ""}</div>`;
+}
+
+async function runHistory() {
+  const el = $("#historyview"), el2 = $("#compareview");
+  const target = S.tab === "compare" ? el2 : el;
+  if (target) target.innerHTML = `<div class="empty">Reading git history…</div>`;
+  try {
+    const [h, levers] = await Promise.all([api("/api/history"),
+      S.cache.leverInfo ? Promise.resolve(S.cache.leverInfo) : api("/api/levers")]);
+    S.cache.history = h; S.cache.leverInfo = levers;
+    renderHistory(h); renderCompare(h);
+  } catch (e) { if (target) fail(target, e); }
+}
+
+function repoLine(h, elId) {
+  const url = h.repo_url, st = h.state || {};
+  const link = (path, text) => url ? `<a href="${url}/${path}" target="_blank" rel="noopener">${text}</a>` : text;
+  let s = url ? `GitHub: ${link("", esc(url.replace("https://github.com/", "")))} · ${link("commits/" + esc(st.branch || "main"), "commits")} · ${link("tags", "tags")}` : "No GitHub remote configured.";
+  if (h.source === "baked") s += ` · <span class="pill warn">history baked into this deployment at <code>${esc(h.head)}</code></span>`;
+  const el = $(elId); if (el) el.innerHTML = s;
+}
+
+/* ---------------- tab 8 · the improvement story ---------------- */
+function renderHistory(h) {
+  const el = $("#historyview"); if (!el) return;
+  if (!h.available) { el.innerHTML = `<div class="empty">${esc(h.reason)}</div>`; return; }
+  repoLine(h, "#hrepo");
+  const vs = h.versions, asc = [...vs].reverse(), st = h.state || {};
+  if (!vs.length) { el.innerHTML = `<div class="empty">No <code>trace-v*</code> tags yet — run <code>python scripts/snapshot_traces.py -m "…"</code>.</div>`; return; }
+  const first = asc[0], last = asc[asc.length - 1], next = `trace-v${last.n + 1}`;
+  const url = h.repo_url, link = (p, t) => url ? `<a href="${url}/${p}" target="_blank" rel="noopener">${t}</a>` : t;
+
+  /* 1 · headline outcome */
+  const big = (label, key, unit, better) => {
+    const a = first.metrics[key], b = last.metrics[key], d = b - a;
+    const good = !d ? null : (d > 0) === better;
+    return `<div class="tile"><div class="l">${esc(label)}</div>
+      <div class="v" style="font-size:1.15rem">${esc(MFMT[unit](a))} <span style="color:var(--gray)">→</span> <span class="${good === null ? "" : good ? "delta-up" : "delta-dn"}">${esc(MFMT[unit](b))}</span></div>
+      <div class="mini">${esc(first.tag)} → ${esc(last.tag)}</div></div>`;
+  };
+  const allLev = last.deployed_levers || [];
+  const hero = `<div class="card"><h3>WHAT THE ${vs.length} VERSIONS ACHIEVED</h3>
+    <p style="font-size:.85rem;margin-bottom:.6rem">Every version switches on one <b>harness lever</b> — a named, reversible configuration change to agent
+      descriptions, tool metadata, preconditions, output contracts or the instruction layer. <b>No model was retrained:</b>
+      the whole climb below comes from roughly ${(allLev.reduce((n, l) => n + (((S.cache.leverInfo || {})[l] || {}).changes || []).length, 0)) || "50"} configuration values.</p>
+    <div class="stat">
+      ${big("Judge weighted score", "full_weighted", "score", true)}
+      ${big("Chosen rate", "full_chosen", "pct0", true)}
+      ${big("Policy compliance", "full_compliance", "pct1", true)}
+      ${big("Hard-gate episodes", "full_gates", "int", false)}
+      ${big("Raw output leaks", "full_leaks", "int", false)}
+    </div></div>`;
+
+  /* 2 · the staircase */
+  const chart = `<div class="card"><h3>THE CLIMB — JUDGE SCORE AFTER EACH LEVER</h3><div id="hchart1"></div>
+    <p class="mini" style="margin-top:.4rem">Blue = the harness as deployed in that version. Orange = the untouched vanilla harness on the same episodes.</p>
+    <details class="tv"><summary>Outcome rates per version (chosen · resolved · routing · compliance)</summary><div id="hchart2" style="margin-top:.4rem"></div></details></div>`;
+
+  /* 3 · the story, oldest first */
+  const steps = asc.map((v, i) => {
+    const prevV = i ? asc[i - 1] : null;
+    const added = (v.deployed_levers || []).filter(l => !((prevV && prevV.deployed_levers) || []).includes(l));
+    const moves = topMoves(prevV && prevV.detail, v.detail, 3);
+    const fixed = prevV ? policyDelta(prevV.detail, v.detail) : [];
+    const headline = !prevV
+      ? "Starting point: the vanilla harness, every lever off."
+      : added.length ? added.map(l => (LEVER_WHY[l] || {}).what || l).join(" + ")
+      : "Code or data change — the lever set stayed the same.";
+    const cmds = [`git show ${v.tag} --stat`,
+                  v.previous ? `git diff ${v.previous} ${v.tag} -- artifacts/` : `git ls-tree -r --name-only ${v.tag} artifacts/`,
+                  `git log -1 --format=%B ${v.tag}`, `git checkout ${v.tag} -- artifacts/`].join("\n");
+    return `<div class="step">
+      <div class="stepn" style="background:${added.length ? (LEVER_COLOR[added[0]] || "var(--blue)") : "var(--gray)"}">v${v.n}</div>
+      <div class="stepbody">
+        <div class="row"><b style="color:var(--navy)">${esc(headline)}</b>
+          ${added.map(l => `<span class="pill lev">+ ${esc(LEVER_LABEL[l] || l)}</span>`).join(" ")}</div>
+        <div class="mini">${esc(v.message)} · ${link("commit/" + esc(v.hash), `<code>${esc(v.short)}</code>`)} · ${esc(shortDate(v.date))}
+          ${v.previous && url ? ` · ${link(`compare/${esc(v.previous)}...${esc(v.tag)}`, "diff on GitHub")}` : ""}</div>
+        <div class="row" style="margin-top:.35rem">${moves.length ? moves.map(moveChip).join(" ")
+          : `<span class="pill na">judge ${esc(fmt(v.metrics.full_weighted, 3))} · no headline measure moved</span>`}</div>
+        ${polLine(fixed)}
+        ${added.length ? `<details class="tools" style="margin-top:.35rem"><summary><b>What changed in the harness</b> — ${added.map(l => esc(LEVER_SHORT[l] || l)).join(", ")}</summary>
+          <div style="margin-top:.4rem">${added.map(l => leverCard(l, {collapsed: true})).join("")}</div></details>` : ""}
+        <details class="tools"><summary>Provenance — files, trace diff, git commands</summary>
+          <div class="twrap" style="max-height:200px;margin-top:.35rem"><table><thead><tr><th>File in this commit</th><th>+</th><th>−</th></tr></thead>
+            <tbody>${v.files.map(f => `<tr><td class="mono">${esc(f.path)}</td><td class="num delta-up">${f.added ?? "bin"}</td><td class="num delta-dn">${f.deleted ?? "bin"}</td></tr>`).join("")}</tbody></table></div>
+          ${v.diff && v.diff.text ? `<pre class="code" style="margin-top:.35rem;max-height:260px">${diffHtml(v.diff.text)}${v.diff.truncated ? "\n… (truncated)" : ""}</pre>` : ""}
+          <pre class="code" style="margin-top:.35rem">${esc(cmds)}</pre></details>
+      </div></div>`;
+  }).join("");
+
+  /* 4 · lever reference */
+  const levRef = Object.keys(LEVER_WHY).filter(l => allLev.includes(l)).map(l => {
+    const why = LEVER_WHY[l], info = (S.cache.leverInfo || {})[l] || {};
+    return `<div class="tile" style="background:#fff;border:1px solid var(--line)">
+      <div class="row"><span class="dot" style="background:${LEVER_COLOR[l] || "var(--blue)"}"></span><b style="font-size:.8rem;color:var(--navy)">${esc(LEVER_LABEL[l] || l)}</b></div>
+      <div class="mini" style="margin-top:.2rem">${esc(why.what)}</div>
+      <div class="mini" style="margin-top:.2rem;color:var(--ink)">${(info.changes || []).length} settings · moves ${esc(why.moves.toLowerCase())}</div></div>`;
+  }).join("");
+
+  /* 5 · provenance, collapsed */
+  const dirty = st.dirty || [];
+  const workflow = [
+    ["Regenerate the traces", `python -m rlaif_lab.cli cycle --n 60 --seed 7 --out artifacts [--levers …]\npython -m rlaif_lab.cli traces --out artifacts`],
+    ["Stop if nothing changed", `git status --porcelain -- . ':!TRACE_HISTORY.md'`],
+    ["Read the previous version's metrics", `git show HEAD:artifacts/cycle_summary.json\ngit tag --list 'trace-v*'   # -> next: ${next}`],
+    ["Stage code + artifacts + TRACE_HISTORY.md", `git add -A`],
+    ["Commit with the metric deltas", `git commit -m "${next}: <what changed>" -m "<metric deltas>"`],
+    ["Tag the version", `git tag -a ${next} -m "${next}: <what changed>"`],
+    ["Publish", `git push --follow-tags origin HEAD`],
+  ].map(([t, c], i) => `<li style="margin-bottom:.4rem"><b style="font-size:.76rem;color:var(--navy)">${i+1}. ${esc(t)}</b><pre class="code" style="margin-top:.2rem">${esc(c)}</pre></li>`).join("");
+  const oneline = h.commits.map(c => `${c.short} ${c.tags.length ? `(tag: ${c.tags.join(", tag: ")}) ` : ""}${c.subject}`).join("\n");
+
+  el.innerHTML = `${hero}${chart}
+    <div class="card"><h3>STEP BY STEP — WHAT EACH VERSION CHANGED</h3>
+      <p class="mini" style="margin-bottom:.6rem">Oldest first. Each step shows the lever switched on, the measures that moved most, and (expandable) the exact settings and git provenance.</p>
+      ${steps}</div>
+    <div class="card"><h3>THE LEVERS — THE WHOLE OPTIMISATION SURFACE</h3>
+      <div class="stat">${levRef}</div>
+      <p class="mini" style="margin-top:.5rem">Nothing else is tuned: behaviour changes only through this metadata. Tab 7 shows every field before and after.</p></div>
+    <details class="tools"><summary><b>How versions are recorded (git workflow, working tree, commit log)</b></summary>
+      <div class="grid2" style="margin-top:.6rem">
+        <div class="card"><h3>ONE SNAPSHOT, STEP BY STEP (NEXT: ${esc(next)})</h3>
+          <pre class="code">python scripts/snapshot_traces.py -m "&lt;what changed&gt;" [--levers a,b] --push</pre>
+          <ol style="list-style:none;margin-top:.4rem">${workflow}</ol></div>
+        <div>
+          <div class="card"><h3>WORKING TREE</h3>${dirty.length
+            ? `<div class="twrap" style="max-height:180px"><table><thead><tr><th>Status</th><th>Path</th></tr></thead><tbody>${dirty.map(d => `<tr><td class="mono">${esc(d.status)}</td><td class="mono">${esc(d.path)}</td></tr>`).join("")}</tbody></table></div>
+               <p class="mini" style="margin-top:.3rem">These go into ${esc(next)} on the next snapshot.</p>`
+            : `<div class="mini">Clean — everything is committed. Branch <b>${esc(st.branch || "?")}</b>${st.upstream ? ` · ${esc(st.upstream)} · ${st.ahead || st.behind ? `${st.ahead} ahead / ${st.behind} behind` : "in sync"}` : ""}.</div>`}</div>
+          <div class="card"><h3>COMMIT LOG</h3><pre class="code" style="max-height:260px">${esc(oneline)}</pre></div>
+        </div></div></details>`;
+
+  const labels = asc.map(v => {
+    const prevV = asc[asc.indexOf(v) - 1];
+    const added = (v.deployed_levers || []).filter(l => !((prevV && prevV.deployed_levers) || []).includes(l));
+    return `v${v.n}${added.length ? " +" + added.map(l => LEVER_SHORT[l] || l).join("/") : ""}`;
+  });
+  lineChart($("#hchart1"), {labels, xTitle: "version", yMin: 1, yMax: 5, yFmt: v => fmt(v, 2),
+    series: [{name: "Deployed harness", color: "var(--rlaif)", values: asc.map(v => v.metrics.full_weighted)},
+             {name: "Vanilla baseline", color: "var(--vanilla)", values: asc.map(v => v.metrics.base_weighted)}]});
+  const c2 = $("#hchart2");
+  if (c2) c2.closest("details").addEventListener("toggle", function once(e) {
+    if (!e.target.open) return;
+    lineChart(c2, {labels, xTitle: "version", yMin: 0, yMax: 1, yFmt: pct,
+      series: [["Chosen", "full_chosen", "var(--s1)"], ["Resolved", "full_resolved", "var(--s3)"],
+               ["Route accuracy", "full_route", "var(--s4)"], ["Compliance", "full_compliance", "var(--s5)"]]
+        .map(([name, k, color]) => ({name, color, values: asc.map(v => v.metrics[k])}))});
+    e.target.removeEventListener("toggle", once);
+  });
+}
+
+/* ---------------- tab 9 · compare two versions ---------------- */
+const CMP_VIEWS = [
+  ["headline", "Headline measures"], ["dims", "Judge dimensions"], ["outcomes", "Episode outcomes"],
+  ["policies", "Policy failures"], ["corpus", "Vanilla baseline & corpus"],
+];
 function dcell(a, b, unit, better) {
-  if (a === undefined || a === null || b === undefined || b === null) return `<td class="num">—</td>`;
+  if (a == null || b == null) return `<td class="num">—</td>`;
   const d = b - a;
   if (!d) return `<td class="num" style="color:var(--gray)">=</td>`;
   const good = better === null ? null : (d > 0) === better;
-  const cls = good === null ? "" : good ? "delta-up" : "delta-dn";
-  return `<td class="num ${cls}">${d > 0 ? "▲ " : "▼ "}${esc(MDELTA[unit](d))}</td>`;
+  return `<td class="num ${good === null ? "" : good ? "delta-up" : "delta-dn"}">${d > 0 ? "▲ " : "▼ "}${esc(MDELTA[unit](d))}</td>`;
 }
-function cmpTable(title, rows, A, B) {
+function cmpTable(rows, A, B, firstCol) {
   const body = rows.map(([label, a, b, unit, better]) =>
     `<tr><td>${esc(label)}</td><td class="num">${esc(MFMT[unit](a))}</td><td class="num">${esc(MFMT[unit](b))}</td>${dcell(a, b, unit, better)}</tr>`).join("");
-  return `<div class="card"><h3>${esc(title)}</h3><div class="twrap"><table><thead><tr><th>Measure</th>
-    <th class="num">${esc(A)}</th><th class="num">${esc(B)}</th><th class="num">Change</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+  return `<div class="twrap"><table><thead><tr><th>${esc(firstCol || "Measure")}</th>
+    <th class="num">${esc(A)}</th><th class="num">${esc(B)}</th><th class="num">Change</th></tr></thead><tbody>${body}</tbody></table></div>`;
 }
 function verHead(v, side) {
   const color = side === "a" ? "var(--vanilla)" : "var(--rlaif)";
@@ -1022,60 +1095,67 @@ function verHead(v, side) {
     <div class="row">${v.deployed_levers == null ? "" : lev}</div></div>`;
 }
 function renderCompare(h) {
-  const el = $("#hcompare"); if (!el) return;
+  const el = $("#compareview"); if (!el) return;
+  if (!h.available) { el.innerHTML = `<div class="empty">${esc(h.reason)}</div>`; return; }
+  repoLine(h, "#crepo");
   const vs = h.versions.filter(v => v.detail);
-  if (vs.length < 2) { el.innerHTML = ""; return; }
-  const opts = sel => vs.map(v => `<option value="${esc(v.tag)}" ${v.tag === sel ? "selected" : ""}>${esc(v.tag)} · ${esc(v.message.slice(0, 48))}</option>`).join("");
-  S.cmpA = vs.some(v => v.tag === S.cmpA) ? S.cmpA : vs[vs.length - 1].tag;   // oldest by default
-  S.cmpB = vs.some(v => v.tag === S.cmpB) ? S.cmpB : vs[0].tag;               // newest
-  const A = vs.find(v => v.tag === S.cmpA), B = vs.find(v => v.tag === S.cmpB);
-  const a = A.detail, b = B.detail;
-
+  if (vs.length < 2) { el.innerHTML = `<div class="empty">At least two trace versions are needed to compare.</div>`; return; }
+  S.cmpA = vs.some(v => v.tag === S.cmpA) ? S.cmpA : vs[vs.length - 1].tag;
+  S.cmpB = vs.some(v => v.tag === S.cmpB) ? S.cmpB : vs[0].tag;
+  S.cmpView = S.cmpView || "headline";
+  const A = vs.find(v => v.tag === S.cmpA), B = vs.find(v => v.tag === S.cmpB), a = A.detail, b = B.detail;
+  const opts = sel => vs.map(v => `<option value="${esc(v.tag)}" ${v.tag === sel ? "selected" : ""}>${esc(v.tag)} · ${esc(v.message.slice(0, 44))}</option>`).join("");
   const aLev = A.deployed_levers || [], bLev = B.deployed_levers || [];
-  const headline = CMP_ROWS.map(([label, key, unit, better]) => [label, a.full[key], b.full[key], unit, better]);
-  const vanilla = CMP_ROWS.slice(0, 6).map(([label, key, unit, better]) => [label, a.baseline[key], b.baseline[key], unit, better]);
-  const dims = Object.keys(DIM_LABEL).map(k => [DIM_LABEL[k], a.full.avg_dims?.[k], b.full.avg_dims?.[k], "score", true]);
-  const cats = [...new Set([...Object.keys(a.full.action_categories || {}), ...Object.keys(b.full.action_categories || {})])]
-    .map(c => [c, (a.full.action_categories || {})[c] || 0, (b.full.action_categories || {})[c] || 0, "int", c === "RESOLVED"]);
-  const pol = [...new Set([...Object.keys(a.full.policy_fail_counts || {}), ...Object.keys(b.full.policy_fail_counts || {})])].sort()
-    .map(p => [p, (a.full.policy_fail_counts || {})[p] || 0, (b.full.policy_fail_counts || {})[p] || 0, "int", false]);
-  const levers = [...new Set([...Object.keys(a.credit || {}), ...Object.keys(b.credit || {})])]
-    .map(l => [LEVER_LABEL[l] || l, a.credit?.[l], b.credit?.[l], "score", true]);
-  const corpus = [["Episodes replayed", a.episodes, b.episodes, "int", null],
-                  ["Preference pairs emitted", a.preference_pairs, b.preference_pairs, "int", null],
-                  ["Recommendations", a.recommendations, b.recommendations, "int", null],
-                  ["Production calls analysed", a.production.records, b.production.records, "int", null],
-                  ["Production overall FAIL", a.production.overall_result_false, b.production.overall_result_false, "int", false]];
+  const added = bLev.filter(l => !aLev.includes(l)), removed = aLev.filter(l => !bLev.includes(l));
+
+  const rows = {
+    headline: CMP_ROWS.map(([l, k, u, g]) => [l, a.full[k], b.full[k], u, g]),
+    dims: Object.keys(DIM_LABEL).map(k => [DIM_LABEL[k], a.full.avg_dims?.[k], b.full.avg_dims?.[k], "score", true]),
+    outcomes: [...new Set([...Object.keys(a.full.action_categories || {}), ...Object.keys(b.full.action_categories || {})])]
+      .map(c => [c, (a.full.action_categories || {})[c] || 0, (b.full.action_categories || {})[c] || 0, "int", c === "RESOLVED"]),
+    policies: [...new Set([...Object.keys(a.full.policy_fail_counts || {}), ...Object.keys(b.full.policy_fail_counts || {})])].sort()
+      .map(p => [p, (a.full.policy_fail_counts || {})[p] || 0, (b.full.policy_fail_counts || {})[p] || 0, "int", false]),
+    corpus: CMP_ROWS.slice(0, 6).map(([l, k, u, g]) => ["Vanilla · " + l, a.baseline[k], b.baseline[k], u, g]).concat([
+      ["Episodes replayed", a.episodes, b.episodes, "int", null],
+      ["Preference pairs emitted", a.preference_pairs, b.preference_pairs, "int", null],
+      ["Recommendations", a.recommendations, b.recommendations, "int", null],
+      ["Production calls analysed", a.production.records, b.production.records, "int", null],
+      ["Production overall FAIL", a.production.overall_result_false, b.production.overall_result_false, "int", false]]),
+  };
+  if (!rows.policies.length) rows.policies = [["no policy failures in either version", 0, 0, "int", false]];
+  const firstCol = {policies: "Policy", outcomes: "Final-state category", dims: "Judge dimension"};
+  const moves = topMoves(a, b, 4);
 
   el.innerHTML = `
-    <div class="card"><h3>COMPARE TWO VERSIONS — SIDE BY SIDE</h3>
-      <div class="row">
-        <label class="lt" for="cmpa">Version A</label><select id="cmpa">${opts(S.cmpA)}</select>
-        <label class="lt" for="cmpb">Version B</label><select id="cmpb">${opts(S.cmpB)}</select>
-        <button class="btn" id="cmpswap" type="button">⇄ Swap</button>
-        <span class="mini">“Change” is B minus A. Green = better, red = worse.</span>
-      </div>
+    <div class="card"><div class="row">
+      <label class="lt" for="cmpa">Version A</label><select id="cmpa">${opts(S.cmpA)}</select>
+      <label class="lt" for="cmpb">Version B</label><select id="cmpb">${opts(S.cmpB)}</select>
+      <button class="btn" id="cmpswap" type="button">⇄ Swap</button>
+      <span class="mini">“Change” is B minus A · green = better</span></div>
       <div class="grid2" style="margin-top:.6rem">${verHead(A, "a")}${verHead(B, "b")}</div>
-    </div>
-    <div class="grid2">
-      ${cmpTable("DEPLOYED HARNESS — HEADLINE MEASURES", headline, A.tag, B.tag)}
-      ${cmpTable("JUDGE DIMENSIONS (DEPLOYED, 1-5)", dims, A.tag, B.tag)}
-    </div>
-    <div class="grid2">
-      ${cmpTable("ACTION-COMPLETION CATEGORIES (EPISODES)", cats, A.tag, B.tag)}
-      ${cmpTable("POLICY FAILURES ON THE DEPLOYED HARNESS", pol.length ? pol : [["no policy failures in either version", 0, 0, "int", false]], A.tag, B.tag)}
+      <div class="row" style="margin-top:.6rem">${moves.length ? moves.map(moveChip).join(" ") : `<span class="pill na">no headline measure differs</span>`}</div>
     </div>
     <div class="card"><h3>WHAT CHANGED IN THE HARNESS — ${esc(A.tag)} → ${esc(B.tag)}</h3>
-      ${harnessBlock(bLev.filter(l => !aLev.includes(l)), aLev.filter(l => !bLev.includes(l)), policyDelta(a, b), S.cache.leverInfo, {prevTag: A.tag})}</div>
-    <div class="grid2">
-      ${cmpTable("CREDIT PER LEVER (WEIGHTED Δ VS VANILLA)", levers, A.tag, B.tag)}
-      ${cmpTable("VANILLA BASELINE & CORPUS", vanilla.concat(corpus), A.tag, B.tag)}
-    </div>`;
+      ${added.length || removed.length
+        ? added.map(l => leverCard(l, {collapsed: true})).join("")
+          + (removed.length ? `<div class="mini">Switched off: ${removed.map(l => esc(LEVER_LABEL[l] || l)).join(", ")}</div>` : "")
+        : `<div class="mini">Same lever set in both versions — the difference is in code or data, not in the harness configuration.</div>`}
+      ${polLine(policyDelta(a, b), 99)}
+    </div>
+    <div class="card"><h3>MEASURE BY MEASURE</h3>
+      <div class="flowtabs" id="cmpviews">${CMP_VIEWS.map(([k, lab]) => `<button type="button" data-view="${k}" class="${S.cmpView === k ? "on" : ""}">${esc(lab)}</button>`).join("")}</div>
+      ${cmpTable(rows[S.cmpView], A.tag, B.tag, firstCol[S.cmpView])}</div>`;
+
   $("#cmpa").addEventListener("change", e => { S.cmpA = e.target.value; renderCompare(h); });
   $("#cmpb").addEventListener("change", e => { S.cmpB = e.target.value; renderCompare(h); });
   $("#cmpswap").addEventListener("click", () => { const t = S.cmpA; S.cmpA = S.cmpB; S.cmpB = t; renderCompare(h); });
+  $("#cmpviews").addEventListener("click", e => {
+    const btn = e.target.closest("[data-view]"); if (!btn) return;
+    S.cmpView = btn.dataset.view; renderCompare(h);
+  });
 }
 $("#hgo").addEventListener("click", runHistory);
+$("#cgo").addEventListener("click", runHistory);
 
 /* ---------------- patches ---------------- */
 async function runPatches() {
@@ -1112,7 +1192,7 @@ $("#keydlg").addEventListener("close", async () => {
   S.cache = {}; refreshActive();
 });
 
-let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (S.tab === "learn") renderLearn(); if (S.tab === "history" && S.cache.history) renderHistory(S.cache.history); }, 200); });
+let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (S.tab === "learn") renderLearn(); if ((S.tab === "history" || S.tab === "compare") && S.cache.history) runHistory(); }, 200); });
 /* deep links: ?say=msg&say=reply (shared demo conversation) · ?mode=vanilla|split|improved · ?tab=learn · ?levers=taxonomy,metadata */
 async function boot() {
   renderLevers(); renderChat(); loadSession();
